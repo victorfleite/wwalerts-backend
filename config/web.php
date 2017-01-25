@@ -18,6 +18,31 @@ $config = [
 		'recoverySubject' => 'Recovery Password',
 	    ]
 	],
+	'admin' => [
+	    'class' => 'mdm\admin\Module',
+	    'layout' => 'left-menu',
+	    'mainLayout' => '@app/views/layouts/main.php',
+	    'controllerMap' => [
+		'assignment' => [
+		    'class' => 'mdm\admin\controllers\AssignmentController',
+		    'userClassName' => '\dektrium\user\models\User',
+		    'idField' => 'id',
+		    'usernameField' => 'username',
+		    'extraColumns' => [
+			    [
+			    'attribute' => 'email',
+			    'label' => 'Email',
+			    'value' => function($model, $key, $index, $column) {
+				return $model->email;
+			    },
+			],
+		    ],
+		],
+	    ],
+	    'menus' => [
+		'user' => null, // disable menu route 
+	    ]
+	],
     ],
     'components' => [
 	'db' => require(__DIR__ . '/db.php'),
@@ -71,6 +96,33 @@ $config = [
       ],
       ],
      */
+    ],
+    'as access' => [
+	'class' => 'mdm\admin\components\AccessControl',
+	'allowActions' => [
+	    '/site/*',
+	    'admin/*',
+	    'user/registration/register',
+	    'user/registration/connect',
+	    'user/registration/confirm',
+	    'user/registration/resend',
+	    'user/registration/*',
+	    'user/security/*', // login and logout
+	    'user/recovery/*', // change password
+	    'user/settings/*', // edit self infos
+	    'user/profile/*', // user Profile
+	    '/user/forgot',
+	    'site/logout',
+	    'site/index',
+	    '/site/logout',
+	    '/site/login',
+	    '/site/error',
+	// The actions listed here will be allowed to everyone including guests.
+	// So, 'admin/*' should not appear here in the production, of course.
+	// But in the earlier stages of your development, you may probably want to
+	// add a lot of actions here until you finally completed setting up rbac,
+	// otherwise you may not even take a first step.
+	]
     ],
     'params' => $params,
 ];
