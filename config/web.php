@@ -117,6 +117,7 @@ $config = [
 	    '/site/logout',
 	    '/site/login',
 	    '/site/error',
+	    'gii/*',
 	// The actions listed here will be allowed to everyone including guests.
 	// So, 'admin/*' should not appear here in the production, of course.
 	// But in the earlier stages of your development, you may probably want to
@@ -134,9 +135,10 @@ if (YII_ENV_DEV) {
 	'class' => 'yii\debug\Module',
     ];
 
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
+    $config ['bootstrap'] [] = 'gii';
+    $config ['modules'] ['gii'] = [
 	'class' => 'yii\gii\Module',
+	'allowedIPs' => ['127.0.0.1', '::1', '*'] // adjust this to your needs
     ];
 }
 
