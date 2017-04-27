@@ -1,37 +1,30 @@
 <?php
-
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
-$this->title = 'Login';
+$this->title = Yii::t('translation', 'site.login.title');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+<div class="container">
+    <div class="card card-container">
+	<h1><?= Html::encode($this->title) ?></h1>
+	<p id="profile-name" class="profile-name-card"></p>
+	<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+	<span id="reauth-email" class="reauth-email"></span>
+	<?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+	<?= $form->field($model, 'password')->passwordInput() ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-              
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                </div>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
-</div>
+	<?= Html::submitButton(Yii::t('translation', 'site.login.form_login.btn_login'), ['class' => 'btn btn-lg btn-primary btn-block btn-signin', 'name' => 'login-button']) ?>
+	<?php ActiveForm::end(); ?>
+	<a href="<?= Url::to(['site/request-password-reset']) ?>" class="forgot-password">
+	    <?php echo Yii::t('translation', 'site.login.form_login.reset_password_label'); ?>
+	</a>
+    </div><!-- /card-container -->
+</div><!-- /container -->

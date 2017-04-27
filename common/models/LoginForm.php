@@ -29,6 +29,13 @@ class LoginForm extends Model {
 	];
     }
 
+    public function attributeLabels() {
+	return [
+	    'email' => \Yii::t('translation', 'site.login.form_login.email'),
+	    'password' => \Yii::t('translation', 'site.login.form_login.password'),
+	];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
