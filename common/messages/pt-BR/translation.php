@@ -24,8 +24,15 @@ return [
     'site.login.form_reset_password.error_email_message_fail' => 'Desculpe, não conseguimos enviar o email. Tente mais tarde.',
     'site.login.form_reset_password.email_not_detected' => 'O endereço de email não foi identificado',
     'site.login.form_reset_password.email_subject' => 'Solicitação de criação de senha para {user_name}',
-    
-    
-    
-    
+    'site.reset_password.email_html'=>'<p>Oi {username},</p><p>Clique no link abaixo para criar uma nova senha:</p><p>{link}</p>',
+    'site.signup.title'=>'Registro de Usuário',
+    'site.signup.instructions'=>'Preencha os sequintes campos para registrar:',
+    'site.signup.bt_signup'=>'Registrar',  
+    'site.signup_form.message_username_unique'=>'Este username já foi definido',
+    'site.signup_form.message_email_unique'=>'Este email já foi definido',
+    'site.signup_form.name'=>'Nome Completo',
+    'site.signup_form.username'=>'Login',
+    'site.signup_form.email'=>'Email',
+    'site.signup_form.password'=>'Senha', 
+
 ];

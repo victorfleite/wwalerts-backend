@@ -118,10 +118,10 @@ class SiteController extends Controller {
     public function actionSignup() {
 	$model = new SignupForm();
 	if ($model->load(Yii::$app->request->post())) {
-	    if ($user = $model->signup()) {
-		if (Yii::$app->getUser()->login($user)) {
-		    return $this->goHome();
-		}
+	    if ($user = $model->signup() && $model->sendEmail()) {
+			Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
+
+			return $this->goHome();
 	    }
 	}
 
