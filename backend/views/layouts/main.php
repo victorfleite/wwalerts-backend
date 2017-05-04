@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -34,10 +35,7 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => Yii::t('translation', 'menu.home'), 'url' => ['/site/index']],
-    ];
-            
+                
     $menuItems[] = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
             ['label' => 'English', 'url' => ['site/set-language', 'language' => 'en']],
             ['label' => 'Portuguese', 'url' => ['site/set-language', 'language' => 'pt-BR']],
@@ -45,7 +43,10 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {       
         $menuItems[] = ['label' => Yii::t('translation', 'menu.login'), 'url' => ['/site/login']];
     } else {
-	$menuItems[] = ['label' => Yii::t('translation', 'menu.register'), 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => Yii::t('translation', 'menu.home'), 'url' => ['/site/index']];   
+        if(Yii::$app->user->can('/site/signup')){
+	       $menuItems[] = ['label' => Yii::t('translation', 'menu.register'), 'url' => ['/site/signup']];
+        }
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

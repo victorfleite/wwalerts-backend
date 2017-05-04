@@ -16,12 +16,14 @@
     "require": {
 	"php": ">=5.4.0",
 	"yiisoft/yii2": "~2.0.6",
+	"yiisoft/yii2-debug": "~2.0.0",
 	"yiisoft/yii2-bootstrap": "~2.0.0",
 	"yiisoft/yii2-swiftmailer": "~2.0.0",
 	"mdmsoft/yii2-admin": "~1.0",
 	"mootensai/yii2-enhanced-gii": "dev-master",
 	"kartik-v/yii2-mpdf": "dev-master",
-	"kartik-v/yii2-tree-manager": "dev-master"
+	"kartik-v/yii2-tree-manager": "dev-master",
+	"kartik-v/yii2-datecontrol": "dev-master"
     },
     "require-dev": {
 	"yiisoft/yii2-debug": "~2.0.0",

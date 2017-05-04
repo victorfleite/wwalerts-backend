@@ -25,27 +25,6 @@ class SiteController extends Controller {
      */
     public function behaviors() {
 	return [
-	    'access' => [
-		'class' => AccessControl::className(),
-		'only' => ['logout', 'signup'],
-		'rules' => [
-			[
-			'actions' => ['signup'],
-			'allow' => true,
-			'roles' => ['@'],
-		    ],
-			[
-			'actions' => ['logout'],
-			'allow' => true,
-			'roles' => ['@'],
-		    ],
-		    [
-			'actions' => ['set-language'],
-			'allow' => true,
-			'roles' => ['?'],
-		    ],
-		],
-	    ],
 	    'verbs' => [
 		'class' => VerbFilter::className(),
 		'actions' => [
@@ -118,10 +97,10 @@ class SiteController extends Controller {
     public function actionSignup() {
 	$model = new SignupForm();
 	if ($model->load(Yii::$app->request->post())) {
-	    if ($user = $model->signup() && $model->sendEmail()) {
-			Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
+	    if ($model->signup() && $model->sendEmail()) {
+		Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
 
-			return $this->goHome();
+		return $this->goHome();
 	    }
 	}
 
@@ -188,9 +167,9 @@ class SiteController extends Controller {
 	    'expire' => time() + 60 * 60 * 24 * 30, // 30 days
 	]);
 	Yii::$app->response->cookies->add($languageCookie);
-	
-	Yii::$app->session->setFlash('success', Yii::t('translation', 'site.set_language.message_language_selected', ['language'=>$language]));
-		
+
+	Yii::$app->session->setFlash('success', Yii::t('translation', 'site.set_language.message_language_selected', ['language' => $language]));
+
 	return $this->render('setLanguage');
     }
 

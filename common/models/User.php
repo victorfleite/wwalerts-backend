@@ -135,6 +135,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->auth_key;
     }
 
+    public function generatePassword($quantity = 255){
+        return substr(Yii::$app->security->generateRandomString() . '_' . time(),0, $quantity);      
+    }
+
     /**
      * @inheritdoc
      */

@@ -37,8 +37,6 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('translation', 'site.signup_form.message_email_unique')],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
         ];
     }
 
@@ -67,7 +65,7 @@ class SignupForm extends Model
         $user->name = $this->name;
         $user->username = $this->username;
         $user->email = $this->email;
-        $user->setPassword($this->password);
+        $user->setPassword($user->generatePassword());
         $user->generateAuthKey();
         
         return $user->save() ? $user : null;
