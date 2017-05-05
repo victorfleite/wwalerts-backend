@@ -9,11 +9,11 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => [
-		'log',
-		    [
-		    'class' => 'common\components\LanguageSelector',
-		    'supportedLanguages' => ['en', 'pt-BR'],
-		],
+	'log',
+	    [
+	    'class' => 'common\components\LanguageSelector',
+	    'supportedLanguages' => ['en', 'pt-BR'],
+	],
     ],
     'language' => 'pt-BR',
     'sourceLanguage' => 'en',
@@ -21,12 +21,32 @@ return [
 	'admin' => [
 	    'class' => 'mdm\admin\Module',
 	    'layout' => 'left-menu',
+	    'menus' => [
+		'route' => null, // disable menu
+	    ],
 	    'mainLayout' => '@app/views/layouts/main.php',
 	    'controllerMap' => [
-	    'assignment' => [
+		'assignment' => [
 		    'class' => 'mdm\admin\controllers\AssignmentController',
 		    'idField' => 'id',
-		    'usernameField' => 'name',
+		    'usernameField' => 'username',
+		    'extraColumns' => [
+			    [
+			    'attribute' => 'name',
+			    'label' => 'Name',
+			    'value' => function($model, $key, $index, $column) {
+				return $model->name;
+			    },
+			],
+			    [
+			    'attribute' => 'email',
+			    'label' => 'Email',
+			    'value' => function($model, $key, $index, $column) {
+				return $model->email;
+			    },
+			],
+		    ],
+		    'searchClass' => 'common\models\UserSearch'
 		],
 	    ],
 	],
@@ -81,22 +101,19 @@ return [
 	    ],
 	],
     ],
-    /*'as access' => [
+    'as access' => [
 	'class' => 'mdm\admin\components\AccessControl',
 	'allowActions' => [
-
-		/*'debug/*',
-		'site/set-language',
-        'site/logout',
-        'site/login',
-        'site/error',
-	    'admin/*',
+	    'site/set-language',
+	    'site/logout',
+	    'site/login',
+	    'site/error',
 	// The actions listed here will be allowed to everyone including guests.
 	// So, 'admin/*' should not appear here in the production, of course.
 	// But in the earlier stages of your development, you may probably want to
 	// add a lot of actions here until you finally completed setting up rbac,
 	// otherwise you may not even take a first step.
 	]
-    ],*/
+    ],
     'params' => $params,
 ];

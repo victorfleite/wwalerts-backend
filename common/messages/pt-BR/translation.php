@@ -7,8 +7,15 @@ return [
     'menu.home'=>'Início',
     'menu.language'=>'Língua',
     'menu.login'=>'Autenticação',
-    'menu.register'=>'Registrar', 
-    'menu.logout'=>'Sair',  
+    'menu.administration' => 'Administração',
+    'menu.register'=>'Cadastro de Usuário', 
+    'menu.access_control'=>'Controle de Acesso',
+    'menu.logout'=>'Sair',
+    
+    /** LANGUAGES **/
+    'menu.language.english'=>'Inglês',
+    'menu.language.portuguese'=>'Português',
+    
     
     /** SITE CONTROLLER **/
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
