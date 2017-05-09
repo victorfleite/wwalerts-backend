@@ -22,8 +22,6 @@ class LoginForm extends Model {
 	return [
 	    // email and password are both required
 		[['email', 'password'], 'required'],
-	    // email valid
-	    [['email'], 'email'],
 	    // password is validated by validatePassword()
 	    ['password', 'validatePassword'],
 	];
@@ -73,6 +71,9 @@ class LoginForm extends Model {
     protected function getUser() {
 	if ($this->_user === null) {
 	    $this->_user = User::findByEmail($this->email);
+	    if ($this->_user === null) {
+		$this->_user = User::findByUserName($this->email);
+	    }
 	}
 
 	return $this->_user;

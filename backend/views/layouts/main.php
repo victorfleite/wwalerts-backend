@@ -35,8 +35,8 @@ AppAsset::register($this);
 	    ]);
 
 	    $languageMenu = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
-			['label' => 'English', 'url' => ['site/set-language', 'language' => 'en']],
-			['label' => 'Portuguese', 'url' => ['site/set-language', 'language' => 'pt-BR']],
+			['label' => Yii::t('translation', 'menu.language.english'), 'url' => ['site/set-language', 'language' => 'en']],
+			['label' => Yii::t('translation', 'menu.language.portuguese'), 'url' => ['site/set-language', 'language' => 'pt-BR']],
 	    ]];
 	    if (Yii::$app->user->isGuest) {
 		$menuItems[] = $languageMenu;
@@ -44,10 +44,10 @@ AppAsset::register($this);
 	    } else {
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.home'), 'url' => ['/site/index']];
 		$menuItems[] = $languageMenu;
-		if (Yii::$app->user->can('/site/signup')) {
+		if (Yii::$app->user->can('/admin/*')) {
 		    
-		    $userRegister = ['label' => Yii::t('translation', 'menu.register'), 'url' => ['/site/signup']];
-		    $userAdministration = ['label' => Yii::t('translation', 'menu.register'), 'url' => ['/admin']];
+		    $userRegister = ['label' => Yii::t('translation', 'menu.user_register'), 'url' => ['/user/index']];
+		    $userAdministration = ['label' => Yii::t('translation', 'menu.access_control'), 'url' => ['/admin']];
 		    
 		    $menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [
 			    $userRegister,

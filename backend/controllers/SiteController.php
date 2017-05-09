@@ -7,13 +7,10 @@ use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use yii\web\Cookie;
 use common\models\LoginForm;
 use backend\models\PasswordResetRequestForm;
 use backend\models\ResetPasswordForm;
-use backend\models\SignupForm;
-use backend\models\ContactForm;
 
 /**
  * Site controller
@@ -87,26 +84,6 @@ class SiteController extends Controller {
 	Yii::$app->user->logout();
 
 	return $this->goHome();
-    }
-
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
-    public function actionSignup() {
-	$model = new SignupForm();
-	if ($model->load(Yii::$app->request->post())) {
-	    if ($model->signup() && $model->sendEmail()) {
-		Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
-
-		return $this->goHome();
-	    }
-	}
-
-	return $this->render('signup', [
-		    'model' => $model,
-	]);
     }
 
     /**

@@ -28,14 +28,14 @@ class SignupForm extends Model
 
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('translation', 'site.signup_form.message_username_unique')],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('translation', 'user.signup_form.message_username_unique')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('translation', 'site.signup_form.message_email_unique')],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => \Yii::t('translation', 'user.signup_form.message_email_unique')],
 
         ];
     }
@@ -43,10 +43,10 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('translation', 'site.signup_form.name'),
-            'username' => Yii::t('translation', 'site.signup_form.username'),
-            'email' => Yii::t('translation', 'site.signup_form.email'),
-            'password' => Yii::t('translation', 'site.signup_form.password'),
+            'name' => Yii::t('translation', 'user.signup_form.name'),
+            'username' => Yii::t('translation', 'user.signup_form.username'),
+            'email' => Yii::t('translation', 'user.signup_form.email'),
+            'password' => Yii::t('translation', 'user.signup_form.password'),
         ];
     }
 
@@ -103,7 +103,7 @@ class SignupForm extends Model
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
             ->setTo($this->email)
-            ->setSubject( Yii::t('translation', 'site.login.form_reset_password.email_subject', ['user_name'=>Yii::$app->name]))
+            ->setSubject( Yii::t('translation', 'user.login.form_reset_password.email_subject', ['user_name'=>Yii::$app->name]))
             ->send();
     }
 }
