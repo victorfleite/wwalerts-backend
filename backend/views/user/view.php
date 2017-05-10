@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    [
 		'attribute' => 'status',
 		'value' => function($data) {
-		    return $data->getStatusLabel();
+		    return User::getStatusLabel($data->status);
 		},
 	    ],
 	],

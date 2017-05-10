@@ -80,19 +80,20 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function rules() {
 	return [
-		[['username','email'], 'uniqueAttribute', 'on'=>'update'],
+		[['username', 'email'], function ($attribute, $params, $validator) {
+		    if (!empty($this->id)) {
+			$user = User::find()->where("id <> :id and {$attribute} = :{$attribute}", [':id'=>$this->id,":{$attribute}"=>$this->{$attribute}])->one();
+			if(!empty($user)){
+			    $this->addError($attribute, Yii::t('translation', 'user.message_unique_field', ['field'=>$this->getAttributeLabel($attribute)]));
+			}
+		    }
+		}],
 		['status', 'default', 'value' => self::STATUS_ACTIVE],
 		['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-		['updated_at', 'safe']
+		[['updated_at'], 'safe']
 	];
     }
 
-    public function uniqueAttribute($attribute) {
-	$user = static::find([$attribute => $this->{$attribute}])->andFilterWhere('id <> :id',[':id'=>$this->id]);
-	if ($user) { // dont use count($user) - if it's there, it's a single object, you want to check if it's not null!
-	    $this->addError($attribute, "This $attribute is already in use");
-	}
-    }
 
     /**
      * @inheritdoc

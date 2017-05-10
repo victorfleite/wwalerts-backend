@@ -58,6 +58,7 @@ return [
     'user.signup_form.username' => 'Login',
     'user.signup_form.email' => 'Email',
     'user.signup_form.password' => 'Senha',
+    'user.message_unique_field' => 'O campo {field} já está sendo usado',
     
     
 ];
