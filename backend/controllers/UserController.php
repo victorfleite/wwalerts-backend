@@ -115,9 +115,8 @@ class UserController extends Controller {
 	if ($model->load(Yii::$app->request->post())) {
 	    if ($model->signup() && $model->sendEmail()) {
 		Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
-
 		return $this->redirect(['index']);
-	    }
+	    } 
 	}
 
 	return $this->render('signup', [
