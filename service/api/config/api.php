@@ -3,7 +3,6 @@
 return [
     'id' => 'app-api',
     'name' => '',
-    'controllerNamespace' => 'api\controllers',
     'components' => [
 	'dumper' => [
 	    'class' => 'api\components\Dumper',
@@ -55,7 +54,7 @@ return [
 	    },
 	],
 	'user' => [
-	    'identityClass' => 'api\models\User',
+	    'identityClass' => 'api\common\models\User',
 	    'loginUrl' => null,
 	    'enableSession' => false
 	],

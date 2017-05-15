@@ -19,7 +19,7 @@ $config = [
 		'access_lifetime' => 3600 * 24
 	    ],
 	    'storageMap' => [
-		'user_credentials' => 'api\models\User'
+		'user_credentials' => 'api\common\models\User'
 	    ],
 	    'grantTypes' => [
 		'client_credentials' => [
