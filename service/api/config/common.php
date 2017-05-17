@@ -40,6 +40,9 @@ $config = [
 	],
     ],
     'components' => [
+	'dumper' => [
+            'class' => 'common\models\Dumper',
+        ],
 	'db' => [
 	    'class' => 'yii\db\Connection',
 	    'dsn' => 'pgsql:host=localhost;dbname=alerts',

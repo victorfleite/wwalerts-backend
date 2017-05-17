@@ -149,5 +149,38 @@ class SiteController extends Controller {
 
 	return $this->render('setLanguage');
     }
+    /*
+    public function actionMigrationInserts() {
+
+	$tablesSchemas = \Yii::$app->db->schema->getTableSchemas();
+	echo "<pre>";
+	foreach ($tablesSchemas as $tableSchema) {
+
+
+	    $values = \Yii::$app->db->createCommand('SELECT * FROM ' . $tableSchema->name)->queryAll();
+	    foreach ($values as $value) {
+		echo "$" . "this->insert('" . $tableSchema->name . "', [\n";
+		foreach ($tableSchema->columns as $columnSchema) {
+		    $columnName = $columnSchema->name;
+		    if (isset($value[$columnName]) && !empty($value[$columnName])) {
+			echo "\t'" . $columnName . "' => ".self::verifyTypeAndPutComma($columnSchema, $value[$columnName]).",\n";
+		    }
+		}
+		echo "]);\n\n";
+	    }
+	}
+	echo "</pre>";
+    }
+    static function verifyTypeAndPutComma($columnSchema, $value){
+	//echo $columnSchema->dbType;
+	if($columnSchema->dbType == "varchar"){
+	    return "'".$value."'";
+	}
+	if($columnSchema->dbType == "timestamp"){
+	    return "'".$value."'";
+	}
+	
+	return $value;
+    }*/
 
 }

@@ -1,6 +1,6 @@
 Template Yii2 with Api/Rest
 ===============================
-
+This project is a template for development of web application and api/rest
 
 DIRECTORY STRUCTURE
 -------------------
@@ -27,13 +27,11 @@ console
     migrations/          contains database migrations
     models/              contains console-specific model classes
     runtime/             contains files generated during runtime
-service
-    api/
-	common/		 contains controllers or models
-	components/	 contains components that could be inherited by classes and controllers in each version (ex: versions/v1)
-	config/		 contains shared configurations
-	migrations/	 contains database migrations
-	versions/	 versions of application
-	www/		 initial folder for application
+service    
+    api/common/		 contains controllers or models commons for api application
+    api/components/	 contains components that could be inherited by classes and controllers in each version (ex: versions/v1)
+    api/config/		 contains shared configurations
+    api/versions/	 versions of application
+    api/www/		 initial folder for application
 vendor/                  contains dependent 3rd-party packages
 ```
