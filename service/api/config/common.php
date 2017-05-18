@@ -42,14 +42,7 @@ $config = [
     'components' => [
 	'dumper' => [
             'class' => 'common\models\Dumper',
-        ],
-	'db' => [
-	    'class' => 'yii\db\Connection',
-	    'dsn' => 'pgsql:host=localhost;dbname=alerts',
-	    'username' => 'postgres',
-	    'password' => 'postgres',
-	    'charset' => 'utf8',
-	],
+        ],	
 	'authManager' => [
 	    'class' => 'yii\rbac\DbManager',
 	],
@@ -66,5 +59,7 @@ $config = [
     'params' => $params,
 ];
 
-
-return $config;
+return yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/../../../common/config/main-local.php'), 
+    $config
+);

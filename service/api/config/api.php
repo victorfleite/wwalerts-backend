@@ -4,9 +4,6 @@ return [
     'id' => 'app-api',
     'name' => '',
     'components' => [
-	'dumper' => [
-	    'class' => 'api\components\Dumper',
-	],
 	'urlManager' => [
 	    'enablePrettyUrl' => true,
 	    'rules' => [

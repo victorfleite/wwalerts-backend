@@ -1,8 +1,40 @@
-Template Yii2 with Api/Rest
-===============================
-This project is a template for development of web application and api/rest
+# Template Yii2 with Api/Rest
 
-DIRECTORY STRUCTURE
+This project is a template for development of web application and api/rest toguether
+
+## INSTALLATION
+
+
+## USAGE
+
+TODO: Write usage instructions
+
+
+
+## CONTRIBUTION
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## HISTORY
+
+
+
+## CREDITS
+
+victor.leite@gmail.com
+
+
+## LICENCE
+MIT
+
+
+===============================
+
+## DIRECTORY STRUCTURE
 -------------------
 
 ```
@@ -34,4 +66,22 @@ service
     api/versions/	 versions of application
     api/www/		 initial folder for application
 vendor/                  contains dependent 3rd-party packages
+```
+
+===============================
+
+## API EXEMPLE CALLS
+-------------------
+
+```
+1. Token access required
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/alerts-tools/service/api/www/index.php/oauth2/token" -XPOST \
+-d '{"grant_type":"password","username":"victor.leite@inmet.gov.br","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha"}'
+
+2. Token access required with scope
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/alerts-tools/service/api/www/index.php/oauth2/token" -XPOST \
+-d '{"grant_type":"password","username":"victor.leite@inmet.gov.br","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha","scope":"custom"}'
+
+3 - User data required
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/alerts-tools/service/api/www/index.php/v1/user/get-user?access_token={TOKEN_GERADO_NA_AUTENTICACAO}"
 ```
