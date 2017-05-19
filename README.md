@@ -21,7 +21,7 @@ Update Composer
     6. create the database
     
 ```php
-7. set database configuration on /common/config/main.php
+7. set database configuration on /common/config/main-local.php
 <?php
 return [
     'components' => [
