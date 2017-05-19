@@ -4,25 +4,41 @@ This project is a template for development of web application and api/rest togue
 
 ## INSTALLATION
 
-    Create a new repository
+Create a new repository
 
-	1. git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
-	2. mv template-yii-2.0 yourFolderName
+    1. git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
+    2. mv template-yii-2.0 yourFolderName
 
-	3. Install Composer. For [more](https://getcomposer.org/doc/ "Composer install") 
+Install Composer. For [more](https://getcomposer.org/doc/).
+
+	3. curl -sS https://getcomposer.org/installer | php
+	4. mv composer.phar /usr/local/bin/composer
+	5. composer global require "fxp/composer-asset-plugin:^1.3.1"
+Update Composer
+
+    4. cd yourFolderName
+    5. composer update
+    6. create the database
+    7. set database configuration on /common/config/main-local.php
+    
+```php
+<?php
+return [
+    'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'pgsql:host=localhost;dbname=databasename',
+            'username' => 'postgres',
+            'password' => 'postgres',
+            'charset' => 'utf8',
+        ],
+        ...
+    ],
+];
 ```
-	    curl -sS https://getcomposer.org/installer | php
-	    mv composer.phar /usr/local/bin/composer
-	    composer global require "fxp/composer-asset-plugin:^1.3.1"
-```
-	4. cd yourFolderName
-	5. composer update
+
+    8. php yii migrate
 	
-## USAGE
-
-	TODO: Write usage instructions
-
-
 ## CONTRIBUTION
 
 1. Fork it!
@@ -37,13 +53,14 @@ This project is a template for development of web application and api/rest togue
 
 ## CREDITS
 
-    [mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin "mdmsoft/yii2-admin")
-    [filsh/yii2-oauth2-server](https://github.com/Filsh/yii2-oauth2-server "filsh/yii2-oauth2-server")
+[mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin)
+
+[filsh/yii2-oauth2-server](https://github.com/Filsh/yii2-oauth2-server)
 
 
 ## LICENCE
-MIT
 
+The MIT License
 
 ===============================
 
