@@ -19,7 +19,7 @@ Update Composer
     4. cd yourFolderName
     5. composer update
     6. create the database
-    7. set database configuration on /common/config/main-local.php
+    7. set database configuration on /common/config/main.php
     
 ```php
 <?php
