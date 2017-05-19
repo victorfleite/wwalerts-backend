@@ -122,7 +122,7 @@ service
     api/config/		 contains shared configurations
     api/versions/	 versions of application
     api/www/		 initial folder for application
-vendor/                  contains dependent 3rd-party packages
+vendor/              contains dependent 3rd-party packages
 ```
 
 ===============================
