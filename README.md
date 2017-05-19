@@ -56,11 +56,11 @@ Login into the system (You have the administrator role)    :-)
 ```
 1. Token access required
 curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
--d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha"}'
+-d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"mypassword","client_id":"myclientId","client_secret":"mySecretPassword"}'
 
 2. Token access required with scope
 curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
--d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha","scope":"custom"}'
+-d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"mypassword","client_id":"myclientId","client_secret":"mySecretPassword","scope":"custom"}'
 
 3 - User data required
 curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/v1/user/get-user?access_token={TOKEN_GERADO_NA_AUTENTICACAO}"
@@ -126,4 +126,3 @@ vendor/                  contains dependent 3rd-party packages
 ```
 
 ===============================
-
