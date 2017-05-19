@@ -4,25 +4,68 @@ This project is a template for development of web application and api/rest togue
 
 ## INSTALLATION
 
-    Create a new repository
+Create a new repository
 
-	1. git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
-	2. mv template-yii-2.0 yourFolderName
+    1. git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
+    2. mv template-yii-2.0 yourFolderName
 
-	3. Install Composer. For [more](https://getcomposer.org/doc/ "Composer install") 
+Install Composer. For [more](https://getcomposer.org/doc/).
+
+	3. curl -sS https://getcomposer.org/installer | php
+	4. mv composer.phar /usr/local/bin/composer
+	5. composer global require "fxp/composer-asset-plugin:^1.3.1"
+Update Composer
+
+    4. cd yourFolderName
+    5. composer update
+    6. create the database
+    7. set database configuration on /common/config/main-local.php
+    
+```php
+<?php
+return [
+    'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'pgsql:host=localhost;dbname=databasename',
+            'username' => 'postgres',
+            'password' => 'postgres',
+            'charset' => 'utf8',
+        ],
+        ...
+    ],
+];
 ```
-	    curl -sS https://getcomposer.org/installer | php
-	    mv composer.phar /usr/local/bin/composer
-	    composer global require "fxp/composer-asset-plugin:^1.3.1"
+
+    8. php yii migrate
+
+## USAGE    
+
+Access you application on `http://localhost/yourFolderName`
+
+Insert the username: victor.leite
+
+Insert the password: mypassword
+
+Login into the system (You have the administrator role)    :-)
+
+
+### EXEMPLE API CALLS
+-------------------
+
 ```
-	4. cd yourFolderName
-	5. composer update
+1. Token access required
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
+-d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"mypassword","client_id":"myclientId","client_secret":"mySecretPassword"}'
+
+2. Token access required with scope
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
+-d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"mypassword","client_id":"myclientId","client_secret":"mySecretPassword","scope":"custom"}'
+
+3 - User data required
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/v1/user/get-user?access_token={TOKEN_GERADO_NA_AUTENTICACAO}"
+```
 	
-## USAGE
-
-	TODO: Write usage instructions
-
-
 ## CONTRIBUTION
 
 1. Fork it!
@@ -33,17 +76,18 @@ This project is a template for development of web application and api/rest togue
 
 ## HISTORY
 
-    
+I decided to create this project to help people to accelerate the proccess to create application and services/api rest in the same project.
 
 ## CREDITS
 
-    [mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin "mdmsoft/yii2-admin")
-    [filsh/yii2-oauth2-server](https://github.com/Filsh/yii2-oauth2-server "filsh/yii2-oauth2-server")
+[mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin)
+
+[filsh/yii2-oauth2-server](https://github.com/Filsh/yii2-oauth2-server)
 
 
 ## LICENCE
-MIT
 
+The MIT License
 
 ===============================
 
@@ -78,23 +122,7 @@ service
     api/config/		 contains shared configurations
     api/versions/	 versions of application
     api/www/		 initial folder for application
-vendor/                  contains dependent 3rd-party packages
+vendor/              contains dependent 3rd-party packages
 ```
 
 ===============================
-
-## API EXEMPLE CALLS
--------------------
-
-```
-1. Token access required
-curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/alerts-tools/service/api/www/index.php/oauth2/token" -XPOST \
--d '{"grant_type":"password","username":"victor.leite@inmet.gov.br","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha"}'
-
-2. Token access required with scope
-curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/alerts-tools/service/api/www/index.php/oauth2/token" -XPOST \
--d '{"grant_type":"password","username":"victor.leite@inmet.gov.br","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha","scope":"custom"}'
-
-3 - User data required
-curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/alerts-tools/service/api/www/index.php/v1/user/get-user?access_token={TOKEN_GERADO_NA_AUTENTICACAO}"
-```
