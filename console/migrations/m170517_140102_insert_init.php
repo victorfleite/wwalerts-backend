@@ -1274,15 +1274,15 @@ class m170517_140102_insert_init extends \yii\db\Migration {
 	]);
 
 	$this->insert('oauth_clients', [
-	    'client_id' => 'meucliente',
-	    'client_secret' => 'minhasenha',
+	    'client_id' => 'myclientId',
+	    'client_secret' => 'mySecretPassword',
 	    'redirect_uri' => 'http://fake/',
 	    'grant_types' => 'client_credentials authorization_code password implicit',
 	]);
 
 	$this->insert('oauth_access_tokens', [
 	    'access_token' => '6d3370bb9a1db06892bd38ad767433f3b5e6ff9e',
-	    'client_id' => 'meucliente',
+	    'client_id' => 'myclientId',
 	    'user_id' => 4,
 	    'expires' => '2017-05-16 14:43:40',
 	    'scope' => 'default',
@@ -1290,7 +1290,7 @@ class m170517_140102_insert_init extends \yii\db\Migration {
 
 	$this->insert('oauth_refresh_tokens', [
 	    'refresh_token' => '8e9b3719916031874ca3ccedec5caf747c722ae7',
-	    'client_id' => 'meucliente',
+	    'client_id' => 'myclientId',
 	    'user_id' => 4,
 	    'expires' => '2017-05-29 14:43:40',
 	    'scope' => 'default',
@@ -1314,12 +1314,12 @@ class m170517_140102_insert_init extends \yii\db\Migration {
 	$this->insert('user', [
 	    'username' => 'victor.leite',
 	    'auth_key' => 'HxNQpLVtluJMBGCW0oEsum7gx03X06vm',
-	    'password_hash' => '$2y$13$BF02cSqXAX/gj/km3Z4DueWpww8r4/cu.PV0NI.6BxzHsacdrqiZu',
-	    'email' => 'victor.leite@inmet.gov.br',
+	    'password_hash' => '$2y$13$86uheFSydINRFJlc.MDH6eOdJ6njFTpPjygHvY685pkkObMA4dlwK',
+	    'email' => 'victor.leite@gmail.com',
 	    'status' => 10,
 	    'created_at' => 1493821487,
 	    'updated_at' => 1494876212,
-	    'name' => 'Victor Ferreira Leite'
+	    'name' => 'Victor Leite'
 	]);
     }
 
