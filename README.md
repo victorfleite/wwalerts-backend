@@ -42,9 +42,29 @@ return [
 ## USAGE    
 
 Access you application on `http://localhost/yourFolderName`
+
 Insert the username: victor.leite
+
 Insert the password: mypassword
-And Login :-) (You are the administrator role)
+
+Login into the system (You have the administrator role)    :-)
+
+
+### EXEMPLE API CALLS
+-------------------
+
+```
+1. Token access required
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
+-d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha"}'
+
+2. Token access required with scope
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
+-d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha","scope":"custom"}'
+
+3 - User data required
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/v1/user/get-user?access_token={TOKEN_GERADO_NA_AUTENTICACAO}"
+```
 	
 ## CONTRIBUTION
 
@@ -56,7 +76,7 @@ And Login :-) (You are the administrator role)
 
 ## HISTORY
 
-I decided to create this project to help people to acelerate the proccess to create application and services/api rest in the same project.
+I decided to create this project to help people to accelerate the proccess to create application and services/api rest in the same project.
 
 ## CREDITS
 
@@ -107,18 +127,3 @@ vendor/                  contains dependent 3rd-party packages
 
 ===============================
 
-## API EXEMPLE CALLS
--------------------
-
-```
-1. Token access required
-curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
--d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha"}'
-
-2. Token access required with scope
-curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/oauth2/token" -XPOST \
--d '{"grant_type":"password","username":"victor.leite@gmail.com","password":"minhasenha","client_id":"meucliente","client_secret":"minhasenha","scope":"custom"}'
-
-3 - User data required
-curl -i -H "Accept:application/json" -H "Content-Type:application/json" "http://localhost/yourFolderName/service/api/www/index.php/v1/user/get-user?access_token={TOKEN_GERADO_NA_AUTENTICACAO}"
-```
