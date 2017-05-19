@@ -21,7 +21,7 @@ Update Composer
     6. create the database
     
 ```php
-7. set database configuration on /common/config/main-local.php
+7. set database configuration on common/config/main-local.php
 <?php
 return [
     'components' => [
@@ -83,6 +83,8 @@ I decided to create this project to help people to accelerate the proccess to cr
 [mdmsoft/yii2-admin](https://github.com/mdmsoft/yii2-admin)
 
 [filsh/yii2-oauth2-server](https://github.com/Filsh/yii2-oauth2-server)
+
+[mootensai/yii2-enhanced-gii](https://github.com/mootensai/yii2-enhanced-gii)
 
 
 ## LICENCE
