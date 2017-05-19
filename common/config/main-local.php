@@ -14,7 +14,7 @@ return [
 	    'viewPath' => '@common/mail',
 	    'transport' => [
 		'class' => 'Swift_SmtpTransport',
-		'host' => 'aramis.inmet.gov.br',
+		'host' => 'myhost.domain',
 		'username' => '',
 		'password' => ''
 	    ],
