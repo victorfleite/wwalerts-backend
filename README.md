@@ -38,6 +38,13 @@ return [
 ```
 
     8. php yii migrate
+
+## USAGE    
+
+Access you application on `http://localhost/yourFolderName`
+Insert the username: victor.leite
+Insert the password: mypassword
+And Login :-) (You are the administrator role)
 	
 ## CONTRIBUTION
 
