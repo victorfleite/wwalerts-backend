@@ -38,6 +38,7 @@ return [
 ```
 
     8. php yii migrate
+    9. sudo chmod 777 /var/www/html/yourFolderName/backend/web/assets
 
 ## USAGE    
 
