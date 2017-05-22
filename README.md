@@ -12,16 +12,17 @@ Create a new repository
 Install Composer. For [more](https://getcomposer.org/doc/).
 
 	3. curl -sS https://getcomposer.org/installer | php
-	4. mv composer.phar /usr/local/bin/composer
-	5. composer global require "fxp/composer-asset-plugin:^1.3.1"
+	4. sudo mv composer.phar /usr/local/bin/composer
+	5. sudo chown -fR yourUser:root /usr/local/bin/composer
+	6. sudo composer global require "fxp/composer-asset-plugin:^1.3.1"
 Update Composer
 
-    4. cd yourFolderName
-    5. composer update
-    6. create the database
+    7. cd yourFolderName
+    8. composer update
+    9. create the database
     
 ```php
-7. set database configuration on common/config/main-local.php
+10. set database configuration on common/config/main-local.php
 <?php
 return [
     'components' => [
