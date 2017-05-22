@@ -6,23 +6,23 @@ This project is a template for development of web application and api/rest togue
 
 Create a new repository
 
-    1. git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
-    2. mv template-yii-2.0 yourFolderName
+    1. $ git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
+    2. $ mv template-yii-2.0 yourFolderName
 
 Install Composer. For [more](https://getcomposer.org/doc/).
 
-	3. curl -sS https://getcomposer.org/installer | php
-	4. sudo mv composer.phar /usr/local/bin/composer
-	5. sudo chown -fR yourUser:root /usr/local/bin/composer
-	6. sudo composer global require "fxp/composer-asset-plugin:^1.3.1"
+	3. $ curl -sS https://getcomposer.org/installer | php
+	4. $ sudo mv composer.phar /usr/local/bin/composer
+	5. $ sudo chown -fR yourUser:root /usr/local/bin/composer
+	6. $ sudo composer global require "fxp/composer-asset-plugin:^1.3.1"
 Update Composer
 
-    7. cd yourFolderName
-    8. composer update
-    9. create the database
+    7. $ cd yourFolderName
+    8. $ composer update
+    9. Create your local database
     
 ```php
-10. set database configuration on common/config/main-local.php
+10. Set the database configuration on common/config/main-local.php
 <?php
 return [
     'components' => [
