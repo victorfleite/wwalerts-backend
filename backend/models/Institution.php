@@ -21,8 +21,7 @@ class Institution extends BaseInstitution {
 		[['sender_cap'], 'string', 'max' => 50],
 		[['contact_cap'], 'string', 'max' => 150],
 		[['language_cap'], 'string', 'max' => 15]
-	    ];
-	
+	];
     }
 
     /**
@@ -40,6 +39,8 @@ class Institution extends BaseInstitution {
 	    'sender_cap' => \Yii::t('translation', 'institution.sender_cap'),
 	    'contact_cap' => \Yii::t('translation', 'institution.contact_cap'),
 	    'language_cap' => \Yii::t('translation', 'institution.language_cap'),
+	    'created_at' => \Yii::t('translation', 'institution.created_at'),
+	    'updated_at' => \Yii::t('translation', 'institution.updated_at'),
 	];
     }
 

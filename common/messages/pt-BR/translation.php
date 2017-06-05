@@ -20,8 +20,10 @@ return [
     'menu.language.portuguese' => 'Português',
     
     /** GENERAL **/
+    'Admin' => 'Listagem',
     'Update'=>'Atualizar',
     'Create'=>'Salvar',
+    'Delete' => 'Apagar',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
@@ -74,10 +76,14 @@ return [
     'institution.name' => 'Nome',
     'institution.country' => 'País',
     'institution.abbreviation' => 'Sigla',
+    'institution.cap_configuration_title' => 'Configurações do CAP',
     'institution.abbreviation_cap' => 'Sigla CAP',
     'institution.sender_cap' => 'Sender CAP',
     'institution.contact_cap' => 'Contact CAP',
     'institution.language_cap' => 'Language CAP',
+    'institution.created_at'=> 'Data Criação',
+    'institution.updated_at'=> 'Data Atualização',
     'institution.create_title'=> 'Nova Instituição',
     'institution.create_btn'=> 'Nova Instituição',
+    'update_title'=>'Atualizar: {name}',
 ];

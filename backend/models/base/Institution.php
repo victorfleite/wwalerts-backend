@@ -70,7 +70,7 @@ class Institution extends \yii\db\ActiveRecord
             'abbreviation_cap' => Yii::t('translation', 'Abbreviation Cap'),
             'sender_cap' => Yii::t('translation', 'Sender Cap'),
             'contact_cap' => Yii::t('translation', 'Contact Cap'),
-            'language_cap' => Yii::t('translation', 'Language Cap'),
+            'language_cap' => Yii::t('translation', 'Language Cap'),	 
         ];
     }
     
