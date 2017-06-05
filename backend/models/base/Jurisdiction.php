@@ -22,8 +22,9 @@ use mootensai\behaviors\UUIDBehavior;
  */
 class Jurisdiction extends \yii\db\ActiveRecord
 {
-    use \mootensai\relation\RelationTrait;
 
+    use \mootensai\relation\RelationTrait;
+    
     /**
      * @inheritdoc
      */
@@ -70,7 +71,7 @@ class Jurisdiction extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOperativeRlWorkgroupJurisdictions()
+    public function getRlWorkgroupJurisdictions()
     {
         return $this->hasMany(\app\models\RlWorkgroupJurisdiction::className(), ['jurisdiction_id' => 'id']);
     }
@@ -83,7 +84,7 @@ class Jurisdiction extends \yii\db\ActiveRecord
         return $this->hasMany(\app\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('rl_workgroup_jurisdiction', ['jurisdiction_id' => 'id']);
     }
     
-/**
+    /**
      * @inheritdoc
      * @return array mixed
      */ 
@@ -100,10 +101,6 @@ class Jurisdiction extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::className(),
                 'createdByAttribute' => 'created_by',
                 'updatedByAttribute' => 'updated_by',
-            ],
-            'uuid' => [
-                'class' => UUIDBehavior::className(),
-                'column' => 'id',
             ],
         ];
     }

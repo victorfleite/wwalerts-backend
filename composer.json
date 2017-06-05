@@ -26,7 +26,8 @@
 	"kartik-v/yii2-mpdf": "dev-master",
 	"kartik-v/yii2-tree-manager": "dev-master",
 	"kartik-v/yii2-datecontrol": "dev-master",
-	"filsh/yii2-oauth2-server": "2.0.0"
+	"filsh/yii2-oauth2-server": "2.0.0",
+	"nanson/yii2-postgis": "*"
     },
     "require-dev": {
 	"yiisoft/yii2-debug": "~2.0.0",

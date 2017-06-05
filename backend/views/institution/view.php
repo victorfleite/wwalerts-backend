@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'sender_cap',
             'contact_cap',
             'language_cap',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

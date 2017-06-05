@@ -24,6 +24,7 @@ return [
     'Update'=>'Atualizar',
     'Create'=>'Salvar',
     'Delete' => 'Apagar',
+    'update_title'=>'Atualizar: {name}',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
@@ -85,5 +86,21 @@ return [
     'institution.updated_at'=> 'Data Atualização',
     'institution.create_title'=> 'Nova Instituição',
     'institution.create_btn'=> 'Nova Instituição',
-    'update_title'=>'Atualizar: {name}',
+    
+    
+    // Jurisdiction
+    'jurisdiction'=>'Jurisdição',
+    'jurisdictions' => 'Jurisdições',
+    'jurisdiction.id' => 'Id',
+    'jurisdiction.name' => 'Nome',
+    'jurisdiction.institution_id' => 'Instituição',
+    'jurisdiction.color' => 'Cor',
+    'jurisdiction.geom' => 'Geometria', 
+    'jurisdiction.geom_hint' => 'WKT - Polygon ou Multipolygon [Projeção 3857 - Google]',
+    'jurisdiction.created_at'=> 'Data Criação',
+    'jurisdiction.updated_at'=> 'Data Atualização',
+    'jurisdiction.created_by'=> 'Criado por',
+    'jurisdiction.updated_by'=> 'Atualizado por',
+    'jurisdiction.create_title'=> 'Nova Jurisdição',
+    'jurisdiction.create_btn'=> 'Nova Jurisdição',
 ];
