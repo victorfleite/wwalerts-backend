@@ -28,7 +28,6 @@ use yii\behaviors\BlameableBehavior;
  */
 class Institution extends \yii\db\ActiveRecord
 {
-    use \mootensai\relation\RelationTrait;
 
     /**
      * @inheritdoc
@@ -77,9 +76,9 @@ class Institution extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOperativeJurisdictions()
+    public function getJurisdictions()
     {
-        return $this->hasMany(\app\models\OperativeJurisdiction::className(), ['institution_id' => 'id']);
+        return $this->hasMany(\app\models\Jurisdiction::className(), ['institution_id' => 'id']);
     }
     
 /**

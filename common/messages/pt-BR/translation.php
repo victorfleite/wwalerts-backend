@@ -25,6 +25,7 @@ return [
     'Create'=>'Salvar',
     'Delete' => 'Apagar',
     'update_title'=>'Atualizar: {name}',
+    'Are you sure you want to delete this item?' => 'Tem certeza que deseja excluir este item?',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
@@ -103,4 +104,18 @@ return [
     'jurisdiction.updated_by'=> 'Atualizado por',
     'jurisdiction.create_title'=> 'Nova Jurisdição',
     'jurisdiction.create_btn'=> 'Nova Jurisdição',
+    
+    // Workgroup
+    'workgroup' => 'Grupo de Trabalho',
+    'workgroups' => 'Grupos de Trabalho',
+    'workgroup.id' => 'Id',
+    'workgroup.name' => 'Nome',
+    'workgroup.description' => 'Descrição',
+    'workgroup.created_at'=> 'Data Criação',
+    'workgroup.updated_at'=> 'Data Atualização',
+    'workgroup.created_by'=> 'Criado por',
+    'workgroup.updated_by'=> 'Atualizado por',
+    'workgroup.create_title'=> 'Novo Grupo de Trabalho',
+    'workgroup.create_btn'=> 'Novo Grupo de Trabalho',
+    
 ];

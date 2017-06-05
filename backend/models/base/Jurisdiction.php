@@ -5,7 +5,6 @@ namespace app\models\base;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use mootensai\behaviors\UUIDBehavior;
 
 /**
  * This is the base model class for table "operative.jurisdiction".
@@ -22,8 +21,6 @@ use mootensai\behaviors\UUIDBehavior;
  */
 class Jurisdiction extends \yii\db\ActiveRecord
 {
-
-    use \mootensai\relation\RelationTrait;
     
     /**
      * @inheritdoc

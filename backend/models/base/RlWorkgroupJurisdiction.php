@@ -5,7 +5,6 @@ namespace app\models\base;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use mootensai\behaviors\UUIDBehavior;
 
 /**
  * This is the base model class for table "operative.rl_workgroup_jurisdiction".
@@ -18,7 +17,6 @@ use mootensai\behaviors\UUIDBehavior;
  */
 class RlWorkgroupJurisdiction extends \yii\db\ActiveRecord
 {
-    use \mootensai\relation\RelationTrait;
 
     /**
      * @inheritdoc
@@ -96,11 +94,7 @@ class RlWorkgroupJurisdiction extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::className(),
                 'createdByAttribute' => 'created_by',
                 'updatedByAttribute' => 'updated_by',
-            ],
-            'uuid' => [
-                'class' => UUIDBehavior::className(),
-                'column' => 'id',
-            ],
+            ]
         ];
     }
 }
