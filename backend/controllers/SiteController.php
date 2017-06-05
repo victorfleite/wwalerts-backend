@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\Cookie;
 use common\models\LoginForm;
+use common\models\User;
 use backend\models\PasswordResetRequestForm;
 use backend\models\ResetPasswordForm;
 
@@ -93,6 +94,14 @@ class SiteController extends Controller {
      */
     public function actionRequestPasswordReset() {
 	$model = new PasswordResetRequestForm();
+	
+	//User Logged
+	if(!Yii::$app->user->isGuest){
+	    $user = User::findOne(Yii::$app->user->id);
+	    $model->email = $user->email; 
+	}
+	
+	
 	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 	    if ($model->sendEmail()) {
 		Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));

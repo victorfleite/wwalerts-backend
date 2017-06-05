@@ -4,7 +4,7 @@ return [
     'components' => [
 	'db' => [
 	    'class' => 'yii\db\Connection',
-	    'dsn' => 'pgsql:host=localhost;dbname=mydatabase',
+	    'dsn' => 'pgsql:host=localhost;dbname=alerts',
 	    'username' => 'postgres',
 	    'password' => 'postgres',
 	    'charset' => 'utf8',
@@ -14,7 +14,7 @@ return [
 	    'viewPath' => '@common/mail',
 	    'transport' => [
 		'class' => 'Swift_SmtpTransport',
-		'host' => 'myhost.domain',
+		'host' => 'aramis.inmet.gov.br',
 		'username' => '',
 		'password' => ''
 	    ],

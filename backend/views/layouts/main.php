@@ -3,6 +3,7 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
+use backend\models\Menu;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -33,38 +34,10 @@ AppAsset::register($this);
 		    'class' => 'navbar-inverse navbar-fixed-top',
 		],
 	    ]);
-
-	    $languageMenu = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
-			['label' => Yii::t('translation', 'menu.language.english'), 'url' => ['site/set-language', 'language' => 'en']],
-			['label' => Yii::t('translation', 'menu.language.portuguese'), 'url' => ['site/set-language', 'language' => 'pt-BR']],
-	    ]];
-	    if (Yii::$app->user->isGuest) {
-		$menuItems[] = $languageMenu;
-		$menuItems[] = ['label' => Yii::t('translation', 'menu.login'), 'url' => ['/site/login']];
-	    } else {
-		$menuItems[] = ['label' => Yii::t('translation', 'menu.home'), 'url' => ['/site/index']];
-		$menuItems[] = $languageMenu;
-		if (Yii::$app->user->can('/admin/*')) {
-		    
-		    $userRegister = ['label' => Yii::t('translation', 'menu.user_register'), 'url' => ['/user/index']];
-		    $userAdministration = ['label' => Yii::t('translation', 'menu.access_control'), 'url' => ['/admin']];
-		    
-		    $menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [
-			    $userRegister,
-			    $userAdministration],
-		    ];
-		}
-		$menuItems[] = '<li>'
-			. Html::beginForm(['/site/logout'], 'post')
-			. Html::submitButton(
-				Yii::t('translation', 'menu.logout') . ' (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']
-			)
-			. Html::endForm()
-			. '</li>';
-	    }
+	    
 	    echo Nav::widget([
 		'options' => ['class' => 'navbar-nav navbar-right'],
-		'items' => $menuItems,
+		'items' => Menu::getMainManu(),
 	    ]);
 	    NavBar::end();
 	    ?>

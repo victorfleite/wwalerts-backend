@@ -5,7 +5,7 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'My Application',
+    'id' => 'Alerts',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => [

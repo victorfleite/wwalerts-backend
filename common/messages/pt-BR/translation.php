@@ -9,6 +9,10 @@ return [
     'menu.administration' => 'Administração',
     'menu.user_register' => 'Cadastro de Usuário',
     'menu.access_control' => 'Controle de Acesso',
+    'menu.change_password' => 'Mudar Senha',
+    'menu.institution' => 'Instituição',
+    'menu.jurisdiction' => 'Jurisdição',
+    'menu.workgroup' => 'Grupo de Trabalho',
     'menu.logout' => 'Sair',
     
     /** LANGUAGES **/
@@ -16,7 +20,8 @@ return [
     'menu.language.portuguese' => 'Português',
     
     /** GENERAL **/
-    'update'=>'Atualizar',
+    'Update'=>'Atualizar',
+    'Create'=>'Salvar',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
@@ -60,5 +65,19 @@ return [
     'user.signup_form.password' => 'Senha',
     'user.message_unique_field' => 'O campo {field} já está sendo usado',
     
-    
+    // Institution
+    'institution' => 'Instituição',
+    'institutions' => 'Instituições',
+    'institution.id' => 'id',
+    'institution.email' => 'Email',
+    'institution.phone' => 'Telefone',
+    'institution.name' => 'Nome',
+    'institution.country' => 'País',
+    'institution.abbreviation' => 'Sigla',
+    'institution.abbreviation_cap' => 'Sigla CAP',
+    'institution.sender_cap' => 'Sender CAP',
+    'institution.contact_cap' => 'Contact CAP',
+    'institution.language_cap' => 'Language CAP',
+    'institution.create_title'=> 'Nova Instituição',
+    'institution.create_btn'=> 'Nova Instituição',
 ];
