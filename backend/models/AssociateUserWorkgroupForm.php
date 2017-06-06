@@ -1,5 +1,10 @@
 <?php
 
+
+namespace backend\models;
+
+use yii\base\Model;
+
 /**
  * Description of AssociateUserWorkgroupForm
  *
@@ -15,6 +20,16 @@ class AssociateUserWorkgroupForm extends Model {
     public function rules() {
 	return [
 		['users', 'safe']
+	];
+    }
+    
+    
+       /**
+     * @inheritdoc
+     */
+    public function attributeLabels() {
+	return [
+	    'users' => \Yii::t('translation', 'workgroup.associate_users_dualbox_title'),
 	];
     }
 

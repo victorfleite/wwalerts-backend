@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use \app\models\base\Workgroup as BaseWorkgroup;
 use \yii\helpers\ArrayHelper;
@@ -39,9 +39,29 @@ class Workgroup extends BaseWorkgroup {
     /**
      * @return Array
      */
-    public function getJurisdictionsAsArray() {
-	$jurisdictions = parent::getJurisdictions()->asArray()->all();
-	return ArrayHelper::map($jurisdictions, 'id', 'name');
+    public function getAllJurisdictionsIds() {
+	$jurisdictions = parent::getJurisdictions()->all();
+	$jurisdictionsIds = [];
+	if (is_array($jurisdictions)) {
+	    foreach ($jurisdictions as $j) {
+		$jurisdictionsIds[] = $j->id;
+	    }
+	}
+	return $jurisdictionsIds;
+    }
+
+    /**
+     * @return Array
+     */
+    public function getAllUsersIds() {
+	$users = parent::getUsers()->all();
+	$usersIds = [];
+	if (is_array($users)) {
+	    foreach ($users as $u) {
+		$usersIds[] = $u->id;
+	    }
+	}
+	return $usersIds;
     }
 
     /**

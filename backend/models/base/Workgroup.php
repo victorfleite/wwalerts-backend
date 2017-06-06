@@ -58,7 +58,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getRlWorkgroupJurisdictions()
     {
-        return $this->hasMany(\app\models\RlWorkgroupJurisdiction::className(), ['workgroup_id' => 'id']);
+        return $this->hasMany(\backend\models\RlWorkgroupJurisdiction::className(), ['workgroup_id' => 'id']);
     }
         
     /**
@@ -66,7 +66,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getJurisdictions()
     {
-        return $this->hasMany(\app\models\Jurisdiction::className(), ['id' => 'jurisdiction_id'])->viaTable('rl_workgroup_jurisdiction', ['workgroup_id' => 'id']);
+        return $this->hasMany(\backend\models\Jurisdiction::className(), ['id' => 'jurisdiction_id'])->viaTable('operative.rl_workgroup_jurisdiction', ['workgroup_id' => 'id']);
     }
         
     /**
@@ -74,7 +74,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getRlWorkgroupUsers()
     {
-        return $this->hasMany(\app\models\RlWorkgroupUser::className(), ['workgroup_id' => 'id']);
+        return $this->hasMany(\backend\models\RlWorkgroupUser::className(), ['workgroup_id' => 'id']);
     }
         
     /**
@@ -82,7 +82,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(\common\models\User::className(), ['id' => 'user_id'])->viaTable('rl_workgroup_user', ['workgroup_id' => 'id']);
+        return $this->hasMany(\common\models\User::className(), ['id' => 'user_id'])->viaTable('operative.rl_workgroup_user', ['workgroup_id' => 'id']);
     }
     
 /**

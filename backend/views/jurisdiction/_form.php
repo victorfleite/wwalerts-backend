@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-use app\models\Institution;
+use backend\models\Institution;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurisdiction */

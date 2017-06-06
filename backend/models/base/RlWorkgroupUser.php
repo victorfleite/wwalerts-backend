@@ -15,73 +15,56 @@ use yii\behaviors\BlameableBehavior;
  * @property \app\models\OperativeJurisdiction $jurisdiction
  * @property \app\models\OperativeWorkgroup $workgroup
  */
-class RlWorkgroupUser extends \yii\db\ActiveRecord
-{
+class RlWorkgroupUser extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['jurisdiction_id', 'workgroup_id'], 'required'],
-            [['jurisdiction_id', 'workgroup_id'], 'integer']
-        ];
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'operative.rl_workgroup_jurisdiction';
+    public function rules() {
+	return [
+		[['user_id', 'workgroup_id'], 'required'],
+		[['user_id', 'workgroup_id'], 'integer']
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
-        return [
-            'jurisdiction_id' => Yii::t('translation', 'Jurisdiction ID'),
-            'workgroup_id' => Yii::t('translation', 'Workgroup ID'),
-        ];
+    public static function tableName() {
+	return 'operative.rl_workgroup_user';
     }
-    
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels() {
+	return [
+	    'user_id' => Yii::t('translation', 'User ID'),
+	    'workgroup_id' => Yii::t('translation', 'Workgroup ID'),
+	];
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getJurisdiction()
-    {
-        return $this->hasOne(\app\models\Jurisdiction::className(), ['id' => 'jurisdiction_id']);
+    public function getUser() {
+	return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
-        
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getWorkgroup()
-    {
-        return $this->hasOne(\app\models\Workgroup::className(), ['id' => 'workgroup_id']);
+    public function getWorkgroup() {
+	return $this->hasOne(\app\models\Workgroup::className(), ['id' => 'workgroup_id']);
     }
-    
-/**
+
+    /**
      * @inheritdoc
      * @return array mixed
-     */ 
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value' => new \yii\db\Expression('NOW()'),
-            ],
-            'blameable' => [
-                'class' => BlameableBehavior::className(),
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
-            ]
-        ];
+     */
+    public function behaviors() {
+	return [
+	];
     }
+
 }

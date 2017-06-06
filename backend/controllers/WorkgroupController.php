@@ -3,14 +3,15 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\Workgroup;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\AssociateJurisdictionWorkgroupForm;
-use app\models\AssociateUserWorkgroupForm;
-use app\models\RlWorkgroupJurisdiction;
+use backend\models\Workgroup;
+use backend\models\AssociateJurisdictionWorkgroupForm;
+use backend\models\AssociateUserWorkgroupForm;
+use backend\models\RlWorkgroupJurisdiction;
+use backend\models\RlWorkgroupUser;
 
 /**
  * WorkgroupController implements the CRUD actions for Workgroup model.
@@ -122,51 +123,53 @@ class WorkgroupController extends Controller {
 
 	$model = new AssociateJurisdictionWorkgroupForm();
 	$workgroup = $this->findModel($id);
-	$model->jurisdictions = Json::encode($workgroup->getJurisdictionsAsArray());
-
 
 	if ($model->load(Yii::$app->request->post())) {
-	    $jurisdictions = Json::decode($model->jurisdictions);
+	    $jurisdictions = $model->jurisdictions;
 	    // Delete all jurisdictions found
-	    RlWorkgroupJurisdiction::deleteAll('workdgroup_id = :workgroup_id', [':workgroup_id' => $workgroup->id]);
+	    RlWorkgroupJurisdiction::deleteAll('workgroup_id = :workgroup_id', [':workgroup_id' => $workgroup->id]);
 	    // Create jurisdictions 
-	    foreach ($jurisdictions as $id) {
-		$rl = new RlWorkgroupJurisdiction();
-		$rl->jurisdiction = $id;
-		$rl->workgroup_id = $workgroup->id;
-		$rl->save();
+	    if (is_array($jurisdictions)) {
+		foreach ($jurisdictions as $id) {
+		    $rl = new RlWorkgroupJurisdiction();
+		    $rl->jurisdiction_id = $id;
+		    $rl->workgroup_id = $workgroup->id;
+		    $rl->save();
+		}
 	    }
+	    return $this->redirect(['view', 'id' => $workgroup->id]);
 	}
-
+	$model->jurisdictions = $workgroup->getAllJurisdictionsIds();
 	return $this->render('associate-jurisdictions', [
 		    'model' => $model,
-		    'grupo' => $workgroup,
+		    'workgroup' => $workgroup,
 	]);
     }
 
-    public function actionAssociarUsuarios($id) {
+     public function actionAssociateUsers($id) {
 
-	$model = new AssociarUsuarioGrupoForm();
-	$grupo = $this->findModel($id);
-	$model->usuarios = Json::encode($grupo->getIdsUsuariosAssociadosArray());
-
+	$model = new AssociateUserWorkgroupForm();
+	$workgroup = $this->findModel($id);
 
 	if ($model->load(Yii::$app->request->post())) {
-	    $usuarios = Json::decode($model->usuarios);
-	    // Deleta todos as jurisdicoes encontradas do grupo
-	    RlGrupoUsuario::deleteAll('grupo_id = :grupo_id', [':grupo_id' => $grupo->id]);
-	    // Cria as jurisdicoes
-	    foreach ($usuarios as $idUsuario) {
-		$rl = new RlGrupoUsuario();
-		$rl->usuario_id = $idUsuario;
-		$rl->grupo_id = $grupo->id;
-		$rl->save();
+	    $users = $model->users;
+	    // Delete all jurisdictions found
+	    RlWorkgroupUser::deleteAll('workgroup_id = :workgroup_id', [':workgroup_id' => $workgroup->id]);
+	    // Create jurisdictions 
+	    if (is_array($users)) {
+		foreach ($users as $id) {
+		    $rl = new RlWorkgroupUser();
+		    $rl->user_id = $id;
+		    $rl->workgroup_id = $workgroup->id;
+		    $rl->save();
+		}
 	    }
+	    return $this->redirect(['view', 'id' => $workgroup->id]);
 	}
-
-	return $this->render('associar-usuarios', [
+	$model->users = $workgroup->getAllUsersIds();
+	return $this->render('associate-users', [
 		    'model' => $model,
-		    'grupo' => $grupo,
+		    'workgroup' => $workgroup,
 	]);
     }
 

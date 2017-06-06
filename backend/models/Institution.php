@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use \app\models\base\Institution as BaseInstitution;
 

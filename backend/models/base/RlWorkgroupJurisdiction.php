@@ -25,9 +25,7 @@ class RlWorkgroupJurisdiction extends \yii\db\ActiveRecord
     {
         return [
             [['jurisdiction_id', 'workgroup_id'], 'required'],
-            [['jurisdiction_id', 'workgroup_id'], 'integer'],
-            [['lock'], 'default', 'value' => '0'],
-            [['lock'], 'mootensai\components\OptimisticLockValidator']
+            [['jurisdiction_id', 'workgroup_id'], 'integer']
         ];
     }
     
@@ -37,17 +35,6 @@ class RlWorkgroupJurisdiction extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'operative.rl_workgroup_jurisdiction';
-    }
-
-    /**
-     * 
-     * @return string
-     * overwrite function optimisticLock
-     * return string name of field are used to stored optimistic lock 
-     * 
-     */
-    public function optimisticLock() {
-        return 'lock';
     }
 
     /**
@@ -83,18 +70,7 @@ class RlWorkgroupJurisdiction extends \yii\db\ActiveRecord
      */ 
     public function behaviors()
     {
-        return [
-            'timestamp' => [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at',
-                'value' => new \yii\db\Expression('NOW()'),
-            ],
-            'blameable' => [
-                'class' => BlameableBehavior::className(),
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
-            ]
+        return [            
         ];
     }
 }

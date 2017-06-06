@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use \app\models\base\Jurisdiction as BaseJurisdiction;
 use \common\components\behaviors\PolygonBehavior;
@@ -53,5 +53,7 @@ class Jurisdiction extends BaseJurisdiction {
 	]);
 	
     }
+   
+ 
 
 }

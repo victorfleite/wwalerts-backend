@@ -78,7 +78,7 @@ class Institution extends \yii\db\ActiveRecord
      */
     public function getJurisdictions()
     {
-        return $this->hasMany(\app\models\Jurisdiction::className(), ['institution_id' => 'id']);
+        return $this->hasMany(\backend\models\Jurisdiction::className(), ['institution_id' => 'id']);
     }
     
 /**

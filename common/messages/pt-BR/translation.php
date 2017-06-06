@@ -26,6 +26,7 @@ return [
     'Delete' => 'Apagar',
     'update_title'=>'Atualizar: {name}',
     'Are you sure you want to delete this item?' => 'Tem certeza que deseja excluir este item?',
+    'Search' => 'Procurar',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
@@ -45,6 +46,7 @@ return [
            
     /** USER MODEL/CONTROLLER * */
     'user'=>'Usuário',
+    'users'=>'Usuários',
     'user.name' => 'Nome Completo',
     'user.username' => 'Login',
     'user.email' => 'Email',
@@ -117,5 +119,13 @@ return [
     'workgroup.updated_by'=> 'Atualizado por',
     'workgroup.create_title'=> 'Novo Grupo de Trabalho',
     'workgroup.create_btn'=> 'Novo Grupo de Trabalho',
+    'workgroup.associate_jurisdiction_title'=>'Associar Jurisdições',
+    'workgroup.associate_jurisdiction_btn' => 'Associar Jurisdição',
+    'workgroup.associate_user_title'=>'Associar Usuários',
+    'workgroup.associate_users_btn' => 'Associar Usuário',
+    'workgroup.available' => 'Não Contidos',
+    'workgroup.selected' => 'Contidos',
+    'workgroup.associate_jurisdiction_dualbox_title'=>'Jurisdições Associadas',
+    'workgroup.associate_users_dualbox_title' => 'Usuários Associados'
     
 ];

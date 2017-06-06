@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		[
 		'attribute' => 'institution_id',
 		'value' => function($data) {
-		    $institution = \app\models\Institution::findOne($data->institution_id);
+		    $institution = \backend\models\Institution::findOne($data->institution_id);
 		    return $institution->name;
 		},
 	    ],
