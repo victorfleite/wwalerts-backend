@@ -28,7 +28,8 @@
 	"kartik-v/yii2-datecontrol": "dev-master",
 	"filsh/yii2-oauth2-server": "2.0.0",
 	"nanson/yii2-postgis": "*",
-	"softark/yii2-dual-listbox": "dev-master"
+	"softark/yii2-dual-listbox": "dev-master",
+	"sibilino/yii2-openlayers": "*"
     },
     "require-dev": {
 	"yiisoft/yii2-debug": "~2.0.0",

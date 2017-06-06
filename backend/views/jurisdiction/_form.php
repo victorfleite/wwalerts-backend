@@ -5,6 +5,9 @@ use yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use backend\models\Institution;
+use sibilino\yii2\openlayers\OpenLayers;
+use sibilino\yii2\openlayers\OL;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurisdiction */
@@ -44,5 +47,29 @@ use backend\models\Institution;
     </div>
 
     <?php ActiveForm::end(); ?>
+    
+    
+    
+    <?php
+    echo OpenLayers::widget([
+	'id' => 'test',
+	'mapOptions' => [
+	    'layers' => [
+		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
+		new OL('layer.Tile', [
+		    'source' => new OL('source.OSM', [
+			'layer' => 'sat',
+			    ]),
+			]),
+	    ],
+	    // Using a shortcut, we can skip the OL('View' ...)
+	    'view' => [
+		// Of course, the generated JS can be customized with JsExpression, as usual
+		'center' => new JsExpression('ol.proj.transform([37.41, 8.82], "EPSG:4326", "EPSG:3857")'),
+		'zoom' => 4,
+	    ],
+	],
+    ]);
+    ?>
 
 </div>
