@@ -5,8 +5,10 @@ use yii\widgets\DetailView;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Url;
-
 use common\models\User;
+use sibilino\yii2\openlayers\OpenLayers;
+use sibilino\yii2\openlayers\OL;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Workgroup */
@@ -45,8 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	],
     ])
     ?>
-    
-    <h1><?= Yii::t('translation', 'users') ?></h1>
+
+    <h3><?= Yii::t('translation', 'users') ?></h3>
     <?php
     $dataProvider = new ArrayDataProvider([
 	'allModels' => $model->getUsers()->all(),
@@ -61,20 +63,20 @@ $this->params['breadcrumbs'][] = $this->title;
     echo GridView::widget([
 	'dataProvider' => $dataProvider,
 	'columns' => [
-		 'name',
+	    'name',
 	    'username',
 	    'email:email',
-	    [
+		[
 		'attribute' => 'created_at',
-		'filter'=>null,
+		'filter' => null,
 		'value' => function($data) {
 		    $date = new \DateTime();
 		    return $date->setTimestamp($data->created_at)->format('Y-m-d H:i:s');
 		},
 	    ],
-	    [
+		[
 		'attribute' => 'status',
-		'filter'=>User::getStatusCombo(),
+		'filter' => User::getStatusCombo(),
 		'value' => function($data) {
 		    return User::getStatusLabel($data->status);
 		},
@@ -91,8 +93,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	],
     ]);
     ?>
-    
-    <h1><?= Yii::t('translation', 'jurisdictions') ?></h1>
+
+    <h3><?= Yii::t('translation', 'jurisdictions') ?></h3>
     <?php
     $dataProvider = new ArrayDataProvider([
 	'allModels' => $model->getJurisdictions()->all(),
@@ -132,7 +134,29 @@ $this->params['breadcrumbs'][] = $this->title;
 	],
     ]);
     ?>
-    
-    
+
+    <?php
+    echo OpenLayers::widget([
+	'id' => 'test',
+	'mapOptions' => [
+	    'layers' => [
+		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
+		new OL('layer.Tile', [
+		    'source' => new OL('source.OSM', [
+			'layer' => 'sat',
+			    ]),
+			]),
+	    ],
+	    // Using a shortcut, we can skip the OL('View' ...)
+	    'view' => [
+		// Of course, the generated JS can be customized with JsExpression, as usual
+		'center' => new JsExpression('ol.proj.transform([37.41, 8.82], "EPSG:4326", "EPSG:3857")'),
+		'zoom' => 4,
+	    ],
+	],
+    ]);
+    ?>
+
+
 
 </div>
