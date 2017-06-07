@@ -105,11 +105,28 @@ class SiteController extends Controller {
 
 	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 	    if ($model->sendEmail()) {
-		Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
+		\Yii::$app->getSession()->setFlash('success', [
+		    'type' => 'success',
+		    'duration' => 12000,
+		    'icon' => 'glyphicon glyphicon-ok-sign',
+		    'title' => \Yii::t('translation', 'Info'),
+		    'message' => \Yii::t('translation', 'site.login.form_reset_password.check_message_further'),
+		    'positonY' => 'top',
+		    'positonX' => 'left'
+		]);
 
 		return $this->goHome();
 	    } else {
-		Yii::$app->session->setFlash('error', Yii::t('translation', 'site.login.form_reset_password.error_email_message_fail'));
+
+		\Yii::$app->getSession()->setFlash('danger', [
+		    'type' => 'danger',
+		    'duration' => 12000,
+		    'icon' => 'glyphicon glyphicon-exclamation-sign',
+		    'title' => \Yii::t('translation', 'Notice'),
+		    'message' => \Yii::t('translation', 'site.login.form_reset_password.error_email_message_fail'),
+		    'positonY' => 'top',
+		    'positonX' => 'left'
+		]);
 	    }
 	}
 
@@ -133,7 +150,16 @@ class SiteController extends Controller {
 	}
 
 	if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-	    Yii::$app->session->setFlash('success', 'New password saved.');
+
+	    \Yii::$app->getSession()->setFlash('success', [
+		'type' => 'success',
+		'duration' => 12000,
+		'icon' => 'glyphicon glyphicon-ok-sign',
+		'title' => \Yii::t('translation', 'Notice'),
+		'message' => \Yii::t('translation', 'site.login.form_reset_password.new_password_saved'),
+		'positonY' => 'top',
+		'positonX' => 'left'
+	    ]);
 
 	    return $this->goHome();
 	}
@@ -155,13 +181,13 @@ class SiteController extends Controller {
 	]);
 	Yii::$app->response->cookies->add($languageCookie);
 
-	
+
 	Yii::$app->getSession()->setFlash('success', [
 	    'type' => 'success',
 	    'duration' => 12000,
 	    'icon' => 'glyphicon glyphicon-ok-sign',
 	    'title' => Yii::t('translation', 'site.set_language.message_language_selected_title'),
-	    'message' => Yii::t('translation', 'site.set_language.message_language_selected', ['language' => $language]),	    
+	    'message' => Yii::t('translation', 'site.set_language.message_language_selected', ['language' => $language]),
 	    'positonY' => 'top',
 	    'positonX' => 'left'
 	]);

@@ -10,9 +10,12 @@ return [
     'menu.user_register' => 'Cadastro de Usuário',
     'menu.access_control' => 'Controle de Acesso',
     'menu.change_password' => 'Mudar Senha',
+    'menu.general_config_label' => 'Configurações Gerais',
+    'menu.operative_menu_label' => 'Operacional',    
     'menu.institution' => 'Instituição',
     'menu.jurisdiction' => 'Jurisdição',
     'menu.workgroup' => 'Grupo de Trabalho',
+    'menu.config_variables' => 'Variáveis de Sistema',
     'menu.logout' => 'Sair',
     
     /** LANGUAGES **/
@@ -27,6 +30,8 @@ return [
     'update_title'=>'Atualizar: {name}',
     'Are you sure you want to delete this item?' => 'Tem certeza que deseja excluir este item?',
     'Search' => 'Procurar',
+    'Notice' => 'Aviso',
+    'Info' => 'Informativo',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected_title' => 'Mudança de Idioma',
@@ -36,6 +41,7 @@ return [
     'site.login.form_login.password' => 'Senha',
     'site.login.form_login.btn_login' => 'Acessar',
     'site.login.form_login.reset_password_label' => 'Esqueceu sua senha?',
+    'site.login.form_reset_password.new_password_saved' => 'Nova senha salva com sucesso!',
     'site.login.form_reset_password.title' => 'Criar nova senha',
     'site.login.form_reset_password.instructions' => 'Por favor, preencha seu email. O link de criar nova senha senha será enviado por email.',
     'site.login.form_reset_password.send' => 'Enviar',
@@ -46,8 +52,8 @@ return [
     'site.reset_password.email_html' => '<p>Oi {username},</p><p>Clique no link abaixo para criar uma nova senha:</p><p>{link}</p>',
     
     // CONFIG MODEL/CONTROLLER
-    'config' => 'Variável de Config',
-    'configs' => 'Variáveis',
+    'config' => 'Variável',
+    'configs' => 'Variáveis de Sistema',
     'config.id' => 'Id',
     'config.varname' => 'Nome da Variável',
     'config.value' => 'Valor da Variável',
@@ -97,6 +103,7 @@ return [
     'institution.updated_at'=> 'Data Atualização',
     'institution.create_title'=> 'Nova Instituição',
     'institution.create_btn'=> 'Nova Instituição',
+    'institution.message_delete_institution_with_jurisdiction' => 'Não foi possível apagar a Instituição {name} pois existem jurisdições associadas',
     
     
     // JURISDICTION MODEL/CONTROLLER

@@ -9,6 +9,7 @@ use common\models\User;
 use sibilino\yii2\openlayers\OpenLayers;
 use sibilino\yii2\openlayers\OL;
 use yii\web\JsExpression;
+use \common\models\Config;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Workgroup */
@@ -136,8 +137,14 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?php
+    $generalVars = \Yii::$app->config->getVars();
+    $latitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE]);
+    $longitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE]);
+    $zoom = floatval($generalVars[Config::VARNAME_MAP_DEFULT_ZOOM]);
+
+
     echo OpenLayers::widget([
-	'id' => 'test',
+	'id' => 'map',
 	'mapOptions' => [
 	    'layers' => [
 		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
@@ -150,8 +157,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	    // Using a shortcut, we can skip the OL('View' ...)
 	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual
-		'center' => new JsExpression('ol.proj.transform([37.41, 8.82], "EPSG:4326", "EPSG:3857")'),
-		'zoom' => 4,
+		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
+		'zoom' => $zoom,
 	    ],
 	],
     ]);

@@ -72,4 +72,26 @@ class Workgroup extends BaseWorkgroup {
 	return ArrayHelper::map($user, 'id', 'name');
     }
 
+    public function beforeDelete() {
+	parent::beforeDelete();
+
+	$transaction = self::getDb()->beginTransaction();
+	try {
+	    // Delere references
+	    $rl = RlWorkgroupJurisdiction::deleteAll(['workgroup_id' => $this->id]);
+	    $rl = RlWorkgroupUser::deleteAll(['workgroup_id' => $this->id]);
+	    $transaction->commit();
+	    
+	} catch (\Exception $e) {
+	    $transaction->rollBack();
+	    throw $e;
+	} catch (\Throwable $e) {
+	    $transaction->rollBack();
+	    throw $e;
+	}
+	
+	return true;
+	
+    }
+
 }

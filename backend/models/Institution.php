@@ -44,4 +44,24 @@ class Institution extends BaseInstitution {
 	];
     }
 
+    public function beforeDelete() {
+	parent::beforeDelete();
+
+	$jurisdictions = $this->getJurisdictions()->all();
+	if (is_array($jurisdictions) && count($jurisdictions) > 0) {
+	    \Yii::$app->getSession()->setFlash('danger', [
+		'type' => 'danger',
+		'duration' => 12000,
+		'icon' => 'glyphicon glyphicon-exclamation-sign',
+		'title' => \Yii::t('translation', 'Notice'),
+		'message' => \Yii::t('translation', 'institution.message_delete_institution_with_jurisdiction', ['name' => $this->name]),
+		'positonY' => 'top',
+		'positonX' => 'left'
+	    ]);
+	    return false;
+	}
+
+	return true;
+    }
+
 }

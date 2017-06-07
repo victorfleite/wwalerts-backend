@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -12,6 +12,12 @@ use Yii;
  * @property string $value
  */
 class Config extends \yii\db\ActiveRecord {
+
+    const VARNAME_COUNTRY_ID = 'COUNTRY_ID';
+    const VARNAME_TIME_OFFSET = 'TIME_OFFSET';
+    const VARNAME_MAP_DEFAULT_CENTER_LATITUDE = 'MAP_DEFAULT_CENTER_LATITUDE';
+    const VARNAME_MAP_DEFAULT_CENTER_LONGITUDE = 'MAP_DEFAULT_CENTER_LONGITUDE';
+    const VARNAME_MAP_DEFULT_ZOOM = 'MAP_DEFULT_ZOOM';
 
     /**
      * @inheritdoc
