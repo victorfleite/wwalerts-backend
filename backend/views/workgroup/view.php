@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class='text-right'>
 	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
-	<?= Html::a(Yii::t('translation', 'workgroup.associate_users_btn'), ['workgroup/associate-users', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+	<?= Html::a(Yii::t('translation', 'workgroup.associate_user_btn'), ['workgroup/associate-user', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'workgroup.associate_jurisdiction_btn'), ['workgroup/associate-jurisdiction', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?=

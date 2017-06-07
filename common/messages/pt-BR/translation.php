@@ -137,7 +137,7 @@ return [
     'workgroup.associate_jurisdiction_title'=>'Associar Jurisdições',
     'workgroup.associate_jurisdiction_btn' => 'Associar Jurisdição',
     'workgroup.associate_user_title'=>'Associar Usuários',
-    'workgroup.associate_users_btn' => 'Associar Usuário',
+    'workgroup.associate_user_btn' => 'Associar Usuário',
     'workgroup.available' => 'Não Contidos',
     'workgroup.selected' => 'Contidos',
     'workgroup.associate_jurisdiction_dualbox_title'=>'Jurisdições Associadas',

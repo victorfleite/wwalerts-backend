@@ -140,13 +140,13 @@ class WorkgroupController extends Controller {
 	    return $this->redirect(['view', 'id' => $workgroup->id]);
 	}
 	$model->jurisdictions = $workgroup->getAllJurisdictionsIds();
-	return $this->render('associate-jurisdictions', [
+	return $this->render('associate-jurisdiction', [
 		    'model' => $model,
 		    'workgroup' => $workgroup,
 	]);
     }
 
-     public function actionAssociateUsers($id) {
+     public function actionAssociateUser($id) {
 
 	$model = new AssociateUserWorkgroupForm();
 	$workgroup = $this->findModel($id);
@@ -167,7 +167,7 @@ class WorkgroupController extends Controller {
 	    return $this->redirect(['view', 'id' => $workgroup->id]);
 	}
 	$model->users = $workgroup->getAllUsersIds();
-	return $this->render('associate-users', [
+	return $this->render('associate-user', [
 		    'model' => $model,
 		    'workgroup' => $workgroup,
 	]);
