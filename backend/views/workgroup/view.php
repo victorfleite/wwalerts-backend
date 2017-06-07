@@ -142,6 +142,30 @@ $this->params['breadcrumbs'][] = $this->title;
     $longitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE]);
     $zoom = floatval($generalVars[Config::VARNAME_MAP_DEFULT_ZOOM]);
 
+    
+	/*
+      var format = new ol.format.WKT();
+
+      var feature = format.readFeature(wkt, {
+        dataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      });
+
+      var vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: [feature]
+        })
+      });
+
+      var map = new ol.Map({
+        layers: [raster, vector],
+        target: 'map',
+        view: new ol.View({
+          center: [2952104.0199, -3277504.823],
+          zoom: 4
+        })
+      });*/
+    
 
     echo OpenLayers::widget([
 	'id' => 'map',

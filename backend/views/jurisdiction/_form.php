@@ -8,6 +8,7 @@ use backend\models\Institution;
 use sibilino\yii2\openlayers\OpenLayers;
 use sibilino\yii2\openlayers\OL;
 use yii\web\JsExpression;
+use \common\models\Config;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurisdiction */
@@ -37,22 +38,28 @@ use yii\web\JsExpression;
 	]
     ]);
     ?>
-    <?= $form->field($model, 'geom')
-	    ->label(\Yii::t('translation', 'jurisdiction.geom') . ' ('. \Yii::t('translation', 'jurisdiction.geom_hint').')')
-	    ->textArea(['rows' => '6', 'id'=>'wkt']) ?>
-   
+    <?=
+	    $form->field($model, 'geom')
+	    ->label(\Yii::t('translation', 'jurisdiction.geom') . ' (' . \Yii::t('translation', 'jurisdiction.geom_hint') . ')')
+	    ->textArea(['rows' => '6', 'id' => 'wkt'])
+    ?>
+
 
     <div class="form-group">
-	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-    
-    
-    
+<?php ActiveForm::end(); ?>
+
     <?php
+    $generalVars = \Yii::$app->config->getVars();
+    $latitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE]);
+    $longitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE]);
+    $zoom = floatval($generalVars[Config::VARNAME_MAP_DEFULT_ZOOM]);
+
+
     echo OpenLayers::widget([
-	'id' => 'test',
+	'id' => 'map',
 	'mapOptions' => [
 	    'layers' => [
 		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
@@ -65,8 +72,8 @@ use yii\web\JsExpression;
 	    // Using a shortcut, we can skip the OL('View' ...)
 	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual
-		'center' => new JsExpression('ol.proj.transform([37.41, 8.82], "EPSG:4326", "EPSG:3857")'),
-		'zoom' => 4,
+		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
+		'zoom' => $zoom,
 	    ],
 	],
     ]);
