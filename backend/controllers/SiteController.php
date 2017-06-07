@@ -8,6 +8,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\Cookie;
+use yii\helpers\Html;
 use common\models\LoginForm;
 use common\models\User;
 use backend\models\PasswordResetRequestForm;
@@ -94,14 +95,14 @@ class SiteController extends Controller {
      */
     public function actionRequestPasswordReset() {
 	$model = new PasswordResetRequestForm();
-	
+
 	//User Logged
-	if(!Yii::$app->user->isGuest){
+	if (!Yii::$app->user->isGuest) {
 	    $user = User::findOne(Yii::$app->user->id);
-	    $model->email = $user->email; 
+	    $model->email = $user->email;
 	}
-	
-	
+
+
 	if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 	    if ($model->sendEmail()) {
 		Yii::$app->session->setFlash('success', Yii::t('translation', 'site.login.form_reset_password.check_message_further'));
@@ -154,42 +155,51 @@ class SiteController extends Controller {
 	]);
 	Yii::$app->response->cookies->add($languageCookie);
 
-	Yii::$app->session->setFlash('success', Yii::t('translation', 'site.set_language.message_language_selected', ['language' => $language]));
+	
+	Yii::$app->getSession()->setFlash('success', [
+	    'type' => 'success',
+	    'duration' => 12000,
+	    'icon' => 'glyphicon glyphicon-ok-sign',
+	    'title' => Yii::t('translation', 'site.set_language.message_language_selected_title'),
+	    'message' => Yii::t('translation', 'site.set_language.message_language_selected', ['language' => $language]),	    
+	    'positonY' => 'top',
+	    'positonX' => 'left'
+	]);
 
 	return $this->render('setLanguage');
     }
+
     /*
-    public function actionMigrationInserts() {
+      public function actionMigrationInserts() {
 
-	$tablesSchemas = \Yii::$app->db->schema->getTableSchemas();
-	echo "<pre>";
-	foreach ($tablesSchemas as $tableSchema) {
+      $tablesSchemas = \Yii::$app->db->schema->getTableSchemas();
+      echo "<pre>";
+      foreach ($tablesSchemas as $tableSchema) {
 
 
-	    $values = \Yii::$app->db->createCommand('SELECT * FROM ' . $tableSchema->name)->queryAll();
-	    foreach ($values as $value) {
-		echo "$" . "this->insert('" . $tableSchema->name . "', [\n";
-		foreach ($tableSchema->columns as $columnSchema) {
-		    $columnName = $columnSchema->name;
-		    if (isset($value[$columnName]) && !empty($value[$columnName])) {
-			echo "\t'" . $columnName . "' => ".self::verifyTypeAndPutComma($columnSchema, $value[$columnName]).",\n";
-		    }
-		}
-		echo "]);\n\n";
-	    }
-	}
-	echo "</pre>";
-    }
-    static function verifyTypeAndPutComma($columnSchema, $value){
-	//echo $columnSchema->dbType;
-	if($columnSchema->dbType == "varchar"){
-	    return "'".$value."'";
-	}
-	if($columnSchema->dbType == "timestamp"){
-	    return "'".$value."'";
-	}
-	
-	return $value;
-    }*/
+      $values = \Yii::$app->db->createCommand('SELECT * FROM ' . $tableSchema->name)->queryAll();
+      foreach ($values as $value) {
+      echo "$" . "this->insert('" . $tableSchema->name . "', [\n";
+      foreach ($tableSchema->columns as $columnSchema) {
+      $columnName = $columnSchema->name;
+      if (isset($value[$columnName]) && !empty($value[$columnName])) {
+      echo "\t'" . $columnName . "' => ".self::verifyTypeAndPutComma($columnSchema, $value[$columnName]).",\n";
+      }
+      }
+      echo "]);\n\n";
+      }
+      }
+      echo "</pre>";
+      }
+      static function verifyTypeAndPutComma($columnSchema, $value){
+      //echo $columnSchema->dbType;
+      if($columnSchema->dbType == "varchar"){
+      return "'".$value."'";
+      }
+      if($columnSchema->dbType == "timestamp"){
+      return "'".$value."'";
+      }
 
+      return $value;
+      } */
 }

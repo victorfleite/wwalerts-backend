@@ -29,6 +29,7 @@ return [
     'Search' => 'Procurar',
     
     /** SITE CONTROLLER * */
+    'site.set_language.message_language_selected_title' => 'Mudança de Idioma',
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
     'site.login.title' => 'Autenticação',
     'site.login.form_login.email' => 'Login ou Email',
@@ -43,8 +44,15 @@ return [
     'site.login.form_reset_password.email_not_detected' => 'O endereço de email não foi identificado',
     'site.login.form_reset_password.email_subject' => 'Solicitação de criação de senha para {user_name}',
     'site.reset_password.email_html' => '<p>Oi {username},</p><p>Clique no link abaixo para criar uma nova senha:</p><p>{link}</p>',
-           
-    /** USER MODEL/CONTROLLER * */
+    
+    // CONFIG MODEL/CONTROLLER
+    'config' => 'Variável de Config',
+    'configs' => 'Variáveis',
+    'config.id' => 'Id',
+    'config.varname' => 'Nome da Variável',
+    'config.value' => 'Valor da Variável',
+    
+    // USER MODEL/CONTROLLER
     'user'=>'Usuário',
     'users'=>'Usuários',
     'user.name' => 'Nome Completo',
@@ -71,7 +79,7 @@ return [
     'user.signup_form.password' => 'Senha',
     'user.message_unique_field' => 'O campo {field} já está sendo usado',
     
-    // Institution
+    // INSTITUTION MODEL/CONTROLLER
     'institution' => 'Instituição',
     'institutions' => 'Instituições',
     'institution.id' => 'id',
@@ -91,7 +99,7 @@ return [
     'institution.create_btn'=> 'Nova Instituição',
     
     
-    // Jurisdiction
+    // JURISDICTION MODEL/CONTROLLER
     'jurisdiction'=>'Jurisdição',
     'jurisdictions' => 'Jurisdições',
     'jurisdiction.id' => 'Id',
@@ -107,7 +115,7 @@ return [
     'jurisdiction.create_title'=> 'Nova Jurisdição',
     'jurisdiction.create_btn'=> 'Nova Jurisdição',
     
-    // Workgroup
+    // WORKGROUP MODEL/CONTROLLER
     'workgroup' => 'Grupo de Trabalho',
     'workgroups' => 'Grupos de Trabalho',
     'workgroup.id' => 'Id',

@@ -21,33 +21,58 @@ class Menu {
     public static function getMainManu() {
 
 
+	/*return [
+		['label' => 'Action', 'url' => '#'],
+		['label' => 'Submenu 1', 'active' => true, 'items' => [
+			['label' => 'Action', 'url' => '#'],
+			['label' => 'Another action', 'url' => '#'],
+			['label' => 'Something else here', 'url' => '#'],
+		    '<li class="divider"></li>',
+			['label' => 'Submenu 2', 'items' => [
+				['label' => 'Action', 'url' => '#'],
+				['label' => 'Another action', 'url' => '#'],
+				['label' => 'Something else here', 'url' => '#'],
+			    '<li class="divider"></li>',
+				['label' => 'Separated link', 'url' => '#'],
+			]],
+		]],
+		['label' => 'Something else here', 'url' => '#'],
+	    '<li class="divider"></li>',
+		['label' => 'Separated link', 'url' => '#'],
+	];*/
+
+
 	$languageMenu = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
 		    ['label' => Yii::t('translation', 'menu.language.english'), 'url' => ['site/set-language', 'language' => 'en']],
 		    ['label' => Yii::t('translation', 'menu.language.portuguese'), 'url' => ['site/set-language', 'language' => 'pt-BR']],
 	]];
-	if (Yii::$app->user->isGuest) {
+
+	if (Yii::$app->user->isGuest) { // GUEST
 	    $menuItems[] = $languageMenu;
 	    $menuItems[] = ['label' => Yii::t('translation', 'menu.login'), 'url' => ['/site/login']];
-	} else {
+	} else { // LOGGED
 	    $menuItems[] = ['label' => Yii::t('translation', 'menu.home'), 'url' => ['/site/index']];
 	    $menuItems[] = $languageMenu;
+
 	    if (Yii::$app->user->can('/admin/*')) {
 
-		$registerItem = ['label' => Yii::t('translation', 'menu.user_register'), 'url' => ['/user/index']];
-		$accessControlItem = ['label' => Yii::t('translation', 'menu.access_control'), 'url' => ['/admin']];
-		$line = '<li role="separator" class="divider"></li>';
-		// Operative
-		$institutionItem = ['label' => Yii::t('translation', 'menu.institution'), 'url' => ['/institution/index']];
-		$jurisdictionItem = ['label' => Yii::t('translation', 'menu.jurisdiction'), 'url' => ['/jurisdiction/index']];
-		$workgroupItem = ['label' => Yii::t('translation', 'menu.workgroup'), 'url' => ['/workgroup/index']];
+		//$line = '<li role="separator" class="divider"></li>';
+
+		$generalConfigMenu = ['label' => Yii::t('translation', 'menu.general_config_label'), 'items' => [
+			    ['label' => Yii::t('translation', 'menu.user_register'), 'url' => ['/user/index']],
+			    ['label' => Yii::t('translation', 'menu.access_control'), 'url' => ['/admin']],
+		]];
+
+		$operativeMenu = ['label' => Yii::t('translation', 'menu.operative_menu_label'), 'items' => [
+			    ['label' => Yii::t('translation', 'menu.institution'), 'url' => ['/institution/index']],
+			    ['label' => Yii::t('translation', 'menu.jurisdiction'), 'url' => ['/jurisdiction/index']],
+			    ['label' => Yii::t('translation', 'menu.workgroup'), 'url' => ['/workgroup/index']]
+		]];
+
 
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [
-			$registerItem,
-			$accessControlItem,
-			$line,
-			$institutionItem,
-			$jurisdictionItem,
-			$workgroupItem
+			$generalConfigMenu,
+			$operativeMenu,
 		    ],
 		];
 	    }
@@ -63,7 +88,7 @@ class Menu {
 		    . '</li>';
 
 	    // Profile
-	    $menuItems[] = ['label' => Yii::$app->user->identity->username, 'items' => [
+	    $menuItems[] = ['label' => Yii::$app->user->identity->username, 'options' => ['class' => 'nav navbar-nav navbar-right'], 'items' => [
 		    $change,
 		    $logout],
 	    ];

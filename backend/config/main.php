@@ -69,6 +69,9 @@ return [
 	'dumper' => [
             'class' => 'common\models\Dumper',
         ],
+	'config' =>[
+            'class' => 'common\components\Config',
+        ],
 	'authManager' => [
 	    'class' => 'yii\rbac\DbManager',
 	],

@@ -4,6 +4,9 @@ return [
     'id' => 'app-api',
     'name' => '',
     'components' => [
+	'config' =>[
+            'class' => 'common\components\Config',
+        ],
 	'urlManager' => [
 	    'enablePrettyUrl' => true,
 	    'rules' => [
