@@ -67,14 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'name',
 	    'username',
 	    'email:email',
-		[
-		'attribute' => 'created_at',
-		'filter' => null,
-		'value' => function($data) {
-		    $date = new \DateTime();
-		    return $date->setTimestamp($data->created_at)->format('Y-m-d H:i:s');
-		},
-	    ],
+	    'created_at:datetime',
 		[
 		'attribute' => 'status',
 		'filter' => User::getStatusCombo(),
@@ -97,8 +90,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h3><?= Yii::t('translation', 'jurisdictions') ?></h3>
     <?php
+    $jurisdictions = $model->getJurisdictions()->all();
     $dataProvider = new ArrayDataProvider([
-	'allModels' => $model->getJurisdictions()->all(),
+	'allModels' => $jurisdictions,
 	'sort' => [
 	    'attributes' => ['name'],
 	],
@@ -119,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'attribute' => 'color',
 		'format' => 'raw',
 		'value' => function($data) {
-		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
+		    return "<div style='background-color:" . \common\models\Util::convertColorHexToRGB($data->color, $data->opacity) . "'>&nbsp;</div>";
 		},
 	    ],
 	    'created_at:datetime',
@@ -138,46 +132,36 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     $generalVars = \Yii::$app->config->getVars();
-    $latitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE]);
-    $longitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE]);
-    $zoom = floatval($generalVars[Config::VARNAME_MAP_DEFULT_ZOOM]);
+    $latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
+    $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
+    $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
-    
-	/*
-      var format = new ol.format.WKT();
+    $layers = [];
+    $layers[] = new OL('layer.Tile', [
+	'source' => new OL('source.OSM', [
+	    'layer' => 'sat',
+		]),
+    ]);
 
-      var feature = format.readFeature(wkt, {
-        dataProjection: 'EPSG:4326',
-        featureProjection: 'EPSG:3857'
-      });
+    foreach ($jurisdictions as $jurisdiction) {
+	$feature = new JsExpression("readWktFeature('{$jurisdiction->geom}')");
+	$myStyle = new JsExpression("createStyle(hexToRGBA('{$jurisdiction->color}',{$jurisdiction->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
-      var vector = new ol.layer.Vector({
-        source: new ol.source.Vector({
-          features: [feature]
-        })
-      });
-
-      var map = new ol.Map({
-        layers: [raster, vector],
-        target: 'map',
-        view: new ol.View({
-          center: [2952104.0199, -3277504.823],
-          zoom: 4
-        })
-      });*/
-    
+	$layers[] = new OL('layer.Vector', [
+	    'source' => new OL('source.Vector', [
+		'features' => [$feature]
+		    ]
+	    ),
+	    'style' => $myStyle
+	]);
+    }
+    //\Yii::$app->dumper->debug($layers, true);
 
     echo OpenLayers::widget([
 	'id' => 'map',
+	'mapOptionScript' => '@web/js/map.js',
 	'mapOptions' => [
-	    'layers' => [
-		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
-		new OL('layer.Tile', [
-		    'source' => new OL('source.OSM', [
-			'layer' => 'sat',
-			    ]),
-			]),
-	    ],
+	    'layers' => $layers,
 	    // Using a shortcut, we can skip the OL('View' ...)
 	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual

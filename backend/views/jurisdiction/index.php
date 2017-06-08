@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use sibilino\yii2\openlayers\OpenLayers;
+use sibilino\yii2\openlayers\OL;
+use yii\web\JsExpression;
+use \common\models\Config;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -20,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
     GridView::widget([
 	'dataProvider' => $dataProvider,
 	'columns' => [
-	    ['class' => 'yii\grid\SerialColumn'],
-	    [
+		['class' => 'yii\grid\SerialColumn'],
+		[
 		'attribute' => 'institution_id',
 		'value' => 'institution.name',
 	    ],
@@ -30,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'attribute' => 'color',
 		'format' => 'raw',
 		'value' => function($data) {
-		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
+		    return "<div style='background-color:" . \common\models\Util::convertColorHexToRGB($data->color, $data->opacity) . "'>&nbsp;</div>";
 		},
 	    ],
 	    'created_at:datetime',
@@ -42,3 +46,46 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     ?>
 </div>
+
+<?php
+$generalVars = \Yii::$app->config->getVars();
+$latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
+$longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
+$zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
+
+$layers = [];
+$layers[] = new OL('layer.Tile', [
+    'source' => new OL('source.OSM', [
+	'layer' => 'sat',
+	    ]),
+	]);
+
+foreach ($dataProvider->getModels() as $jurisdiction) {
+    $feature = new JsExpression("readWktFeature('{$jurisdiction->geom}')");
+    $myStyle = new JsExpression("createStyle(hexToRGBA('{$jurisdiction->color}',{$jurisdiction->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
+
+    $layers[] = new OL('layer.Vector', [
+	'source' => new OL('source.Vector', [
+	    'features' => [$feature]
+		]
+	),
+	'style' => $myStyle
+    ]);
+}
+//\Yii::$app->dumper->debug($layers, true);
+
+echo OpenLayers::widget([
+    'id' => 'map',
+    'mapOptionScript' => '@web/js/map.js',
+    'mapOptions' => [
+	'layers' => $layers,
+	// Using a shortcut, we can skip the OL('View' ...)
+	'view' => [
+	    // Of course, the generated JS can be customized with JsExpression, as usual
+	    'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
+	    'zoom' => $zoom,
+	],
+    ],
+]);
+?>
+

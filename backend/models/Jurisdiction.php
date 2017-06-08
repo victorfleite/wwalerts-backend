@@ -4,21 +4,31 @@ namespace backend\models;
 
 use \app\models\base\Jurisdiction as BaseJurisdiction;
 use \common\components\behaviors\PolygonBehavior;
+use \common\models\Config;
 
 /**
  * This is the model class for table "operative.jurisdiction".
  */
 class Jurisdiction extends BaseJurisdiction {
 
+    public function init() {
+	parent::init();
+	$generalVars = \Yii::$app->config->getVars();
+	$this->color = $generalVars[Config::VARNAME_JURISDICTION_DEFAULT_LAYER_COLOR];
+	$this->opacity = $generalVars[Config::VARNAME_JURISDICTION_DEFAULT_LAYER_OPACITY];
+    }
+    
+    
     /**
      * @inheritdoc
      */
     public function rules() {
 	return array_replace_recursive(parent::rules(), [
-		[['name', 'geom', 'institution_id', 'color'], 'required'],
+		[['name', 'geom', 'institution_id', 'color', 'opacity'], 'required'],
 		[['name', 'geom'], 'string'],
 		[['institution_id'], 'integer'],
-		[['color'], 'string', 'max' => 10]
+		[['color'], 'string', 'max' => 10],
+		[['opacity'], 'number'],
 	]);
     }
 
@@ -51,9 +61,6 @@ class Jurisdiction extends BaseJurisdiction {
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
 	    ]
 	]);
-	
     }
-   
- 
 
 }

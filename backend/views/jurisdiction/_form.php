@@ -24,7 +24,7 @@ use \common\models\Config;
     echo Form::widget([// 1 column layout
 	'model' => $model,
 	'form' => $form,
-	'columns' => 3,
+	'columns' => 4,
 	'attributes' => [
 	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'jurisdiction.name')]],
 	    'institution_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
@@ -35,6 +35,19 @@ use \common\models\Config;
 		'type' => Form::INPUT_WIDGET,
 		'widgetClass' => '\kartik\widgets\ColorInput',
 	    ],
+	    'opacity' => [
+		'type' => Form::INPUT_WIDGET,
+		'widgetClass' => 'kartik\slider\Slider',
+		'options' => [
+		    'pluginOptions' => [
+			'orientation' => 'horizontal',
+			'handle' => 'round',
+			'min' => 0,
+			'max' => 1,
+			'step' => 0.1
+		    ],
+		]
+	    ]
 	]
     ]);
     ?>
@@ -46,29 +59,41 @@ use \common\models\Config;
 
 
     <div class="form-group">
-    <?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
     <?php
     $generalVars = \Yii::$app->config->getVars();
-    $latitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE]);
-    $longitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE]);
-    $zoom = floatval($generalVars[Config::VARNAME_MAP_DEFULT_ZOOM]);
+    $latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
+    $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
+    $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
+    $layers = [];
+    $layers[] = new OL('layer.Tile', [
+	'source' => new OL('source.OSM', [
+	    'layer' => 'sat',
+		]),
+    ]);
+
+    $feature = new JsExpression("readWktFeature('{$model->geom}')");
+    $myStyle = new JsExpression("createStyle(hexToRGBA('{$model->color}',{$model->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
+
+    $layers[] = new OL('layer.Vector', [
+	'source' => new OL('source.Vector', [
+	    'features' => [$feature]
+		]
+	),
+	'style' => $myStyle
+    ]);
+//\Yii::$app->dumper->debug($layers, true);
 
     echo OpenLayers::widget([
 	'id' => 'map',
+	'mapOptionScript' => '@web/js/map.js',
 	'mapOptions' => [
-	    'layers' => [
-		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
-		new OL('layer.Tile', [
-		    'source' => new OL('source.OSM', [
-			'layer' => 'sat',
-			    ]),
-			]),
-	    ],
+	    'layers' => $layers,
 	    // Using a shortcut, we can skip the OL('View' ...)
 	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual

@@ -23,6 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
 	'columns' => [
 		['class' => 'yii\grid\SerialColumn'],
 	    'name',
+		[
+		'label' => \Yii::t('translation', 'jurisdictions'),
+		'value' => function ($model) {
+		    $names = [];
+		    foreach ($model->getJurisdictions()->all() as $jurisdiction) {
+			$names[] = $jurisdiction->name;
+		    }	
+		    return implode(', ', $names);
+		},
+	    ],
 	    'created_at:datetime',
 		[
 		'class' => 'yii\grid\ActionColumn',

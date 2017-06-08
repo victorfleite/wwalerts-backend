@@ -48,9 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		'attribute' => 'color',
 		'format' => 'raw',
 		'value' => function($data) {
-		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
+		    return "<div style='background-color:" . \common\models\Util::convertColorHexToRGB($data->color, $data->opacity) . "'>&nbsp;</div>";
 		},
 	    ],
+	    'opacity',
 	    'created_at:datetime',
 		[
 		'attribute' => 'created_by',
@@ -72,29 +73,40 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
 
-
     <?php
     $generalVars = \Yii::$app->config->getVars();
-    $latitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE]);
-    $longitude = floatval($generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE]);
-    $zoom = floatval($generalVars[Config::VARNAME_MAP_DEFULT_ZOOM]);
-    
+    $latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
+    $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
+    $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
+
+    $layers = [];
+    $layers[] = new OL('layer.Tile', [
+	'source' => new OL('source.OSM', [
+	    'layer' => 'sat',
+		]),
+    ]);
+
+    $feature = new JsExpression("readWktFeature('{$model->geom}')");
+    $myStyle = new JsExpression("createStyle(hexToRGBA('{$model->color}',{$model->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
+
+    $layers[] = new OL('layer.Vector', [
+	'source' => new OL('source.Vector', [
+	    'features' => [$feature]
+		]
+	),
+	'style' => $myStyle
+    ]);
+//\Yii::$app->dumper->debug($layers, true);
 
     echo OpenLayers::widget([
 	'id' => 'map',
+	'mapOptionScript' => '@web/js/map.js',
 	'mapOptions' => [
-	    'layers' => [
-		// Easily generate JavaScript "new ol.layer.Tile()" using the OL class
-		new OL('layer.Tile', [
-		    'source' => new OL('source.OSM', [
-			'layer' => 'sat',
-			    ]),
-			]),
-	    ],
+	    'layers' => $layers,
 	    // Using a shortcut, we can skip the OL('View' ...)
 	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual
-		'center' => new JsExpression('ol.proj.transform(['.$longitude.', '.$latitude.'], "EPSG:4326", "EPSG:3857")'),
+		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
 		'zoom' => $zoom,
 	    ],
 	],

@@ -67,11 +67,11 @@ return [
     ],
     'components' => [
 	'dumper' => [
-            'class' => 'common\models\Dumper',
-        ],
-	'config' =>[
-            'class' => 'common\components\Config',
-        ],
+	    'class' => 'common\models\Dumper',
+	],
+	'config' => [
+	    'class' => 'common\components\Config',
+	],
 	'authManager' => [
 	    'class' => 'yii\rbac\DbManager',
 	],
@@ -124,6 +124,9 @@ return [
 	// add a lot of actions here until you finally completed setting up rbac,
 	// otherwise you may not even take a first step.
 	]
+    ],
+    'aliases' => [
+	'@web' => '@app/web',
     ],
     'params' => $params,
 ];

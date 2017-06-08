@@ -17,7 +17,12 @@ class Config extends \yii\base\Component {
 	$configs = ConfigModel::find()->all();
 	$r = [];
 	foreach ($configs as $config) {
-	    $r[$config->varname] = $config->value;
+	    if(is_numeric($config->value)){
+		$r[$config->varname] = floatval($config->value);
+	    }else{
+		$r[$config->varname] = $config->value;
+	    }
+	    
 	}
 	$this->vars = $r;
     }
