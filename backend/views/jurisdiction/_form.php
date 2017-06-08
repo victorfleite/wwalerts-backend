@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
@@ -9,6 +10,7 @@ use sibilino\yii2\openlayers\OpenLayers;
 use sibilino\yii2\openlayers\OL;
 use yii\web\JsExpression;
 use \common\models\Config;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurisdiction */
@@ -51,6 +53,31 @@ use \common\models\Config;
 	]
     ]);
     ?>
+    <hr>
+    <p class='text-right'>
+	<?php
+	Modal::begin([
+	    'options' => [
+		'id' => 'local-modal',
+		'tabindex' => false, // important for Select2 to work properly
+		'class' => 'modal fade bs-example-modal-lg'
+	    ],
+	    'header' => '<h4 style="margin:0; padding:0">' . \Yii::t('translation', 'jurisdiction.modal_locals_title') . '</h4>',
+	    'toggleButton' => ['label' => \Yii::t('translation', 'jurisdiction.modal_locals_btn'), 'class' => 'btn btn-primary'],
+	]);
+	echo Select2::widget([
+	    'name' => 'state',
+	    'data' => $data,
+	    'options' => ['placeholder' => 'Select a state ...'],
+	    'pluginOptions' => [
+		'allowClear' => true
+	    ],
+	]);
+	Modal::end();
+	?>
+    </p>
+
+
     <?=
 	    $form->field($model, 'geom')
 	    ->label(\Yii::t('translation', 'jurisdiction.geom') . ' (' . \Yii::t('translation', 'jurisdiction.geom_hint') . ')')
@@ -60,6 +87,7 @@ use \common\models\Config;
 
     <div class="form-group">
 	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<?= Html::button(Yii::t('translation', 'Preview'), ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

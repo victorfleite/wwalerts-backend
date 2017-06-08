@@ -32,6 +32,7 @@ return [
     'Search' => 'Procurar',
     'Notice' => 'Aviso',
     'Info' => 'Informativo',
+    'Preview' => 'Visualizar',
     
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected_title' => 'Mudança de Idioma',
@@ -122,6 +123,8 @@ return [
     'jurisdiction.create_title'=> 'Nova Jurisdição',
     'jurisdiction.create_btn'=> 'Nova Jurisdição',
     'jurisdiction.opacity' => 'Opacidade',
+    'jurisdiction.modal_locals_btn' => 'Importar Locais',
+    'jurisdiction.modal_locals_title' => 'Importar Locais',
     
     // WORKGROUP MODEL/CONTROLLER
     'workgroup' => 'Grupo de Trabalho',
