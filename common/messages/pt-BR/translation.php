@@ -121,6 +121,7 @@ return [
     'jurisdiction.updated_by'=> 'Atualizado por',
     'jurisdiction.create_title'=> 'Nova Jurisdição',
     'jurisdiction.create_btn'=> 'Nova Jurisdição',
+    'jurisdiction.opacity' => 'Opacidade',
     
     // WORKGROUP MODEL/CONTROLLER
     'workgroup' => 'Grupo de Trabalho',

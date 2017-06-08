@@ -46,6 +46,7 @@ class Jurisdiction extends BaseJurisdiction {
 	    'updated_at' => \Yii::t('translation', 'jurisdiction.updated_at'),
 	    'created_by' => \Yii::t('translation', 'jurisdiction.created_by'),
 	    'updated_by' => \Yii::t('translation', 'jurisdiction.updated_by'),
+	    'opacity' => \Yii::t('translation', 'jurisdiction.opacity'),
 	];
     }
 
