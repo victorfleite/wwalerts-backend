@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use \Yii;
 use \app\models\base\City as BaseCity;
 use \common\components\behaviors\PolygonBehavior;
 

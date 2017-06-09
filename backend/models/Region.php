@@ -1,7 +1,8 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
+use \Yii;
 use \app\models\base\Region as BaseRegion;
 use \common\components\behaviors\PolygonBehavior;
 

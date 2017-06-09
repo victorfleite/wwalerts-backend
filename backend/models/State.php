@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use \Yii;
 use \app\models\base\State as BaseState;
 use \common\components\behaviors\PolygonBehavior;
 

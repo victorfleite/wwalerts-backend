@@ -21,25 +21,25 @@ class Menu {
     public static function getMainManu() {
 
 
-	/*return [
-		['label' => 'Action', 'url' => '#'],
-		['label' => 'Submenu 1', 'active' => true, 'items' => [
-			['label' => 'Action', 'url' => '#'],
-			['label' => 'Another action', 'url' => '#'],
-			['label' => 'Something else here', 'url' => '#'],
-		    '<li class="divider"></li>',
-			['label' => 'Submenu 2', 'items' => [
-				['label' => 'Action', 'url' => '#'],
-				['label' => 'Another action', 'url' => '#'],
-				['label' => 'Something else here', 'url' => '#'],
-			    '<li class="divider"></li>',
-				['label' => 'Separated link', 'url' => '#'],
-			]],
-		]],
-		['label' => 'Something else here', 'url' => '#'],
-	    '<li class="divider"></li>',
-		['label' => 'Separated link', 'url' => '#'],
-	];*/
+	/* return [
+	  ['label' => 'Action', 'url' => '#'],
+	  ['label' => 'Submenu 1', 'active' => true, 'items' => [
+	  ['label' => 'Action', 'url' => '#'],
+	  ['label' => 'Another action', 'url' => '#'],
+	  ['label' => 'Something else here', 'url' => '#'],
+	  '<li class="divider"></li>',
+	  ['label' => 'Submenu 2', 'items' => [
+	  ['label' => 'Action', 'url' => '#'],
+	  ['label' => 'Another action', 'url' => '#'],
+	  ['label' => 'Something else here', 'url' => '#'],
+	  '<li class="divider"></li>',
+	  ['label' => 'Separated link', 'url' => '#'],
+	  ]],
+	  ]],
+	  ['label' => 'Something else here', 'url' => '#'],
+	  '<li class="divider"></li>',
+	  ['label' => 'Separated link', 'url' => '#'],
+	  ]; */
 
 
 	$languageMenu = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
@@ -70,23 +70,30 @@ class Menu {
 			    ['label' => Yii::t('translation', 'menu.workgroup'), 'url' => ['/workgroup/index']]
 		]];
 
+		$localMenu = ['label' => Yii::t('translation', 'menu.local_menu_label'), 'items' => [
+			    ['label' => Yii::t('translation', 'menu.country'), 'url' => ['/country/index']],
+			    ['label' => Yii::t('translation', 'menu.state'), 'url' => ['/state/index']],
+			    ['label' => Yii::t('translation', 'menu.region'), 'url' => ['/region/index']],
+			    ['label' => Yii::t('translation', 'menu.city'), 'url' => ['/city/index']]
+		]];
+
 
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [
 			$generalConfigMenu,
 			$operativeMenu,
+			$localMenu
 		    ],
 		];
 	    }
 
 
 	    $change = ['label' => Yii::t('translation', 'menu.change_password'), 'url' => ['/site/request-password-reset']];
-	    $logout = '<li>'
-		    . Html::beginForm(['/site/logout'], 'post')
-		    . Html::submitButton(
+	    
+	    $formLogout = Html::beginForm(['/site/logout'], 'post') . Html::submitButton(
 			    Yii::t('translation', 'menu.logout'), ['class' => 'btn btn-link logout']
-		    )
-		    . Html::endForm()
-		    . '</li>';
+		    ) . Html::endForm();
+	    $logout = Html::tag('li', $formLogout,[]);
+
 
 	    // Profile
 	    $menuItems[] = ['label' => Yii::$app->user->identity->username, 'options' => ['class' => 'nav navbar-nav navbar-right'], 'items' => [
