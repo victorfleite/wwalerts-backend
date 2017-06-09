@@ -86,6 +86,7 @@ use kartik\widgets\Select2;
 
 
     <div class="form-group">
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/jurisdiction/index'], ['class'=>'btn btn-primary']) ?>
 	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	<?= Html::button(Yii::t('translation', 'Preview'), ['class' => 'btn btn-warning']) ?>
     </div>

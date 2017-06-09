@@ -27,6 +27,7 @@ return [
     'Update'=>'Atualizar',
     'Create'=>'Salvar',
     'Delete' => 'Apagar',
+    'Cancel' => 'Cancelar',
     'update_title'=>'Atualizar: {name}',
     'Are you sure you want to delete this item?' => 'Tem certeza que deseja excluir este item?',
     'Search' => 'Procurar',
