@@ -1,4 +1,4 @@
 <?php
 
-header("Location: ./backend/web/index.php");
+header("Location: ./webapp/web/index.php");
 die();
