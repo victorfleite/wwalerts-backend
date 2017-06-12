@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\base;
+namespace webapp\modules\operative\models\base;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -58,7 +58,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getRlWorkgroupJurisdictions()
     {
-        return $this->hasMany(webapp\modules\operative\models\RlWorkgroupJurisdiction::className(), ['workgroup_id' => 'id']);
+        return $this->hasMany(\webapp\modules\operative\models\RlWorkgroupJurisdiction::className(), ['workgroup_id' => 'id']);
     }
         
     /**
@@ -66,7 +66,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getJurisdictions()
     {
-        return $this->hasMany(webapp\modules\operative\models\Jurisdiction::className(), ['id' => 'jurisdiction_id'])->viaTable('operative.rl_workgroup_jurisdiction', ['workgroup_id' => 'id']);
+        return $this->hasMany(\webapp\modules\operative\models\Jurisdiction::className(), ['id' => 'jurisdiction_id'])->viaTable('operative.rl_workgroup_jurisdiction', ['workgroup_id' => 'id']);
     }
         
     /**
@@ -74,7 +74,7 @@ class Workgroup extends \yii\db\ActiveRecord
      */
     public function getRlWorkgroupUsers()
     {
-        return $this->hasMany(webapp\modules\operative\models\RlWorkgroupUser::className(), ['workgroup_id' => 'id']);
+        return $this->hasMany(\webapp\modules\operative\models\RlWorkgroupUser::className(), ['workgroup_id' => 'id']);
     }
         
     /**

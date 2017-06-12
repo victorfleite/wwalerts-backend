@@ -77,7 +77,7 @@ class PolygonBehavior extends GeometryBehavior {
 	$attribute = $this->attribute;
 
 	if (!empty($this->owner->$attribute)) {
-	    $q = "SELECT ST_AsText(ST_Transform('" . $this->owner->$attribute . "'::geometry, ".$this->st_srid_out.")) as $attribute";
+	    $q = "SELECT ST_AsText(ST_Transform(ST_Force2D('" . $this->owner->$attribute . "'::geometry), ".$this->st_srid_out.")) as $attribute";
 	    $res = Yii::$app->db->createCommand($q)->queryOne();
 	    $this->owner->$attribute = $res [$attribute];
 	}

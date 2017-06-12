@@ -7,27 +7,29 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RegionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('translation', 'Regions');
+$this->title = Yii::t('translation', 'regions');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="region-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('translation', 'Create Region'), ['create'], ['class' => 'btn btn-success']) ?>
+    <p class="text-right">
+        <?= Html::a(Yii::t('translation', 'region.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+	    'gid',
             'nm_meso',
-            'cd_geocodu',
-            'country_id',
-            'batch_id',
+            [
+		'attribute' => 'country_id',
+		'value' => 'country.name',
+	    ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

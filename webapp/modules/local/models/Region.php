@@ -16,7 +16,6 @@ class Region extends BaseRegion {
      */
     public function rules() {
 	return array_replace_recursive(parent::rules(), [
-		[['id'], 'number'],
 		[['geom'], 'string'],
 		[['country_id'], 'required'],
 		[['country_id', 'batch_id'], 'integer'],
@@ -31,7 +30,6 @@ class Region extends BaseRegion {
     public function attributeLabels() {
 	return [
 	    'gid' => Yii::t('translation', 'region.gid'),
-	    'id' => Yii::t('translation', 'region.id'),
 	    'nm_meso' => Yii::t('translation', 'region.nm_meso'),
 	    'cd_geocodu' => Yii::t('translation', 'region.cd_geocodu'),
 	    'geom' => Yii::t('translation', 'region.geom'),
@@ -50,6 +48,7 @@ class Region extends BaseRegion {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
+		'pk_name'=>'gid',
 	    ]
 	]);
     }

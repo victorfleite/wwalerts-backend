@@ -4,10 +4,11 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\City */
+/* @var $model app\models\City */ 
 
-$this->title = Yii::t('translation', 'Create City');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Cities'), 'url' => ['index']];
+$this->title = Yii::t('translation', 'city.create_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'cities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="city-create">

@@ -11,7 +11,7 @@ use webapp\modules\operative\models\Workgroup;
 use webapp\modules\operative\models\AssociateJurisdictionWorkgroupForm;
 use webapp\modules\operative\models\AssociateUserWorkgroupForm;
 use webapp\modules\operative\models\RlWorkgroupJurisdiction;
-use webapp\modules\operative\models\RlWorkgroupUser;
+use webapp\modules\operative\models\RlWorkgroupUser; 
 
 /**
  * WorkgroupController implements the CRUD actions for Workgroup model.

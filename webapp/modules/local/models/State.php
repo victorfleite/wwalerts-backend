@@ -53,6 +53,7 @@ class State extends BaseState {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
+		'pk_name'=>'gid',
 	    ]
 	]);
     }

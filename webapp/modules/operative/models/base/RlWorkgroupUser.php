@@ -55,7 +55,7 @@ class RlWorkgroupUser extends \yii\db\ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getWorkgroup() {
-	return $this->hasOne(webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id']);
+	return $this->hasOne(\webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id']);
     }
 
     /**

@@ -5,10 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\City */
 
-$this->title = Yii::t('translation', 'Update {modelClass}: ', [
-    'modelClass' => 'City',
-]) . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Cities'), 'url' => ['index']];
+$this->title = Yii::t('translation', 'update_title', [
+    'name' => $model->name,
+]);
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'cities'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->gid]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
 ?>

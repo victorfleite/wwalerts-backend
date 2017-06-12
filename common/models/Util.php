@@ -58,4 +58,16 @@ class Util {
 	return str_replace($array1, $array2, $t);
     }
 
+    /**
+     * Remove middle of String
+     * @param type $string
+     * @param type $maxChars
+     * @return type
+     */
+    static function removeMiddleOfString($string, $maxChars, $middleString = '...') {
+
+	$textLength = strlen($string);
+	return substr_replace($string, $middleString, $maxChars / 2, $textLength - $maxChars);
+    }
+
 }

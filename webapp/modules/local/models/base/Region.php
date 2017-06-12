@@ -27,7 +27,6 @@ class Region extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'number'],
             [['geom'], 'string'],
             [['country_id'], 'required'],
             [['country_id', 'batch_id'], 'integer'],
@@ -51,7 +50,6 @@ class Region extends \yii\db\ActiveRecord
     {
         return [
             'gid' => Yii::t('translation', 'Gid'),
-            'id' => Yii::t('translation', 'ID'),
             'nm_meso' => Yii::t('translation', 'Nm Meso'),
             'cd_geocodu' => Yii::t('translation', 'Cd Geocodu'),
             'geom' => Yii::t('translation', 'Geom'),

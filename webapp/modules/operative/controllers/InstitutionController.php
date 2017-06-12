@@ -3,7 +3,7 @@
 namespace webapp\modules\operative\controllers;
 
 use Yii;
-use webapp\modules\operative\models\Institution;
+use \webapp\modules\operative\models\Institution;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

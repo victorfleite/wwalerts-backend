@@ -19,7 +19,7 @@ class CitySearch extends City
     {
         return [
             [['gid', 'batch_id'], 'integer'],
-            [['latitude', 'longitude', 'id', 'state_id', 'geocode'], 'number'],
+            [['latitude', 'longitude', 'state_id', 'geocode'], 'number'],
             [['name', 'the_geom_s', 'geom'], 'safe'],
         ];
     }
@@ -63,13 +63,12 @@ class CitySearch extends City
             'gid' => $this->gid,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'id' => $this->id,
             'state_id' => $this->state_id,
             'geocode' => $this->geocode,
             'batch_id' => $this->batch_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['ilike', 'remove_accent(name)', \common\models\Util::removeAccent($this->name)])
             ->andFilterWhere(['like', 'the_geom_s', $this->the_geom_s])
             ->andFilterWhere(['like', 'geom', $this->geom]);
 

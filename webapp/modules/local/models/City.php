@@ -2,7 +2,6 @@
 
 namespace webapp\modules\local\models;
 
-use \Yii;
 use webapp\modules\local\models\base\City as BaseCity;
 use \common\components\behaviors\PolygonBehavior;
 
@@ -16,9 +15,9 @@ class City extends BaseCity {
      */
     public function rules() {
 	return array_replace_recursive(parent::rules(), [
-		[['latitude', 'longitude', 'id', 'state_id', 'geocode'], 'number'],
+		[['latitude', 'longitude', 'state_id', 'geocode'], 'number'],
 		[['geom'], 'string'],
-		[['batch_id'], 'integer'],
+		[['batch_id', 'country_id'], 'integer'],
 		[['name'], 'string', 'max' => 75],
 		[['the_geom_s'], 'string', 'max' => 254]
 	]);
@@ -32,13 +31,13 @@ class City extends BaseCity {
 	    'gid' => \Yii::t('translation', 'city.gid'),
 	    'latitude' => \Yii::t('translation', 'city.latitude'),
 	    'longitude' => \Yii::t('translation', 'city.longitude'),
-	    'id' => \Yii::t('translation', 'city.id'),
 	    'state_id' => \Yii::t('translation', 'city.state_id'),
 	    'name' => \Yii::t('translation', 'city.name'),
 	    'the_geom_s' => \Yii::t('translation', 'city.the_geom_s'),
 	    'geocode' => \Yii::t('translation', 'city.geocode'),
 	    'geom' => \Yii::t('translation', 'city.geom'),
 	    'batch_id' => \Yii::t('translation', 'city.batch_id'),
+	    'country_id' => \Yii::t('translation', 'city.country_id'),
 	];
     }
 
@@ -52,6 +51,7 @@ class City extends BaseCity {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
+		'pk_name'=>'gid',
 	    ]
 	]);
     }

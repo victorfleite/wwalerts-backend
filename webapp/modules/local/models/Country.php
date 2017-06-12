@@ -57,6 +57,7 @@ class Country extends BaseCountry {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
+		'pk_name'=>'gid',
 	    ]
 	]);
     }

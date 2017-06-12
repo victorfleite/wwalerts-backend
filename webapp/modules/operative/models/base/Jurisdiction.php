@@ -62,7 +62,7 @@ class Jurisdiction extends \yii\db\ActiveRecord
      */
     public function getInstitution()
     {
-        return $this->hasOne(webapp\modules\operative\models\Institution::className(), ['id' => 'institution_id']);
+        return $this->hasOne(\webapp\modules\operative\models\Institution::className(), ['id' => 'institution_id']);
     }
         
     /**
@@ -70,7 +70,7 @@ class Jurisdiction extends \yii\db\ActiveRecord
      */
     public function getRlWorkgroupJurisdictions()
     {
-        return $this->hasMany(webapp\modules\operative\models\RlWorkgroupJurisdiction::className(), ['jurisdiction_id' => 'id']);
+        return $this->hasMany(\webapp\modules\operative\models\RlWorkgroupJurisdiction::className(), ['jurisdiction_id' => 'id']);
     }
         
     /**
@@ -78,7 +78,7 @@ class Jurisdiction extends \yii\db\ActiveRecord
      */
     public function getWorkgroups()
     {
-        return $this->hasMany(webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('rl_workgroup_jurisdiction', ['jurisdiction_id' => 'id']);
+        return $this->hasMany(\webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('rl_workgroup_jurisdiction', ['jurisdiction_id' => 'id']);
     }
     
     /**

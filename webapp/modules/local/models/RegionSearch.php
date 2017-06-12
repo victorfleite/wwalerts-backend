@@ -19,7 +19,6 @@ class RegionSearch extends Region
     {
         return [
             [['gid', 'country_id', 'batch_id'], 'integer'],
-            [['id'], 'number'],
             [['nm_meso', 'cd_geocodu', 'geom'], 'safe'],
         ];
     }
@@ -61,7 +60,6 @@ class RegionSearch extends Region
         // grid filtering conditions
         $query->andFilterWhere([
             'gid' => $this->gid,
-            'id' => $this->id,
             'country_id' => $this->country_id,
             'batch_id' => $this->batch_id,
         ]);

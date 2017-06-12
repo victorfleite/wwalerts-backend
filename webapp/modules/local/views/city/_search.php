@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\CitySearch */
@@ -14,30 +17,33 @@ use yii\widgets\ActiveForm;
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-
-    <?= $form->field($model, 'gid') ?>
-
-    <?= $form->field($model, 'latitude') ?>
-
-    <?= $form->field($model, 'longitude') ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'state_id') ?>
-
-    <?php // echo $form->field($model, 'name') ?>
-
-    <?php // echo $form->field($model, 'the_geom_s') ?>
-
-    <?php // echo $form->field($model, 'geocode') ?>
-
-    <?php // echo $form->field($model, 'geom') ?>
-
-    <?php // echo $form->field($model, 'batch_id') ?>
+    
+     <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 4,
+	'attributes' => [
+	    'gid' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.gid')]],
+	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.name')]],
+	    'state_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => ArrayHelper::map(\webapp\modules\local\models\State::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
+		'options' => [
+		    'prompt' => ''
+		]],
+	    'country_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
+		'options' => [
+		    'prompt' => ''
+		]],
+	   
+	]
+    ]);
+    ?>
+ 
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('translation', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

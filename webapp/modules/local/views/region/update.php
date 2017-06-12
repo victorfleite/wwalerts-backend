@@ -5,11 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Region */
 
-$this->title = Yii::t('translation', 'Update {modelClass}: ', [
-    'modelClass' => 'Region',
-]) . $model->gid;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Regions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->gid, 'url' => ['view', 'id' => $model->gid]];
+$this->title = Yii::t('translation', 'update_title', [
+    'name' => $model->nm_meso,
+]);
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'regions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->nm_meso, 'url' => ['view', 'id' => $model->gid]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
 ?>
 <div class="region-update">

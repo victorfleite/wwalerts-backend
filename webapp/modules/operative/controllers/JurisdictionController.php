@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\controllers;
+namespace webapp\modules\operative\controllers;
 
 use Yii;
-use webapp\modules\operative\models\Jurisdiction;
+use \webapp\modules\operative\models\Jurisdiction;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
-use \backend\models\Jurisdiction;
+use webapp\modules\operative\models\Jurisdiction;
 use softark\duallistbox\DualListbox;
 
 /* @var $this yii\web\View */
