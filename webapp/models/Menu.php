@@ -65,16 +65,16 @@ class Menu {
 		]];
 
 		$operativeMenu = ['label' => Yii::t('translation', 'menu.operative_menu_label'), 'items' => [
-			    ['label' => Yii::t('translation', 'menu.institution'), 'url' => ['/institution/index']],
-			    ['label' => Yii::t('translation', 'menu.jurisdiction'), 'url' => ['/jurisdiction/index']],
-			    ['label' => Yii::t('translation', 'menu.workgroup'), 'url' => ['/workgroup/index']]
+			    ['label' => Yii::t('translation', 'menu.institution'), 'url' => ['/operative/institution/index']],
+			    ['label' => Yii::t('translation', 'menu.jurisdiction'), 'url' => ['/operative/jurisdiction/index']],
+			    ['label' => Yii::t('translation', 'menu.workgroup'), 'url' => ['/operative/workgroup/index']]
 		]];
 
 		$localMenu = ['label' => Yii::t('translation', 'menu.local_menu_label'), 'items' => [
-			    ['label' => Yii::t('translation', 'menu.country'), 'url' => ['/country/index']],
-			    ['label' => Yii::t('translation', 'menu.state'), 'url' => ['/state/index']],
-			    ['label' => Yii::t('translation', 'menu.region'), 'url' => ['/region/index']],
-			    ['label' => Yii::t('translation', 'menu.city'), 'url' => ['/city/index']]
+			    ['label' => Yii::t('translation', 'menu.country'), 'url' => ['/local/country/index']],
+			    ['label' => Yii::t('translation', 'menu.state'), 'url' => ['/local/state/index']],
+			    ['label' => Yii::t('translation', 'menu.region'), 'url' => ['/local/region/index']],
+			    ['label' => Yii::t('translation', 'menu.city'), 'url' => ['/local/city/index']]
 		]];
 
 
