@@ -21,9 +21,8 @@ use kartik\builder\Form;
     echo Form::widget([// 1 column layout
 	'model' => $model,
 	'form' => $form,
-	'columns' => 3,
+	'columns' => 2,
 	'attributes' => [
-	    'gid' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'region.gid')]],
 	    'nm_meso' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'region.nm_meso')]],
 	    'country_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
 		'items' => ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),

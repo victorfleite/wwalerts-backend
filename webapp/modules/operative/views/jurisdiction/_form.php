@@ -5,7 +5,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-use backend\models\Institution;
+use webapp\modules\operative\models\Institution;
 use sibilino\yii2\openlayers\OpenLayers;
 use sibilino\yii2\openlayers\OL;
 use yii\web\JsExpression;

@@ -68,7 +68,7 @@ class StateSearch extends State
             'batch_id' => $this->batch_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['ilike', 'remove_accent(name)', \common\models\Util::removeAccent($this->name)])
             ->andFilterWhere(['like', 'abbreviati', $this->abbreviati])
             ->andFilterWhere(['like', 'icon_path', $this->icon_path])
             ->andFilterWhere(['like', 'geom', $this->geom]);

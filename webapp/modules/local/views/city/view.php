@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
 	'model' => $model,
 	'attributes' => [
-	    'gid',
 	    'name',
 	    'latitude',
 	    'longitude',

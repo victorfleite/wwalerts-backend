@@ -74,7 +74,7 @@ class CountrySearch extends Country
         $query->andFilterWhere(['like', 'fips', $this->fips])
             ->andFilterWhere(['like', 'iso2', $this->iso2])
             ->andFilterWhere(['like', 'iso3', $this->iso3])
-            ->andFilterWhere(['like', 'name', $this->name])
+	    ->andFilterWhere(['ilike', 'remove_accent(name)', \common\models\Util::removeAccent($this->name)])
             ->andFilterWhere(['like', 'geom', $this->geom]);
 
         return $dataProvider;

@@ -15,8 +15,6 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'gid') ?>
-
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'country_id') ?>

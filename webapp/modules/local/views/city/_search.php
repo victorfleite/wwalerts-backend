@@ -22,9 +22,8 @@ use kartik\builder\Form;
     echo Form::widget([// 1 column layout
 	'model' => $model,
 	'form' => $form,
-	'columns' => 4,
+	'columns' => 3,
 	'attributes' => [
-	    'gid' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.gid')]],
 	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.name')]],
 	    'state_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
 		'items' => ArrayHelper::map(\webapp\modules\local\models\State::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
