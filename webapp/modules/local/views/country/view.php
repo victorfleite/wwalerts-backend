@@ -63,8 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $longitude = floatval($model->lon);
     $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
-    $layers = [];
-    $layers[] = new OL('layer.Tile', [
+    $raster = new OL('layer.Tile', [
 	'source' => new OL('source.OSM', [
 	    'layer' => 'sat',
 		]),
@@ -72,8 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
     $myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
-   
-    $layers[] = new OL('layer.Vector', [
+
+    $vector = new OL('layer.Vector', [
 	'source' => new OL('source.Vector', [
 	    'features' => [$feature]
 		]
@@ -84,17 +83,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     echo OpenLayers::widget([
 	'id' => 'map',
-	'mapOptionScript' => '@web/js/map.js',
+	'mapOptionScript' => '@web/js/map-commons.js',
 	'mapOptions' => [
-	    'layers' => $layers,
+	    'layers' => [$raster, $vector],
 	    // Using a shortcut, we can skip the OL('View' ...)
-	    'view' => [
+	    /*'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual
 		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
 		'zoom' => $zoom,
-	    ],
+	    ],*/
 	],
     ]);
+    $script = new JsExpression(
+	      "var map = sibilino.olwidget.getMapById('map');"
+	    . "var extent;"
+	    . "var feature = map.getLayers().getArray()[1].getSource().getFeatures()[0];"
+	    . "extent = feature.getGeometry().getExtent();"
+	    . "map.getView().fit(extent,map.getSize());"
+	    
+	    );
+    $this->registerJs($script);
+    
+    
+    
     ?>
 
 </div>
