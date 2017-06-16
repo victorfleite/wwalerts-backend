@@ -61,30 +61,29 @@ $this->params['breadcrumbs'][] = $this->title;
     $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
     $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
-    $layers = [];
-    $layers[] = new OL('layer.Tile', [
+    $raster = new OL('layer.Tile', [
 	'source' => new OL('source.OSM', [
 	    'layer' => 'sat',
 		]),
     ]);
 
-    $feature = new JsExpression("readWktFeature('{$model->geom}')");
-    $myStyle = new JsExpression("createStyle('rgba(0, 0, 0, 1)', 'rgba(0, 0, 0, 0.5)', 0.8)");
+    $feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
+    $myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
-    $layers[] = new OL('layer.Vector', [
+    $vector = new OL('layer.Vector', [
 	'source' => new OL('source.Vector', [
 	    'features' => [$feature]
 		]
 	),
 	'style' => $myStyle
     ]);
-//\Yii::$app->dumper->debug($layers, true);
+    //\Yii::$app->dumper->debug($layers, true);
 
     echo OpenLayers::widget([
 	'id' => 'map',
-	'mapOptionScript' => '@web/js/map.js',
+	'mapOptionScript' => '@web/js/map-commons.js',
 	'mapOptions' => [
-	    'layers' => $layers,
+	    'layers' => [$raster, $vector],
 	    // Using a shortcut, we can skip the OL('View' ...)
 	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual
@@ -93,6 +92,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 	],
     ]);
+    // Centralizing map from feature
+    $script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
+    $this->registerJs($script);
     ?>
 
 

@@ -58,6 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?php
+    
+    
     $generalVars = \Yii::$app->config->getVars();
     $latitude = floatval($model->lat);
     $longitude = floatval($model->lon);
@@ -87,21 +89,15 @@ $this->params['breadcrumbs'][] = $this->title;
 	'mapOptions' => [
 	    'layers' => [$raster, $vector],
 	    // Using a shortcut, we can skip the OL('View' ...)
-	    /*'view' => [
+	    'view' => [
 		// Of course, the generated JS can be customized with JsExpression, as usual
 		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
 		'zoom' => $zoom,
-	    ],*/
+	    ],
 	],
     ]);
-    $script = new JsExpression(
-	      "var map = sibilino.olwidget.getMapById('map');"
-	    . "var extent;"
-	    . "var feature = map.getLayers().getArray()[1].getSource().getFeatures()[0];"
-	    . "extent = feature.getGeometry().getExtent();"
-	    . "map.getView().fit(extent,map.getSize());"
-	    
-	    );
+    // Centralizing map from feature
+    $script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
     $this->registerJs($script);
     
     

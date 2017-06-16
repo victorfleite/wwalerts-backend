@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use sibilino\yii2\openlayers\OpenLayers;
+use sibilino\yii2\openlayers\OL;
+use yii\web\JsExpression;
+use \common\models\Config;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\City */
@@ -60,6 +64,48 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 	],
     ])
+    ?>
+
+    <?php
+    $generalVars = \Yii::$app->config->getVars();
+    $latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
+    $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
+    $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
+
+    $raster = new OL('layer.Tile', [
+	'source' => new OL('source.OSM', [
+	    'layer' => 'sat',
+		]),
+    ]);
+
+    $feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
+    $myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
+
+    $vector = new OL('layer.Vector', [
+	'source' => new OL('source.Vector', [
+	    'features' => [$feature]
+		]
+	),
+	'style' => $myStyle
+    ]);
+    //\Yii::$app->dumper->debug($layers, true);
+
+    echo OpenLayers::widget([
+	'id' => 'map',
+	'mapOptionScript' => '@web/js/map-commons.js',
+	'mapOptions' => [
+	    'layers' => [$raster, $vector],
+	    // Using a shortcut, we can skip the OL('View' ...)
+	    'view' => [
+		// Of course, the generated JS can be customized with JsExpression, as usual
+		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
+		'zoom' => $zoom,
+	    ],
+	],
+    ]);
+    // Centralizing map from feature
+    $script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
+    $this->registerJs($script);
     ?>
 
 </div>

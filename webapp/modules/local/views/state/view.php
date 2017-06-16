@@ -2,19 +2,23 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use sibilino\yii2\openlayers\OpenLayers;
+use sibilino\yii2\openlayers\OL;
+use yii\web\JsExpression;
+use \common\models\Config;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\State */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'States'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'states'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="state-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <p class="text-right">
         <?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->gid], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('translation', 'Delete'), ['delete', 'id' => $model->gid], [
             'class' => 'btn btn-danger',
@@ -29,15 +33,59 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'name',
-            'country_id',
+            [
+		'attribute' => 'country_id',
+		'value' => function($data) {
+		    $country = \webapp\modules\local\models\Country::findOne($data->country_id);
+		    return $country->name;
+		},
+	    ],
             'center_lat',
             'center_lon',
             'abbreviati',
             'icon_path',
             'cd_geocodu',
-            'geom',
-            'batch_id',
+            [
+		'attribute' => 'geom',
+		'value' => function($data) {
+		    return \common\models\Util::removeMiddleOfString($data->geom, 120);
+		},
+	    ]
         ],
     ]) ?>
+    
+    <?php
+    $generalVars = \Yii::$app->config->getVars();
+
+    $raster = new OL('layer.Tile', [
+	'source' => new OL('source.OSM', [
+	    'layer' => 'sat',
+		]),
+    ]);
+
+    $feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
+    $myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
+
+    $vector = new OL('layer.Vector', [
+	'source' => new OL('source.Vector', [
+	    'features' => [$feature]
+		]
+	),
+	'style' => $myStyle
+    ]);
+    //\Yii::$app->dumper->debug($layers, true);
+
+    echo OpenLayers::widget([
+	'id' => 'map',
+	'mapOptionScript' => '@web/js/map-commons.js',
+	'mapOptions' => [
+	    'layers' => [$raster, $vector],
+	],
+    ]);
+    // Centralizing map from feature
+    $script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
+    $this->registerJs($script);
+    ?>
+
 
 </div>
