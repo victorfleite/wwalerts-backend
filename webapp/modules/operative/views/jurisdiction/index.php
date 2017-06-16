@@ -76,7 +76,7 @@ foreach ($dataProvider->getModels() as $jurisdiction) {
 
 echo OpenLayers::widget([
     'id' => 'map',
-    'mapOptionScript' => '@web/js/map.js',
+    'mapOptionScript' => '@web/js/map-commons.js',
     'mapOptions' => [
 	'layers' => $layers,
 	// Using a shortcut, we can skip the OL('View' ...)
@@ -87,5 +87,9 @@ echo OpenLayers::widget([
 	],
     ],
 ]);
+
+// Centralizing map from feature
+$script = new JsExpression("setMapCenterFromFeatures(sibilino.olwidget.getMapById('map'));");
+$this->registerJs($script);
 ?>
 
