@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Country */
@@ -11,29 +13,55 @@ use yii\widgets\ActiveForm;
 <div class="country-form">
 
     <?php $form = ActiveForm::begin(); ?>
-        
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($model, 'un')->textInput() ?>
 
-    <?= $form->field($model, 'fips')->textInput(['maxlength' => true]) ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 2,
+	'attributes' => [
+	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.name')]],
+	    'un' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.un')]],
+	]
+    ]);
+    ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 3,
+	'attributes' => [
+	    'fips' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.fips')]],
+	    'iso2' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.iso2')]],
+	    'iso3' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.iso3')]],
+	]
+    ]);
+    ?>
 
-    <?= $form->field($model, 'iso2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'iso3')->textInput(['maxlength' => true]) ?>
-
-   
-    <?= $form->field($model, 'area')->textInput() ?>
-
-    <?= $form->field($model, 'pop2005')->textInput() ?>
-
-    <?= $form->field($model, 'region')->textInput() ?>
-
-    <?= $form->field($model, 'subregion')->textInput() ?>
-
-    <?= $form->field($model, 'lon')->textInput() ?>
-
-    <?= $form->field($model, 'lat')->textInput() ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 3,
+	'attributes' => [
+	    'area' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.area')]],
+	    'pop2005' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.pop2005')]],
+	    'region' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.region')]],
+	]
+    ]);
+    ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 3,
+	'attributes' => [
+	    'subregion' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.subregion')]],
+	    'lon' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.lon')]],
+	    'lat' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'country.lat')]],
+	]
+    ]);
+    ?>
 
     <?=
 	    $form->field($model, 'geom')
@@ -42,7 +70,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

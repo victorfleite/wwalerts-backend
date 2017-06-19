@@ -10,27 +10,25 @@ use webapp\modules\local\models\Country;
 /**
  * CountrySearch represents the model behind the search form about `app\models\Country`.
  */
-class CountrySearch extends Country
-{
+class CountrySearch extends Country {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['gid', 'un', 'area', 'region', 'subregion', 'batch_id'], 'integer'],
-            [['fips', 'iso2', 'iso3', 'name', 'geom'], 'safe'],
-            [['pop2005', 'lon', 'lat'], 'number'],
-        ];
+    public function rules() {
+	return [
+		[['gid', 'un', 'area', 'region', 'subregion', 'batch_id'], 'integer'],
+		[['fips', 'iso2', 'iso3', 'name', 'geom'], 'safe'],
+		[['pop2005', 'lon', 'lat'], 'number'],
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+    public function scenarios() {
+	// bypass scenarios() implementation in the parent class
+	return Model::scenarios();
     }
 
     /**
@@ -40,43 +38,27 @@ class CountrySearch extends Country
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = Country::find();
+    public function search($params) {
+	$query = Country::find()->select(['gid', 'un', 'name']);
 
-        // add conditions that should always apply here
+	// add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+	$dataProvider = new ActiveDataProvider([
+	    'query' => $query,
+	]);
 
-        $this->load($params);
+	$this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+	if (!$this->validate()) {
+	    // uncomment the following line if you do not want to return any records when validation fails
+	    // $query->where('0=1');
+	    return $dataProvider;
+	}
+	
+	$query->andFilterWhere(['ilike', 'remove_accent(name)', \common\models\Util::removeAccent($this->name)])
+		->andFilterWhere(['like', 'un', $this->un]);
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'gid' => $this->gid,
-            'un' => $this->un,
-            'area' => $this->area,
-            'pop2005' => $this->pop2005,
-            'region' => $this->region,
-            'subregion' => $this->subregion,
-            'lon' => $this->lon,
-            'lat' => $this->lat,
-            'batch_id' => $this->batch_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'fips', $this->fips])
-            ->andFilterWhere(['like', 'iso2', $this->iso2])
-            ->andFilterWhere(['like', 'iso3', $this->iso3])
-	    ->andFilterWhere(['ilike', 'remove_accent(name)', \common\models\Util::removeAccent($this->name)])
-            ->andFilterWhere(['like', 'geom', $this->geom]);
-
-        return $dataProvider;
+	return $dataProvider;
     }
+
 }

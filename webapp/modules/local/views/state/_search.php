@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\StateSearch */
@@ -15,27 +17,26 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'country_id') ?>
-
-    <?= $form->field($model, 'center_lat') ?>
-
-    <?= $form->field($model, 'center_lon') ?>
-
-    <?php // echo $form->field($model, 'abbreviati') ?>
-
-    <?php // echo $form->field($model, 'icon_path') ?>
-
-    <?php // echo $form->field($model, 'cd_geocodu') ?>
-
-    <?php // echo $form->field($model, 'geom') ?>
-
-    <?php // echo $form->field($model, 'batch_id') ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 3,
+	'attributes' => [
+	    'abbreviati' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'state.abbreviati')]],
+	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'state.name')]],	    
+	    'country_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
+		'options' => [
+		    'prompt' => ''
+		]],
+	   
+	]
+    ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('translation', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

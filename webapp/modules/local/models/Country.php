@@ -15,14 +15,15 @@ class Country extends BaseCountry {
      * @inheritdoc
      */
     public function rules() {
-	return array_replace_recursive(parent::rules(), [
+	return [
+		[['name', 'geom'], 'required'],
 		[['un', 'area', 'region', 'subregion', 'batch_id'], 'integer'],
 		[['pop2005', 'lon', 'lat'], 'number'],
 		[['geom'], 'string'],
 		[['fips', 'iso2'], 'string', 'max' => 2],
 		[['iso3'], 'string', 'max' => 3],
 		[['name'], 'string', 'max' => 50]
-	]);
+	];
     }
 
     /**

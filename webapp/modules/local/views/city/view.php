@@ -38,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	'model' => $model,
 	'attributes' => [
 	    'name',
-	    'latitude',
-	    'longitude',
 		[
 		'attribute' => 'state_id',
 		'value' => function($data) {
@@ -54,6 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return $country->name;
 		},
 	    ],
+	    'latitude',
+	    'longitude',
 	    'the_geom_s',
 	    'geocode',
 		[

@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Region */
@@ -12,13 +14,24 @@ use yii\helpers\ArrayHelper;
 <div class="region-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'nm_meso')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'cd_geocodu')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'country_id')->dropDownList(ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'), ['prompt' => '']);?>
-
+    
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 3,
+	'attributes' => [
+	    'nm_meso' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'region.nm_meso')]],	  
+	    'country_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
+		'options' => [
+		    'prompt' => ''
+		]],
+	    'cd_geocodu' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'region.cd_geocodu')]], 	
+	]
+    ]);
+    ?>
+    
     <?=
 	    $form->field($model, 'geom')
 	    ->label(\Yii::t('translation', 'region.geom') . ' (' . \Yii::t('translation', 'region.geom_hint') . ')')

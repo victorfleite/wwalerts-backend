@@ -112,7 +112,7 @@ return [
     'state' => 'Estado',
     'states' => 'Estados',
     'state.gid' => 'Id',
-    'state.name' => 'Name',
+    'state.name' => 'Nome',
     'state.country_id' => 'País',
     'state.center_lat' => 'Latitude Central',
     'state.center_lon' => 'Longitude Central',
@@ -125,6 +125,7 @@ return [
     'state.search_for' => 'Digite Aqui',
     'state.create_title' => 'Novo Estado',    
     'state.create_btn' => 'Novo Estado',
+    'state.icon' => 'Ícone',
     // REGION MODEL/CONTROLLER
     'region' => 'Região',
     'regions' => 'Regiões',

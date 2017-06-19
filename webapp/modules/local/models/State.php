@@ -38,7 +38,7 @@ class State extends BaseState {
 	    'abbreviati' => Yii::t('translation', 'state.abbreviati'),
 	    'icon_path' => Yii::t('translation', 'state.icon_path'),
 	    'cd_geocodu' => Yii::t('translation', 'state.cd_geocodu'),
-	    'geom' => Yii::t('translation', 'state._geom'),
+	    'geom' => Yii::t('translation', 'state.geom'),
 	    'batch_id' => Yii::t('translation', 'state.batch_id'),
 	];
     }
@@ -53,9 +53,16 @@ class State extends BaseState {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
-		'pk_name'=>'gid',
+		'pk_name' => 'gid',
 	    ]
 	]);
+    }
+    /**
+     * Get Url for Icon of state
+     * @return type
+     */
+    public function getIconPathUrl() {
+	return \Yii::$app->request->BaseUrl .'/'. $this->icon_path;
     }
 
 }

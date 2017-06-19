@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->gid], ['class' => 'btn btn-primary']) ?>
 	<?=
 	Html::a(Yii::t('translation', 'Delete'), ['delete', 'id' => $model->gid], [
@@ -40,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'fips',
 	    'iso2',
 	    'iso3',
-	    'name',
 	    'area',
 	    'pop2005',
 	    'region',

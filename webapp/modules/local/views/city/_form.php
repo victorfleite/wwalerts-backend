@@ -1,8 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\City */
@@ -13,21 +14,39 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'latitude')->textInput() ?>
-
-    <?= $form->field($model, 'longitude')->textInput() ?>
-    
-    <?= $form->field($model, 'state_id')->dropDownList(ArrayHelper::map(\webapp\modules\local\models\State::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'), ['prompt' => '']);?>
-    
-    <?= $form->field($model, 'country_id')->dropDownList(ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'), ['prompt' => '']);?>
-
-    <?= $form->field($model, 'the_geom_s')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'geocode')->textInput() ?>
-
-
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 3,
+	'attributes' => [
+	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'state.name')]],
+	    'state_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => ArrayHelper::map(\webapp\modules\local\models\State::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
+		'options' => [
+		    'prompt' => ''
+		]],
+	    'country_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name'),
+		'options' => [
+		    'prompt' => ''
+		]],
+	]
+    ]);
+    ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 4,
+	'attributes' => [
+	    'latitude' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.latitude')]],
+	    'longitude' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.longitude')]],
+	    'the_geom_s' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.the_geom_s')]],
+	    'geocode' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'city.geocode')]],
+	]
+    ]);
+    ?>
 
     <?php /* $form->field($model, 'batch_id')->dropDownList(yii\helpers\ArrayHelper::map(webapp\modules\local\models\Batch::find()->orderBy('create_at desc'), 'id', 'created_at'), ['prompt' => '']); */ ?>
 

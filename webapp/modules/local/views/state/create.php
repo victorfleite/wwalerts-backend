@@ -6,8 +6,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\State */
 
-$this->title = Yii::t('translation', 'Create State');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'States'), 'url' => ['index']];
+$this->title = Yii::t('translation', 'state.create_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'states'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="state-create">
