@@ -11,6 +11,8 @@ use yii\widgets\ActiveForm;
 <div class="workgroup-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <?= $form->errorSummary($model) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -18,6 +20,7 @@ use yii\widgets\ActiveForm;
 	    ->textArea(['rows' => '6']) ?>
 
     <div class="form-group">
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/workgroup/index'], ['class' => 'btn btn-primary']) ?>	
         <?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

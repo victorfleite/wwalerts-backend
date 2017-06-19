@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	    // 'geocode',
 	    // 'geom',
 	    // 'batch_id',
-	    ['class' => 'yii\grid\ActionColumn'],
+	    ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+	    ],
 	],
     ]);
     ?>

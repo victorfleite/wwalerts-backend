@@ -13,6 +13,8 @@ use kartik\builder\Form;
 <div class="institution-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <?= $form->errorSummary($model) ?>
 
     <?php
         echo Form::widget([       // 1 column layout
@@ -53,6 +55,7 @@ use kartik\builder\Form;
    
 
     <div class="form-group">
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/institution/index'], ['class' => 'btn btn-primary']) ?>	
         <?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

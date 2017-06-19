@@ -30,13 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
 		    $names = [];
 		    foreach ($model->getJurisdictions()->all() as $jurisdiction) {
 			$names[] = $jurisdiction->name;
-		    }	
+		    }
 		    return implode(', ', $names);
 		},
 	    ],
 	    'created_at:datetime',
 		[
 		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
 		'template' => '{view}{associate-user}{associate-jurisdiction}{update}{delete}',
 		'buttons' => [
 		    'associate-jurisdiction' => function ($url, $model) {

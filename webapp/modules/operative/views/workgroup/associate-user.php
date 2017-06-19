@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title
     </div>
     <p>&nbsp;</p>
     <div class="form-group">
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/workgroup/index'], ['class' => 'btn btn-primary']) ?>	
 	<?= Html::submitButton(Yii::t('translation', 'Update'), ['class' => 'btn btn-primary']) ?>
     </div>
 

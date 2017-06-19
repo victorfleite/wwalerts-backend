@@ -4,6 +4,7 @@ namespace webapp\modules\operative\models;
 
 use webapp\modules\operative\models\base\Jurisdiction as BaseJurisdiction;
 use \common\components\behaviors\PolygonBehavior;
+use \common\components\validators\WktValidator;
 use \common\models\Config;
 
 /**
@@ -11,14 +12,14 @@ use \common\models\Config;
  */
 class Jurisdiction extends BaseJurisdiction {
 
+   
     public function init() {
 	parent::init();
 	$generalVars = \Yii::$app->config->getVars();
 	$this->color = $generalVars[Config::VARNAME_JURISDICTION_DEFAULT_LAYER_COLOR];
 	$this->opacity = $generalVars[Config::VARNAME_JURISDICTION_DEFAULT_LAYER_OPACITY];
     }
-    
-    
+
     /**
      * @inheritdoc
      */
@@ -26,6 +27,7 @@ class Jurisdiction extends BaseJurisdiction {
 	return array_replace_recursive(parent::rules(), [
 		[['name', 'geom', 'institution_id', 'color', 'opacity'], 'required'],
 		[['name', 'geom'], 'string'],
+		[['geom'], WktValidator::className()],
 		[['institution_id'], 'integer'],
 		[['color'], 'string', 'max' => 10],
 		[['opacity'], 'number'],
@@ -63,5 +65,6 @@ class Jurisdiction extends BaseJurisdiction {
 	    ]
 	]);
     }
+
 
 }

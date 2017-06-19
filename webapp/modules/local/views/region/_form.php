@@ -15,6 +15,8 @@ use kartik\builder\Form;
 
     <?php $form = ActiveForm::begin(); ?>
     
+    <?= $form->errorSummary($model) ?>
+    
     <?php
     echo Form::widget([// 1 column layout
 	'model' => $model,

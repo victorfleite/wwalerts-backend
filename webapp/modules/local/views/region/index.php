@@ -30,7 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		'value' => 'country.name',
 	    ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+	    ],
         ],
     ]); ?>
 </div>

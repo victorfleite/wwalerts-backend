@@ -39,7 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'geom',
             // 'batch_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+	    ],
         ],
     ]); ?>
 </div>

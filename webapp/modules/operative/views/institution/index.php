@@ -15,27 +15,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p class="text-right">
-        <?= Html::a(Yii::t('translation', 'institution.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
+	<?= Html::a(Yii::t('translation', 'institution.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?=
+    GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+		['class' => 'yii\grid\SerialColumn'],
 	    'abbreviation',
 	    'name',
-            'email:email',
-            'phone',            
-            'country',
-            // 'abbreviation_cap',
-            // 'sender_cap',
-            // 'contact_cap',
-            // 'language_cap',
-            // 'created_at',
-            // 'updated_at',
-            // 'created_by',
-            // 'updated_by',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+	    'email:email',
+	    'phone',
+	    'country',
+	    // 'abbreviation_cap',
+	    // 'sender_cap',
+	    // 'contact_cap',
+	    // 'language_cap',
+	    // 'created_at',
+	    // 'updated_at',
+	    // 'created_by',
+	    // 'updated_by',
+	    ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+	    ],
+	],
+    ]);
+    ?>
 </div>

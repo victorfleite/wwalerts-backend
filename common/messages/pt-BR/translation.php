@@ -38,6 +38,7 @@ return [
     'Preview' => 'Visualizar',
     'waiting_for_results' => 'Esperando por resultados...',
     'Reset' => 'Limpar',
+    'wkt_invalid_autointesect' => 'Geometria que se auto-intersecciona',
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected_title' => 'Mudança de Idioma',
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',

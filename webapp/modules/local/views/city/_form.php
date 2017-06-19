@@ -13,6 +13,8 @@ use kartik\builder\Form;
 <div class="city-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <?= $form->errorSummary($model) ?>
 
     <?php
     echo Form::widget([// 1 column layout

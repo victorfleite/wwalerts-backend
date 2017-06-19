@@ -21,6 +21,7 @@ use kartik\widgets\Select2;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->errorSummary($model) ?>
 
     <?php
     echo Form::widget([// 1 column layout
@@ -163,7 +164,7 @@ use kartik\widgets\Select2;
 	    ],
 	]);
 
-	
+
 
 
 
@@ -180,12 +181,15 @@ use kartik\widgets\Select2;
 
 
     <div class="form-group">
-	<?= Html::a(Yii::t('translation', 'Cancel'), ['/jurisdiction/index'], ['class' => 'btn btn-primary']) ?>
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/jurisdiction/index'], ['class' => 'btn btn-primary']) ?>
 	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 	<?= Html::button(Yii::t('translation', 'Preview'), ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+    
+    
+    <?php \Yii::$app->dumper->debug($model->getErrors()); ?>
 
     <?php
     $generalVars = \Yii::$app->config->getVars();
@@ -214,7 +218,7 @@ use kartik\widgets\Select2;
 
     echo OpenLayers::widget([
 	'id' => 'map',
-	'mapOptionScript' => '@web/js/map.js',
+	'mapOptionScript' => '@web/js/map-commons.js',
 	'mapOptions' => [
 	    'layers' => $layers,
 	    // Using a shortcut, we can skip the OL('View' ...)
