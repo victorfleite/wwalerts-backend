@@ -15,6 +15,7 @@ use \common\models\Config;
 /* @var $model app\models\Workgroup */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

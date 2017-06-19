@@ -11,6 +11,7 @@ use \common\models\Config;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('translation', 'jurisdictions');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurisdiction-index">
