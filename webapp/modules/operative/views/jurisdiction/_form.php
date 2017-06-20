@@ -1,16 +1,15 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\Modal;
+use yii\web\JsExpression;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use webapp\modules\operative\models\Institution;
 use sibilino\yii2\openlayers\OpenLayers;
 use sibilino\yii2\openlayers\OL;
-use yii\web\JsExpression;
 use \common\models\Config;
-use kartik\widgets\Select2;
+use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurisdiction */
@@ -55,123 +54,11 @@ use kartik\widgets\Select2;
     ]);
     ?>
     <hr>
-    <p class='text-right'>
-	<?php
-	Modal::begin([
-	    'options' => [
-		'id' => 'local-modal',
-		'tabindex' => false, // important for Select2 to work properly
-		'class' => 'modal fade bs-example-modal-lg'
-	    ],
-	    'header' => '<h4 style="margin:0; padding:0">' . \Yii::t('translation', 'jurisdiction.modal_locals_title') . '</h4>',
-	    'toggleButton' => ['label' => \Yii::t('translation', 'jurisdiction.modal_locals_btn'), 'class' => 'btn btn-primary'],
-	    'size' => Modal::SIZE_LARGE,
-	]);
-
-	echo "<label class='control-label'>" . \Yii::t('translation', 'countries') . "</label>";
-
-	// The controller action that will render the list
-	$url = \yii\helpers\Url::to(['/country/country-list']);
-	echo Select2::widget([
-	    'name' => 'state',
-	    'options' => ['placeholder' => \Yii::t('translation', 'country.search_for'), 'multiple' => true],
-	    'pluginOptions' => [
-		'allowClear' => true,
-		'minimumInputLength' => 3,
-		'language' => [
-		    'errorLoading' => new JsExpression("function () { return '" . \Yii::t('translation', 'waiting_for_results') . "'; }"),
-		],
-		'ajax' => [
-		    'url' => $url,
-		    'dataType' => 'json',
-		    'data' => new JsExpression('function(params) { return {q:params.term}; }')
-		],
-		'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-		'templateResult' => new JsExpression('function(result) { return result.text; }'),
-		'templateSelection' => new JsExpression('function (result) { return result.text; }'),
-	    ],
-	]);
-
-	echo "<label class='control-label'>" . \Yii::t('translation', 'states') . "</label>";
-
-	// The controller action that will render the list
-	$url = \yii\helpers\Url::to(['/state/state-list']);
-	echo Select2::widget([
-	    'name' => 'state',
-	    'options' => ['placeholder' => \Yii::t('translation', 'state.search_for'), 'multiple' => true],
-	    'pluginOptions' => [
-		'allowClear' => true,
-		'minimumInputLength' => 3,
-		'language' => [
-		    'errorLoading' => new JsExpression("function () { return '" . \Yii::t('translation', 'waiting_for_results') . "'; }"),
-		],
-		'ajax' => [
-		    'url' => $url,
-		    'dataType' => 'json',
-		    'data' => new JsExpression('function(params) { return {q:params.term}; }')
-		],
-		'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-		'templateResult' => new JsExpression('function(result) { return result.text; }'),
-		'templateSelection' => new JsExpression('function (result) { return result.text; }'),
-	    ],
-	]);
-
-	echo "<label class='control-label'>" . \Yii::t('translation', 'regions') . "</label>";
-
-	// The controller action that will render the list
-	$url = \yii\helpers\Url::to(['/region/region-list']);
-	echo Select2::widget([
-	    'name' => 'state',
-	    'options' => ['placeholder' => \Yii::t('translation', 'region.search_for'), 'multiple' => true],
-	    'pluginOptions' => [
-		'allowClear' => true,
-		'minimumInputLength' => 3,
-		'language' => [
-		    'errorLoading' => new JsExpression("function () { return '" . \Yii::t('translation', 'waiting_for_results') . "'; }"),
-		],
-		'ajax' => [
-		    'url' => $url,
-		    'dataType' => 'json',
-		    'data' => new JsExpression('function(params) { return {q:params.term}; }')
-		],
-		'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-		'templateResult' => new JsExpression('function(result) { return result.text; }'),
-		'templateSelection' => new JsExpression('function (result) { return result.text; }'),
-	    ],
-	]);
-
-	echo "<label class='control-label'>" . \Yii::t('translation', 'cities') . "</label>";
-
-	// The controller action that will render the list
-	$url = \yii\helpers\Url::to(['/city/city-list']);
-	echo Select2::widget([
-	    'name' => 'state',
-	    'options' => ['placeholder' => \Yii::t('translation', 'city.search_for'), 'multiple' => true],
-	    'pluginOptions' => [
-		'allowClear' => true,
-		'minimumInputLength' => 3,
-		'language' => [
-		    'errorLoading' => new JsExpression("function () { return '" . \Yii::t('translation', 'waiting_for_results') . "'; }"),
-		],
-		'ajax' => [
-		    'url' => $url,
-		    'dataType' => 'json',
-		    'data' => new JsExpression('function(params) { return {q:params.term}; }')
-		],
-		'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-		'templateResult' => new JsExpression('function(result) { return result.text; }'),
-		'templateSelection' => new JsExpression('function (result) { return result.text; }'),
-	    ],
-	]);
-
-
-
-
-
-	Modal::end();
-	?>
+    <p class="text-right">
+	
+	<?php echo ModalImportGeometry::widget([ 'id'=>'import-local', 'outputField'=>'wkt','toggleButton'=>['label' => 'Importar Locais', 'class' => 'btn btn-primary']]); ?>
+	
     </p>
-
 
     <?=
 	    $form->field($model, 'geom')
@@ -183,52 +70,55 @@ use kartik\widgets\Select2;
     <div class="form-group">
 	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/jurisdiction/index'], ['class' => 'btn btn-primary']) ?>
 	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	<?= Html::button(Yii::t('translation', 'Preview'), ['class' => 'btn btn-warning']) ?>
+	<?= Html::submitButton(Yii::t('translation', 'Preview'), ['name' => 'btn-preview', 'class' => 'btn btn-warning']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-    
-    
-    <?php \Yii::$app->dumper->debug($model->getErrors()); ?>
+    <?php ActiveForm::end(); ?>    
+
 
     <?php
-    $generalVars = \Yii::$app->config->getVars();
-    $latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
-    $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
-    $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
+    if (!$model->hasErrors()) {
 
-    $layers = [];
-    $layers[] = new OL('layer.Tile', [
-	'source' => new OL('source.OSM', [
-	    'layer' => 'sat',
-		]),
-    ]);
+	$generalVars = \Yii::$app->config->getVars();
+	$latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
+	$longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
+	$zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
-    $feature = new JsExpression("readWktFeature('{$model->geom}')");
-    $myStyle = new JsExpression("createStyle(hexToRGBA('{$model->color}',{$model->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
+	$raster = new OL('layer.Tile', [
+	    'source' => new OL('source.OSM', [
+		'layer' => 'sat',
+		    ]),
+	]);
 
-    $layers[] = new OL('layer.Vector', [
-	'source' => new OL('source.Vector', [
-	    'features' => [$feature]
-		]
-	),
-	'style' => $myStyle
-    ]);
-//\Yii::$app->dumper->debug($layers, true);
+	$feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
+	$myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
-    echo OpenLayers::widget([
-	'id' => 'map',
-	'mapOptionScript' => '@web/js/map-commons.js',
-	'mapOptions' => [
-	    'layers' => $layers,
-	    // Using a shortcut, we can skip the OL('View' ...)
-	    'view' => [
-		// Of course, the generated JS can be customized with JsExpression, as usual
-		'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
-		'zoom' => $zoom,
+	$vector = new OL('layer.Vector', [
+	    'source' => new OL('source.Vector', [
+		'features' => [$feature]
+		    ]
+	    ),
+	    'style' => $myStyle
+	]);
+	//\Yii::$app->dumper->debug($layers, true);
+
+	echo OpenLayers::widget([
+	    'id' => 'map',
+	    'mapOptionScript' => '@web/js/map-commons.js',
+	    'mapOptions' => [
+		'layers' => [$raster, $vector],
+		// Using a shortcut, we can skip the OL('View' ...)
+		'view' => [
+		    // Of course, the generated JS can be customized with JsExpression, as usual
+		    'center' => new JsExpression('ol.proj.transform([' . $longitude . ', ' . $latitude . '], "EPSG:4326", "EPSG:3857")'),
+		    'zoom' => $zoom,
+		],
 	    ],
-	],
-    ]);
+	]);
+	// Centralizing map from feature
+	$script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
+	$this->registerJs($script);
+    }
     ?>
 
 </div>

@@ -14,18 +14,16 @@ use yii\db\Exception;
 class WktValidator extends Validator {
     public $wktErrorReason;
     public $wktErrorLocation;
-    
-    public function addError($model, $attribute, $message, $params = array(), $wktErrorReason = null, $wktErrorLocation = null) {
-	$this->wktErrorReason = $wktErrorReason;
-	$this->wktErrorLocation = $wktErrorLocation;	
-	parent::addError($model, $attribute, $message, $params);
-    }    
-    
+     
     public function validateAttribute($model, $attribute) {
 	$checkValidation = $this->checkValidWkt($model, $attribute);
 	//\Yii::$app->dumper->debug($checkValidation, true);
 	if (isset($checkValidation) && ($checkValidation['is_valid'] == false)) {
-	   $this->addError($model, $attribute, \Yii::t('translation', 'wkt_invalid_autointesect'), $checkValidation['reason'], $checkValidation['location']);
+	   $wktErrorMessage = new \common\components\WktErrorMessage();
+	   $wktErrorMessage->setReason($checkValidation['reason']);
+	   $wktErrorMessage->setLocation($checkValidation['location']);
+	   $model->wktErrorMessage = $wktErrorMessage;
+	   $this->addError($model, $attribute, \Yii::t('translation', 'wkt_invalid_autointesect'));
 	}
     }
 

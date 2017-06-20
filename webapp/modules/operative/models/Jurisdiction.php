@@ -12,7 +12,8 @@ use \common\models\Config;
  */
 class Jurisdiction extends BaseJurisdiction {
 
-   
+    public $wktErrorMessage;
+    
     public function init() {
 	parent::init();
 	$generalVars = \Yii::$app->config->getVars();
