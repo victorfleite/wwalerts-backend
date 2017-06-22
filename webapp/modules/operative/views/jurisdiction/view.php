@@ -68,7 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		    $user = \common\models\User::findOne($data->updated_by);
 		    return $user->name;
 		},
-	    ]
+	    ], [
+		'attribute' => 'geom',
+		'value' => function($data) {
+		    return \common\models\Util::removeMiddleOfString($data->geom, 120);
+		},
+	    ],
 	],
     ])
     ?>
@@ -87,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		]),
     ]);
 
-    $feature = new JsExpression("readWktFeature('{$model->geom}')");
+    $feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
     $myStyle = new JsExpression("createStyle(hexToRGBA('{$model->color}',{$model->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
     $layers[] = new OL('layer.Vector', [
@@ -112,10 +117,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 	],
     ]);
-    
-     // Centralizing map from feature
-     $script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
-     $this->registerJs($script); 
+
+    // Centralizing map from feature
+    $script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
+    $this->registerJs($script);
     ?>
 
 

@@ -55,9 +55,9 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
     ?>
     <hr>
     <p class="text-right">
-	
-	<?php echo ModalImportGeometry::widget([ 'id'=>'import-local', 'outputField'=>'wkt','toggleButton'=>['label' => 'Importar Locais', 'class' => 'btn btn-primary']]); ?>
-	
+
+	<?php echo ModalImportGeometry::widget(['id' => 'import-local', 'outputField' => 'wkt', 'toggleButton' => ['label' => 'Importar Locais', 'class' => 'btn btn-primary']]); ?>
+
     </p>
 
     <?=
@@ -77,23 +77,24 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
 
 
     <?php
-    if (!$model->hasErrors()) {
+    if ((!$model->hasErrors() && $model->isNewRecord && \Yii::$app->request->isPost) || (!$model->hasErrors() && !$model->isNewRecord)) {
 
 	$generalVars = \Yii::$app->config->getVars();
 	$latitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE];
 	$longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
 	$zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
-	$raster = new OL('layer.Tile', [
+	$layers = [];
+	$layers[] = new OL('layer.Tile', [
 	    'source' => new OL('source.OSM', [
 		'layer' => 'sat',
 		    ]),
 	]);
 
 	$feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
-	$myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
+	$myStyle = new JsExpression("createStyle(hexToRGBA('{$model->color}',{$model->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
-	$vector = new OL('layer.Vector', [
+	$layers[] = new OL('layer.Vector', [
 	    'source' => new OL('source.Vector', [
 		'features' => [$feature]
 		    ]
@@ -106,7 +107,7 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
 	    'id' => 'map',
 	    'mapOptionScript' => '@web/js/map-commons.js',
 	    'mapOptions' => [
-		'layers' => [$raster, $vector],
+		'layers' => $layers,
 		// Using a shortcut, we can skip the OL('View' ...)
 		'view' => [
 		    // Of course, the generated JS can be customized with JsExpression, as usual
@@ -115,6 +116,7 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
 		],
 	    ],
 	]);
+
 	// Centralizing map from feature
 	$script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
 	$this->registerJs($script);

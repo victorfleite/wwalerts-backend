@@ -10,8 +10,8 @@ class PolygonBehavior extends GeometryBehavior {
 
     public $pk_name = 'id';
     public $skipAfterFindPostgis = true;
-    public $st_srid_in = '4326';
-    public $st_srid_out = '3857';
+    public $st_srid_4326 = '4326';
+    public $st_srid_3857 = '3857';
 
     /**
      * @inheritdoc
@@ -27,6 +27,7 @@ class PolygonBehavior extends GeometryBehavior {
      */
     public function beforeSave() {
 	parent::beforeSave();
+	
 	return true;
     }
 
@@ -41,7 +42,7 @@ class PolygonBehavior extends GeometryBehavior {
 	$pk = $this->pk_name;
 	// Setar Projeção no banco
 	if (!empty($this->owner->$attribute)) {
-	    $q = "UPDATE " . $this->owner->tableName() . " SET $attribute = ST_Transform(ST_GeometryFromText('" . $this->owner->$attribute . "'," . $this->st_srid_out . "), " . $this->st_srid_in . ") WHERE " . $this->pk_name . " = " . $this->owner->$pk . ";";
+	    $q = "UPDATE " . $this->owner->tableName() . " SET $attribute = ST_Transform(ST_GeometryFromText('" . $this->owner->$attribute . "'," . $this->st_srid_3857 . "), " . $this->st_srid_4326 . ") WHERE " . $this->pk_name . " = " . $this->owner->$pk . ";";
 	    //\yii::$app->dumper->show($q, true);
 	    $res = Yii::$app->db->createCommand($q)->execute();
 	    $this->owner->$attribute = $res [$attribute];
@@ -77,7 +78,7 @@ class PolygonBehavior extends GeometryBehavior {
 	$attribute = $this->attribute;
 
 	if (!empty($this->owner->$attribute)) {
-	    $q = "SELECT ST_AsText(ST_Transform(ST_Force2D('" . $this->owner->$attribute . "'::geometry), ".$this->st_srid_out.")) as $attribute";
+	    $q = "SELECT ST_AsText(ST_Transform(ST_Force2D('" . $this->owner->$attribute . "'::geometry), ".$this->st_srid_3857.")) as $attribute";
 	    $res = Yii::$app->db->createCommand($q)->queryOne();
 	    $this->owner->$attribute = $res [$attribute];
 	}
