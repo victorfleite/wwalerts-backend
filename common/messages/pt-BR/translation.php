@@ -39,6 +39,7 @@ return [
     'waiting_for_results' => 'Esperando por resultados...',
     'Reset' => 'Limpar',
     'wkt_invalid_autointesect' => 'Geometria que se auto-intersecciona',
+    'placeholder_select_color'=>'Selecione uma cor',
     /** SITE CONTROLLER * */
     'site.set_language.message_language_selected_title' => 'Mudança de Idioma',
     'site.set_language.message_language_selected' => 'Idioma selecionado ({language})',
@@ -62,6 +63,14 @@ return [
     'config.id' => 'Id',
     'config.varname' => 'Nome da Variável',
     'config.value' => 'Valor da Variável',
+    'config.documentation' => 'Documentação',
+    'config.description_country_id'=>'Referência do Gid do país detentor do sistema (local.country)',
+    'config.description_time_offset'=>'Valor numérico do timezone do sistema (Ex: -3)',
+    'config.description_map_default_center_latitude'=>'Latitude default centralizadora dos mapas do sistema',
+    'config.description_map_default_center_longitude'=>'Longitude default centralizadora dos mapas do sistema',
+    'config.description_map_default_zoom'=>'Zoom default dos mapas do sistema. Sendo o valor "0" o zoom mais distante do mapa e o valor "19" o zoom mais próximo.',
+    'config.description_jurisdiction_default_layer_color'=>'Cor default da camada da juridição do mapa',
+    'config.description_jurisdiction_default_layer_opacity'=>'Opacidade default da camada da juridição do mapa',    
     // USER MODEL/CONTROLLER
     'user' => 'Usuário',
     'users' => 'Usuários',
@@ -141,6 +150,7 @@ return [
     'region.search_for' => 'Digite Aqui',
     'region.create_title' => 'Nova Região',    
     'region.create_btn' => 'Nova Região',
+    'region.description' => 'Descrição',
     // CITY MODEL/CONTROLLER
     'city' => 'Cidade',
     'cities' => 'Cidades',
@@ -195,6 +205,12 @@ return [
     'jurisdiction.opacity' => 'Opacidade',
     'jurisdiction.modal_locals_btn' => 'Importar Locais',
     'jurisdiction.modal_locals_title' => 'Importar Locais',
+    // MODAL IMPORT LOCALS
+    'modal_import_locals_title'=>'Importar Locais',
+    'modal_import_locals_msg_fields_empty'=>'Selecione pelo menos um local',
+    'modal_import_locals_btn_create_geometry'=>'Criar Geometria',
+    'modal_import_locals_btn_close'=>'Cancelar',
+    'modal_import_locals_wait_processing' => 'Por favor aguarde... Este processo pode demorar alguns minutos.',
     // WORKGROUP MODEL/CONTROLLER
     'workgroup' => 'Grupo de Trabalho',
     'workgroups' => 'Grupos de Trabalho',

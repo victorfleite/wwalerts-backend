@@ -70,7 +70,7 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
     <div class="form-group">
 	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/jurisdiction/index'], ['class' => 'btn btn-primary']) ?>
 	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	<?= Html::submitButton(Yii::t('translation', 'Preview'), ['name' => 'btn-preview', 'class' => 'btn btn-warning']) ?>
+	<?= Html::submitButton(Yii::t('translation', 'Preview'), ['name' => 'btn-preview', 'id'=>'btn-preview', 'class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>    

@@ -36,7 +36,39 @@ class Config extends \yii\db\ActiveRecord {
 		[['varname', 'value'], 'required'],
 		[['varname'], 'string', 'max' => 45],
 		[['value'], 'string', 'max' => 100],
+		[['value'], 'validateValue'],
 	];
+    }
+
+    public function validateValue($attribute, $params, $validator) {
+	
+	switch ($this->varname) {
+	    case Config::VARNAME_COUNTRY_ID:
+		   $this->validateNumeric($this->$attribute, $attribute);		
+		break;
+	    case Config::VARNAME_TIME_OFFSET:
+		   $this->validateNumeric($this->$attribute, $attribute);		
+		break;
+	    case Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE:
+		   $this->validateNumeric($this->$attribute, $attribute);		
+		break;
+	    case Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE:
+		   $this->validateNumeric($this->$attribute, $attribute);		
+		break;
+	    case Config::VARNAME_MAP_DEFULT_ZOOM:
+		$this->validateNumeric($this->$attribute, $attribute);
+		break;
+	    case Config::VARNAME_JURISDICTION_DEFAULT_LAYER_OPACITY:
+		$this->validateNumeric($this->$attribute, $attribute);
+		break;
+	    default:
+	}
+    }
+    
+    public function validateNumeric($value, $attribute){
+	if (!is_numeric($value)) {
+	    $this->addError($attribute, 'The field must to be a number".');
+	}
     }
 
     /**

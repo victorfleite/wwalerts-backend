@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return $country->name;
 		},
 	    ],
+	    'description',
 		[
 		'attribute' => 'geom',
 		'value' => function($data) {

@@ -8,9 +8,14 @@ use yii\helpers\Html;
 use yii\bootstrap\NavBar;
 use kartik\nav\NavX;
 use yii\widgets\Breadcrumbs;
-use kartik\widgets\Alert;
+
+
+$this->registerCssFile(
+    '@web/css/font-awesome-4.7.0/css/font-awesome.css'
+);
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

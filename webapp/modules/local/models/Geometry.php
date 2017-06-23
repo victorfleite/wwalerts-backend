@@ -48,7 +48,7 @@ class Geometry {
     }
 
     public function getGeometryFromLocals() {
-	$q = "SELECT ST_AsText(ST_Transform(local.merge_locals_geometry(" . $this->getPreparedParameter(Geometry::LOCAL_COUNTRY,'integer[]') . ", " . $this->getPreparedParameter(Geometry::LOCAL_STATE,'integer[]') . ", " . $this->getPreparedParameter(Geometry::LOCAL_REGION,'integer[]') . ", " . $this->getPreparedParameter(Geometry::LOCAL_CITY,'integer[]') . "), " . $this->st_srid_out . ")) as wkt";
+	$q = "SELECT ST_AsText(ST_Transform(ST_makevalid(local.merge_locals_geometry(" . $this->getPreparedParameter(Geometry::LOCAL_COUNTRY,'integer[]') . ", " . $this->getPreparedParameter(Geometry::LOCAL_STATE,'integer[]') . ", " . $this->getPreparedParameter(Geometry::LOCAL_REGION,'integer[]') . ", " . $this->getPreparedParameter(Geometry::LOCAL_CITY,'integer[]') . ")), " . $this->st_srid_out . ")) as wkt";
 	//die($q);
 	$res = \Yii::$app->db->createCommand($q)->queryOne();
 	return $res["wkt"];

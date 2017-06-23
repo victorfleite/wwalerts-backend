@@ -20,6 +20,7 @@ class Region extends BaseRegion {
 		[['country_id'], 'required'],
 		[['country_id', 'batch_id'], 'integer'],
 		[['nm_meso'], 'string', 'max' => 100],
+		[['description'], 'string', 'max' => 1000],
 		[['cd_geocodu'], 'string', 'max' => 2]
 	]);
     }
@@ -35,6 +36,7 @@ class Region extends BaseRegion {
 	    'geom' => Yii::t('translation', 'region.geom'),
 	    'country_id' => Yii::t('translation', 'region.country_id'),
 	    'batch_id' => Yii::t('translation', 'region.batch_id'),
+	    'description' => Yii::t('translation', 'region.description'),
 	];
     }
 

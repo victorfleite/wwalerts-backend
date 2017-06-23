@@ -15,6 +15,7 @@ class ModalImportGeometry extends Widget {
     public $outputField;
     public $toggleButton;
     public $options;
+    public $scriptAfterReturnResult;
 
     public function init() {
 	ModalImportGeometryAssets::register($this->getView());
@@ -27,7 +28,8 @@ class ModalImportGeometry extends Widget {
 		    'id' => $this->id,
 		    'outputField' => $this->outputField,
 		    'options' => $this->options,
-		    'toggleButton' => $this->toggleButton
+		    'toggleButton' => $this->toggleButton,
+		    'scriptAfterReturnResult' => $this->scriptAfterReturnResult
 	]);
     }
 

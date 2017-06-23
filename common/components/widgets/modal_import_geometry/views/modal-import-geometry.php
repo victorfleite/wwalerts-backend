@@ -8,20 +8,33 @@ use common\components\helpers\Writer;
 // Scripts
 $string = new Writer();
 $string->writeln("$(function() {");
+$string->writeln("  var xhr; ");
 $string->writeln("	$('#" . $id . "').on('hidden.bs.modal', function () {");
+$string->writeln("	  if(xhr){ xhr.abort(); }");
+$string->writeln("	  $('#msg-wait-geometries').hide();");
+$string->writeln("	  $('#btn-merge-geometries').prop('disabled', false); ");
 $string->writeln("	  $('#msg-fields-empty').hide();");
 $string->writeln("	});");
+$string->writeln("  $('#btn-cancel-geometries').click(function(){");
+$string->writeln("	if(xhr){ xhr.abort(); }");
+$string->writeln("	$('#msg-wait-geometries').hide();");
+$string->writeln("	$('#" . $id . "').modal('toggle');");
+$string->writeln("  });");
 $string->writeln("  $('#btn-merge-geometries').click(function(){");
 $string->writeln("	$('#msg-fields-empty').hide();");
-$string->writeln("	var data = {country: $( '#country_search' ).val(), state: $( '#state_search' ).val(), region: $( '#region_search' ).val(), city: $( '#city_search' ).val(), }; console.log(data);");
+$string->writeln("	var data = {country: $( '#country_search' ).val(), state: $( '#state_search' ).val(), region: $( '#region_search' ).val(), city: $( '#city_search' ).val(), };");
 $string->writeln("	if(data.country || data.state || data.region || data.city){");
-$string->writeln("		$.ajax({");
+$string->writeln("		$('#btn-merge-geometries').prop('disabled', true); ");
+$string->writeln("		$('#msg-wait-geometries').show();");
+$string->writeln("		xhr = $.ajax({");
 $string->writeln("		    type: 'POST',");
 $string->writeln("		    url: '" . \yii\helpers\Url::toRoute('/local/geometry/merge-locations') . "',");
 $string->writeln("		    data: data,");
 $string->writeln("		    success: function(r){");
 $string->writeln("			$('#" . $outputField . "').val(r.wkt)");
 $string->writeln("			$('#" . $id . "').modal('toggle');");
+$string->writeln("			$('#msg-wait-geometries').hide();");
+$string->writeln("			".$scriptAfterReturnResult);
 $string->writeln("		    },");
 $string->writeln("		    dataType: 'json'");
 $string->writeln("		});");
@@ -37,7 +50,7 @@ $this->registerJs($script);
 Modal::begin([
     'id' => $id,
     'header' => '<h4 class="modal-title text-center">' . \Yii::t('translation', 'modal_import_locals_title') . '</h4>',
-    'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">' . \Yii::t('translation', 'modal_import_locals_btn_close') . '</button>
+    'footer' => '<button type="button" class="btn btn-default" id="btn-cancel-geometries" >' . \Yii::t('translation', 'modal_import_locals_btn_close') . '</button>
                 <button type="button" class="btn btn-primary" id="btn-merge-geometries">' . \Yii::t('translation', 'modal_import_locals_btn_create_geometry') . '</button>',
     'toggleButton' => $toggleButton,
     'options' => $options,
@@ -45,7 +58,11 @@ Modal::begin([
 
 
 echo "<div class='alert alert-danger' id='msg-fields-empty' style='display:none'>";
-echo "  <strong>Danger!</strong> " . \Yii::t('translation', 'modal_import_locals_msg_fields_empty');
+echo "  <strong><span class='glyphicon glyphicon-remove-sign' aria-hidden='true'></span></strong> " . \Yii::t('translation', 'modal_import_locals_msg_fields_empty');
+echo "</div>";
+
+echo "<div class='alert alert-info' id='msg-wait-geometries' style='display:none'>";
+echo "  <strong><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i></strong>  " . \Yii::t('translation', 'modal_import_locals_wait_processing');
 echo "</div>";
 
 echo "<label class='control-label'>" . \Yii::t('translation', 'countries') . "</label>";

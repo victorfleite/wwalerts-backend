@@ -30,6 +30,7 @@
 	"kartik-v/yii2-nav-x": "*",
 	"kartik-v/yii2-slider": "*",
 	"kartik-v/yii2-widget-select2": "@dev",
+	"kartik-v/yii2-icons": "@dev",
 	"filsh/yii2-oauth2-server": "2.0.0",
 	"nanson/yii2-postgis": "*",
 	"softark/yii2-dual-listbox": "dev-master",

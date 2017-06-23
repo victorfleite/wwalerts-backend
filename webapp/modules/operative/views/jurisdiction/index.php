@@ -64,7 +64,7 @@ $layers[] = new OL('layer.Tile', [
 	]);
 
 foreach ($dataProvider->getModels() as $jurisdiction) {
-    $feature = new JsExpression("readWktFeature('{$jurisdiction->geom}', 'EPSG:4326', 'EPSG:3857')");
+    $feature = new JsExpression("readWktFeature('{$jurisdiction->geom}', 'EPSG:3857', 'EPSG:3857')");
     $myStyle = new JsExpression("createStyle(hexToRGBA('{$jurisdiction->color}',{$jurisdiction->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
     $layers[] = new OL('layer.Vector', [
