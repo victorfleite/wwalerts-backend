@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return "<div style='background-color:" . \common\models\Util::convertColorHexToRGB($data->color, $data->opacity) . "'>&nbsp;</div>";
 		},
 	    ],
+	    'description',
 	    'opacity',
 	    'created_at:datetime',
 		[

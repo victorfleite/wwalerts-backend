@@ -145,7 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
 
     foreach ($jurisdictions as $jurisdiction) {
-	$feature = new JsExpression("readWktFeature('{$jurisdiction->geom}')");
+	$feature = new JsExpression("readWktFeature('{$jurisdiction->geom}', 'EPSG:3857', 'EPSG:3857')");
 	$myStyle = new JsExpression("createStyle(hexToRGBA('{$jurisdiction->color}',{$jurisdiction->opacity}), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
 	$layers[] = new OL('layer.Vector', [

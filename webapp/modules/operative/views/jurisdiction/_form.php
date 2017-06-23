@@ -53,6 +53,11 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
 	]
     ]);
     ?>
+    <?=
+	    $form->field($model, 'description')
+	    ->label(\Yii::t('translation', 'jurisdiction.description'))
+	    ->textArea(['rows' => '4']);
+    ?>
     <hr>
     <p class="text-right">
 

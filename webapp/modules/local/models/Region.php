@@ -21,7 +21,8 @@ class Region extends BaseRegion {
 		[['country_id', 'batch_id'], 'integer'],
 		[['nm_meso'], 'string', 'max' => 100],
 		[['description'], 'string', 'max' => 1000],
-		[['cd_geocodu'], 'string', 'max' => 2]
+		[['cd_geocodu'], 'string', 'max' => 2],
+		[['description'], 'safe']
 	]);
     }
 

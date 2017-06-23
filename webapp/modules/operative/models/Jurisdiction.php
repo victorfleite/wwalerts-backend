@@ -13,7 +13,7 @@ use \common\models\Config;
 class Jurisdiction extends BaseJurisdiction {
 
     public $wktErrorMessage;
-    
+
     public function init() {
 	parent::init();
 	$generalVars = \Yii::$app->config->getVars();
@@ -32,6 +32,7 @@ class Jurisdiction extends BaseJurisdiction {
 		[['institution_id'], 'integer'],
 		[['color'], 'string', 'max' => 10],
 		[['opacity'], 'number'],
+		[['description'], 'safe']
 	]);
     }
 
@@ -50,6 +51,7 @@ class Jurisdiction extends BaseJurisdiction {
 	    'created_by' => \Yii::t('translation', 'jurisdiction.created_by'),
 	    'updated_by' => \Yii::t('translation', 'jurisdiction.updated_by'),
 	    'opacity' => \Yii::t('translation', 'jurisdiction.opacity'),
+	    'description' => \Yii::t('translation', 'jurisdiction.description'),
 	];
     }
 
@@ -66,6 +68,5 @@ class Jurisdiction extends BaseJurisdiction {
 	    ]
 	]);
     }
-
 
 }

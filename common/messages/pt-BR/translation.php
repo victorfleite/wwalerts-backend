@@ -195,7 +195,8 @@ return [
     'jurisdiction.institution_id' => 'Instituição',
     'jurisdiction.color' => 'Cor',
     'jurisdiction.geom' => 'Geometria',
-    'jurisdiction.geom_hint' => 'WKT - Polygon ou Multipolygon [Projeção 3857 - Google]',
+    'jurisdiction.geom_hint' => 'WKT - Polygon ou Multipolygon [Projeção 3857 - Google]',       
+    'jurisdiction.description' => 'Descrição',
     'jurisdiction.created_at' => 'Data Criação',
     'jurisdiction.updated_at' => 'Data Atualização',
     'jurisdiction.created_by' => 'Criado por',
@@ -204,7 +205,7 @@ return [
     'jurisdiction.create_btn' => 'Nova Jurisdição',
     'jurisdiction.opacity' => 'Opacidade',
     'jurisdiction.modal_locals_btn' => 'Importar Locais',
-    'jurisdiction.modal_locals_title' => 'Importar Locais',
+    'jurisdiction.modal_locals_title' => 'Importar Locais', 
     // MODAL IMPORT LOCALS
     'modal_import_locals_title'=>'Importar Locais',
     'modal_import_locals_msg_fields_empty'=>'Selecione pelo menos um local',

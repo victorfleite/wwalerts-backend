@@ -36,7 +36,7 @@ use kartik\builder\Form;
     <?=
 	    $form->field($model, 'description')
 	    ->label(\Yii::t('translation', 'region.description'))
-	    ->textArea(['rows' => '4', 'id' => 'wkt']);
+	    ->textArea(['rows' => '4']);
     ?>
     <?=
 	    $form->field($model, 'geom')

@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	'model' => $model,
 	'attributes' => [
 	    'nm_meso',
+	    'description',
 	    'cd_geocodu',
 		[
 		'attribute' => 'country_id',
@@ -46,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return $country->name;
 		},
 	    ],
-	    'description',
 		[
 		'attribute' => 'geom',
 		'value' => function($data) {
