@@ -1,43 +1,47 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\UserSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+
 <div class="user-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php
+    $form = ActiveForm::begin([
+		'action' => ['index'],
+		'method' => 'get',
+    ]);
+    ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?php
+    echo Form::widget([// 1 column layout
+	'model' => $model,
+	'form' => $form,
+	'columns' => 4,
+	'attributes' => [
+	    'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'user.name')]],
+	    'username' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'user.username')]],
+	    'email' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => \Yii::t('translation', 'user.email')]],
+	    'status' => ['type' => Form::INPUT_DROPDOWN_LIST,
+		'items' => User::getStatusCombo(),
+		'options' => [
+		    'prompt' => ''
+		]],
+	]
+    ]);
+    ?>
 
-    <?= $form->field($model, 'username') ?>
-
-    <?= $form->field($model, 'auth_key') ?>
-
-    <?= $form->field($model, 'password_hash') ?>
-
-    <?= $form->field($model, 'password_reset_token') ?>
-
-    <?php // echo $form->field($model, 'email') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
-
-    <?php // echo $form->field($model, 'name') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('translation', 'Reset'), ['class' => 'btn btn-default']) ?>
+	<?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

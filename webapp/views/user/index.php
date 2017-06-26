@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php /* echo $this->render('_search', ['model' => $searchModel]); */ ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p class="text-right">
 	<?= Html::a(Yii::t('translation', 'user.btn_create'), ['signup'], ['class' => 'btn btn-success']) ?>
@@ -22,23 +22,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=
     GridView::widget([
 	'dataProvider' => $dataProvider,
-	'filterModel' => $searchModel,
+	//'filterModel' => $searchModel,
 	'columns' => [
 		['class' => 'yii\grid\SerialColumn'],
 	    'name',
 	    'username',
-	    'email:email',
-	    [
+	    'email',
+		[
+		'label' => \Yii::t('translation', 'user.roles'),
+		'format' => 'raw',
+		'value' => function($data) {
+		    $roles = \Yii::$app->authManager->getRolesByUser($data->id);
+		    $links = [];
+		    if (is_array($roles)) {
+			foreach ($roles as $role) {
+			    $links[] = Html::a($role->name, \yii\helpers\Url::toRoute(['admin/assignment/view', 'id' => $data->id]));
+			}
+		    }
+		    return implode(' ,', $links);
+		},
+	    ],
+		[
 		'attribute' => 'created_at',
-		'filter'=>null,
+		'filter' => null,
 		'value' => function($data) {
 		    $date = new \DateTime();
 		    return $date->setTimestamp($data->created_at)->format('Y-m-d H:i:s');
 		},
 	    ],
-	    [
+		[
 		'attribute' => 'status',
-		'filter'=>User::getStatusCombo(),
+		'filter' => User::getStatusCombo(),
 		'value' => function($data) {
 		    return User::getStatusLabel($data->status);
 		},

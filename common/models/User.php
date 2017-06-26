@@ -52,6 +52,7 @@ class User extends ActiveRecord implements IdentityInterface {
 	    'password' => Yii::t('translation', 'user.password'),
 	    'status' => Yii::t('translation', 'user.status'),
 	    'created_at' => Yii::t('translation', 'user.created_at'),
+	    'updated_at' => Yii::t('translation', 'user.updated_at'),
 	];
     }
 
