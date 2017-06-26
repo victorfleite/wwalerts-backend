@@ -20,28 +20,6 @@ class Menu {
 
     public static function getMainManu() {
 
-
-	/* return [
-	  ['label' => 'Action', 'url' => '#'],
-	  ['label' => 'Submenu 1', 'active' => true, 'items' => [
-	  ['label' => 'Action', 'url' => '#'],
-	  ['label' => 'Another action', 'url' => '#'],
-	  ['label' => 'Something else here', 'url' => '#'],
-	  '<li class="divider"></li>',
-	  ['label' => 'Submenu 2', 'items' => [
-	  ['label' => 'Action', 'url' => '#'],
-	  ['label' => 'Another action', 'url' => '#'],
-	  ['label' => 'Something else here', 'url' => '#'],
-	  '<li class="divider"></li>',
-	  ['label' => 'Separated link', 'url' => '#'],
-	  ]],
-	  ]],
-	  ['label' => 'Something else here', 'url' => '#'],
-	  '<li class="divider"></li>',
-	  ['label' => 'Separated link', 'url' => '#'],
-	  ]; */
-
-
 	$languageMenu = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
 		    ['label' => Yii::t('translation', 'menu.language.english'), 'url' => ['site/set-language', 'language' => 'en']],
 		    ['label' => Yii::t('translation', 'menu.language.portuguese'), 'url' => ['site/set-language', 'language' => 'pt-BR']],
@@ -57,7 +35,14 @@ class Menu {
 	    if (Yii::$app->user->can('/admin/*')) {
 
 		//$line = '<li role="separator" class="divider"></li>';
-
+		// ALERTS MENU ITEM ---------------------------------------------------------------------------------
+		$menuItems[] = ['label' => Yii::t('translation', 'menu.alerts_menu_label'), 'items' => [
+			['label' => Yii::t('translation', 'menu.alert_create_btn'), 'url' => ['/alerts/create']],
+			['label' => Yii::t('translation', 'menu.alerts_manage'), 'url' => ['/alerts/index']]
+		    ],
+		];		
+		
+		// ADMINISTRATION MENU ITEM------------------------------------------------------------------------------
 		$generalConfigMenu = ['label' => Yii::t('translation', 'menu.general_config_label'), 'items' => [
 			    ['label' => Yii::t('translation', 'menu.user_register'), 'url' => ['/user/index']],
 			    ['label' => Yii::t('translation', 'menu.access_control'), 'url' => ['/admin']],
@@ -88,11 +73,11 @@ class Menu {
 
 
 	    $change = ['label' => Yii::t('translation', 'menu.change_password'), 'url' => ['/site/request-password-reset']];
-	    
+
 	    $formLogout = Html::beginForm(['/site/logout'], 'post') . Html::submitButton(
 			    Yii::t('translation', 'menu.logout'), ['class' => 'btn btn-link logout']
 		    ) . Html::endForm();
-	    $logout = Html::tag('li', $formLogout,[]);
+	    $logout = Html::tag('li', $formLogout, []);
 
 
 	    // Profile
