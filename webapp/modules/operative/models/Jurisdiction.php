@@ -69,4 +69,24 @@ class Jurisdiction extends BaseJurisdiction {
 	]);
     }
 
+    public function beforeDelete() {
+	parent::beforeDelete();
+
+	$workgroups = $this->getWorkgroups()->all();
+	if (is_array($workgroups) && count($workgroups) > 0) {
+	    \Yii::$app->getSession()->setFlash('danger', [
+		'type' => 'danger',
+		'duration' => 12000,
+		'icon' => 'glyphicon glyphicon-exclamation-sign',
+		'title' => \Yii::t('translation', 'Notice'),
+		'message' => \Yii::t('translation', 'jurisdiction.message_delete_jurisdiction_with_workgroup', ['name' => $this->name]),
+		'positonY' => 'top',
+		'positonX' => 'left'
+	    ]);
+	    return false;
+	}
+
+	return true;
+    }
+
 }

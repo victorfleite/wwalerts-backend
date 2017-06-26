@@ -7,7 +7,7 @@ return [
     'menu.login' => 'Autenticação',
     'menu.alerts_menu_label' => 'Alertas',
     'menu.alert_create_btn' => 'Criar Novo Alerta',
-    'menu.alerts_manage' => 'Alertas Criados',    
+    'menu.alerts_manage' => 'Alertas Criados',
     'menu.administration' => 'Administração',
     'menu.user_register' => 'Cadastro de Usuário',
     'menu.access_control' => 'Controle de Acesso',
@@ -192,7 +192,7 @@ return [
     'institution.updated_at' => 'Data Atualização',
     'institution.create_title' => 'Nova Instituição',
     'institution.create_btn' => 'Nova Instituição',
-    'institution.message_delete_institution_with_jurisdiction' => 'Não foi possível apagar a Instituição {name} pois existem jurisdições associadas',
+    'institution.message_delete_institution_with_jurisdiction' => 'Não foi possível apagar a Instituição {name} pois existem jurisdições associadas.',
     // JURISDICTION MODEL/CONTROLLER
     'jurisdiction' => 'Jurisdição',
     'jurisdictions' => 'Jurisdições',
@@ -212,6 +212,7 @@ return [
     'jurisdiction.opacity' => 'Opacidade',
     'jurisdiction.modal_locals_btn' => 'Importar Locais',
     'jurisdiction.modal_locals_title' => 'Importar Locais',
+    'jurisdiction.message_delete_jurisdiction_with_workgroup' => 'Não foi possível apagar a Jurisdição {name} pois existem Grupos de Trabalho associados.',
     // MODAL IMPORT LOCALS
     'modal_import_locals_title' => 'Importar Locais',
     'modal_import_locals_msg_fields_empty' => 'Selecione pelo menos um local',

@@ -78,7 +78,7 @@ class Jurisdiction extends \yii\db\ActiveRecord
      */
     public function getWorkgroups()
     {
-        return $this->hasMany(\webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('rl_workgroup_jurisdiction', ['jurisdiction_id' => 'id']);
+        return $this->hasMany(\webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('operative.rl_workgroup_jurisdiction', ['jurisdiction_id' => 'id']);
     }
     
     /**
