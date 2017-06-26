@@ -192,7 +192,10 @@ return [
     'institution.updated_at' => 'Data Atualização',
     'institution.create_title' => 'Nova Instituição',
     'institution.create_btn' => 'Nova Instituição',
+    'institution.public_cap' => 'Alertas Públicos',
     'institution.message_delete_institution_with_jurisdiction' => 'Não foi possível apagar a Instituição {name} pois existem jurisdições associadas.',
+    'institution.public_cap_active_label' => 'Ativo',
+    'institution.public_cap_inactive_label' => 'Inativo',
     // JURISDICTION MODEL/CONTROLLER
     'jurisdiction' => 'Jurisdição',
     'jurisdictions' => 'Jurisdições',

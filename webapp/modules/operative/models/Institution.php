@@ -9,13 +9,15 @@ use webapp\modules\operative\models\base\Institution as BaseInstitution;
  */
 class Institution extends BaseInstitution {
 
+    const PUBLIC_CAP_INACTIVE = 0;
+    const PUBLIC_CAP_ACTIVE = 1;
     /**
      * @inheritdoc
      */
     public function rules() {
 	return [
-		[['name', 'country', 'abbreviation', 'abbreviation_cap', 'sender_cap', 'contact_cap', 'language_cap'], 'required'],
-		[['id'], 'integer'],
+		[['name', 'country', 'abbreviation', 'abbreviation_cap', 'sender_cap', 'contact_cap', 'language_cap', 'public_cap'], 'required'],
+		[['id', 'public_cap'], 'integer'],
 		[['email', 'phone', 'name', 'country', 'abbreviation'], 'string', 'max' => 255],
 		[['abbreviation_cap'], 'string', 'max' => 30],
 		[['sender_cap'], 'string', 'max' => 50],
@@ -38,7 +40,8 @@ class Institution extends BaseInstitution {
 	    'abbreviation_cap' => \Yii::t('translation', 'institution.abbreviation_cap'),
 	    'sender_cap' => \Yii::t('translation', 'institution.sender_cap'),
 	    'contact_cap' => \Yii::t('translation', 'institution.contact_cap'),
-	    'language_cap' => \Yii::t('translation', 'institution.language_cap'),
+	    'language_cap' => \Yii::t('translation', 'institution.language_cap'),	    
+	    'public_cap' => \Yii::t('translation', 'institution.public_cap'),
 	    'created_at' => \Yii::t('translation', 'institution.created_at'),
 	    'updated_at' => \Yii::t('translation', 'institution.updated_at'),
 	];
@@ -62,6 +65,26 @@ class Institution extends BaseInstitution {
 	}
 
 	return true;
+    }
+
+    public static function getPublicCapLabel($p) {
+	switch ($p) {
+	    case Institution::PUBLIC_CAP_ACTIVE:
+		return \Yii::t('translation', 'institution.public_cap_active_label');
+		break;
+	    case Institution::PUBLIC_CAP_INACTIVE:
+		return \Yii::t('translation', 'institution.public_cap_inactive_label');
+		break;
+	    default:
+		break;
+	}
+    }
+
+    public static function getPublicCapCombo() {
+	return [
+	    Institution::PUBLIC_CAP_ACTIVE => \Yii::t('translation', 'institution.public_cap_active_label'),
+	    Institution::PUBLIC_CAP_INACTIVE => \Yii::t('translation', 'institution.public_cap_inactive_label'),
+	];
     }
 
 }
