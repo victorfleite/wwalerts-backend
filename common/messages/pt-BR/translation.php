@@ -81,7 +81,7 @@ return [
     'user.status' => 'Status',
     'user.status_active' => 'Ativo',
     'user.status_inactive' => 'Inativo',
-    'user.create_at' => 'Criado em',
+    'user.created_at' => 'Criado em',
     'user.list_title' => 'Administrar Usuários',
     'user.btn_create' => 'Novo Usuário',
     'user.btn_update' => 'Alterar Usuário',
