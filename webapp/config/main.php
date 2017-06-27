@@ -51,8 +51,8 @@ return [
 		],
 	    ],
 	],
-	'alerts' => [
-	    'class' => 'app\modules\alerts\Module',
+	'alert' => [
+	    'class' => 'app\modules\alert\Module',
 	],
 	'local' => [
 	    'class' => 'webapp\modules\local\Module',

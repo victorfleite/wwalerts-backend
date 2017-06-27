@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\alerts\controllers;
+namespace app\modules\alert\controllers;
 
 use yii\web\Controller;
 
