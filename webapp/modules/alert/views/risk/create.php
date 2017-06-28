@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\alert\models\Risk */
 
-$this->title = Yii::t('translation', 'Create Risk');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Risks'), 'url' => ['index']];
+$this->title = Yii::t('translation', 'risk.create_title');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'risks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="risk-create">

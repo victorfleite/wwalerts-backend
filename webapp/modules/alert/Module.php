@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\alert;
+namespace webapp\modules\alert;
 
 /**
  * alerts module definition class
@@ -10,7 +10,7 @@ class Module extends \yii\base\Module
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'app\modules\alert\controllers';
+    public $controllerNamespace = 'webapp\modules\alert\controllers';
 
     /**
      * @inheritdoc

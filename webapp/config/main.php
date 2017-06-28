@@ -52,7 +52,7 @@ return [
 	    ],
 	],
 	'alert' => [
-	    'class' => 'app\modules\alert\Module',
+	    'class' => 'webapp\modules\alert\Module',
 	],
 	'local' => [
 	    'class' => 'webapp\modules\local\Module',

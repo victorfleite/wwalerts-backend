@@ -12,7 +12,7 @@ use \common\models\Config;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Jurisdictions'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'jurisdictions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurisdiction-view">
