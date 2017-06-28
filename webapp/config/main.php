@@ -7,7 +7,7 @@ $params = array_merge(
 return [
     'id' => 'Alerts',
     'basePath' => dirname(__DIR__),
-    'controllerNamespace' => 'backend\controllers',
+    'controllerNamespace' => 'webapp\controllers',
     'bootstrap' => [
 	'log',
 	    [
@@ -18,6 +18,9 @@ return [
     'language' => 'pt-BR',
     'sourceLanguage' => 'en',
     'modules' => [
+	'modules' => [
+	    'i18n' => Zelenin\yii\modules\I18n\Module::className()
+	],
 	'admin' => [
 	    'class' => 'mdm\admin\Module',
 	    'layout' => 'left-menu',
@@ -109,12 +112,12 @@ return [
 	    'errorAction' => 'site/error',
 	],
 	'i18n' => [
+	    'class' => Zelenin\yii\modules\I18n\components\I18N::className(),
 	    'translations' => [
-		'translation*' => [
-		    'class' => 'yii\i18n\PhpMessageSource',
-		    'basePath' => '@common/messages',
-		],
-	    ],
+		'translation' => [
+		    'class' => yii\i18n\DbMessageSource::className()
+		]
+	    ]
 	],
     ],
     'as access' => [

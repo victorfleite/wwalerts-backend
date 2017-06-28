@@ -2,8 +2,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use backend\assets\AppAsset;
-use backend\models\Menu;
+use webapp\assets\AppAsset;
+use webapp\models\Menu;
 use yii\helpers\Html;
 use yii\bootstrap\NavBar;
 use kartik\nav\NavX;

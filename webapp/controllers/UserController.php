@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace webapp\controllers;
 
 use Yii;
 use common\models\User;
@@ -8,7 +8,7 @@ use common\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\models\SignupForm;
+use webapp\models\SignupForm;
 
 /**
  * UserController implements the CRUD actions for User model.

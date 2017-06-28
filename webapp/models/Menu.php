@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace backend\models;
+namespace webapp\models;
 
 use Yii;
 use yii\helpers\Html;

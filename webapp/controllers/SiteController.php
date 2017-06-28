@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace webapp\controllers;
 
 use Yii;
 use yii\base\InvalidParamException;
@@ -8,7 +8,6 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\Cookie;
-use yii\helpers\Html;
 use common\models\LoginForm;
 use common\models\User;
 use backend\models\PasswordResetRequestForm;
