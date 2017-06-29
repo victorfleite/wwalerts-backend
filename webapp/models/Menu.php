@@ -37,16 +37,17 @@ class Menu {
 		//$line = '<li role="separator" class="divider"></li>';
 		// ALERTS MENU ITEM ---------------------------------------------------------------------------------
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.alerts_menu_label'), 'items' => [
-			['label' => Yii::t('translation', 'menu.alert_create_btn'), 'url' => ['/alerts']],
-			['label' => Yii::t('translation', 'menu.alerts_manage'), 'url' => ['/alerts']]
+			    ['label' => Yii::t('translation', 'menu.alert_create_btn'), 'url' => ['/alerts']],
+			    ['label' => Yii::t('translation', 'menu.alerts_manage'), 'url' => ['/alerts']]
 		    ],
-		];		
-		
+		];
+
 		// ADMINISTRATION MENU ITEM------------------------------------------------------------------------------
 		$generalConfigMenu = ['label' => Yii::t('translation', 'menu.general_config_label'), 'items' => [
 			    ['label' => Yii::t('translation', 'menu.user_register'), 'url' => ['/user/index']],
 			    ['label' => Yii::t('translation', 'menu.access_control'), 'url' => ['/admin']],
 			    ['label' => Yii::t('translation', 'menu.config_variables'), 'url' => ['/config']],
+			    ['label' => Yii::t('translation', 'menu.languages'), 'url' => ['/language']],
 		]];
 
 		$operativeMenu = ['label' => Yii::t('translation', 'menu.operative_menu_label'), 'items' => [

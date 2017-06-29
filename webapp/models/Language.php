@@ -12,13 +12,31 @@ class Language extends BaseLanguage {
 
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
+
     // Yii2 List (vendors/yiisoft/yii2/messages)
-    public $list = ['ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'el', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'ms', 'nb-NO', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sr-Latn', 'sv', 'tg', 'th', 'uk', 'vi', 'zh-CN', 'zh-TW'];
+    public $list = ['ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'ms', 'nb-NO', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sr-Latn', 'sv', 'tg', 'th', 'uk', 'vi', 'zh-CN', 'zh-TW'];
+    public $sourceMessages = [];
+    public $translations = [];
 
     public function init() {
 	parent::init();
 	$this->status = Language::STATUS_ENABLED;
     }
+
+    public function loadProprieties() {
+	$this->sourceMessages = SourceMessage::find(['category' => SourceMessage::CATEGORY])->orderBy('message asc')->all();
+	foreach ($this->sourceMessages as $sourceMessage) {
+	    $message = Message::findOne(['id' => $sourceMessage->id, 'language' => $this->code]);
+	    $translation = '';
+	    if (!isset($message)) {
+		$translation = '';
+	    } else {
+		$translation = $message->translation;
+	    }
+	    $this->translations[$sourceMessage->id] = $translation;
+	}
+    }
+
     /**
      * @inheritdoc
      */
@@ -26,7 +44,8 @@ class Language extends BaseLanguage {
 	return [
 		[['code', 'status'], 'required'],
 		[['status'], 'integer'],
-		[['code'], 'string', 'max' => 10]
+		[['code'], 'string', 'max' => 10],
+		[['traslations'], 'safe'],
 	];
     }
 
@@ -41,12 +60,42 @@ class Language extends BaseLanguage {
 	];
     }
 
-    public function getComboLanguages() {
+    public function getComboAvailableLanguages() {
 	$ar = [];
+	$codesAvailable = array_column($this->find()->asArray()->all(), 'code');
 	foreach ($this->list as $l) {
-	    $ar[$l] = $l;
+	    if (!in_array($l, $codesAvailable)) {
+		$ar[$l] = $l;
+	    }
 	}
 	return $ar;
+    }
+
+    /**
+     * Return the value of percentage translated
+     * @return string
+     */
+    public function getTranslationPercentage() {
+
+	$sourcesCode = SourceMessage::findAll(['category' => SourceMessage::CATEGORY]);
+
+	$translationNotCompleted = 0;
+	$totalSourceMessage = 0;
+	if (is_array($sourcesCode)) {
+	    foreach ($sourcesCode as $sourceCode) {
+		$message = Message::findOne(['id' => $sourceCode->id, 'language' => $this->code]);
+
+		if (isset($message)) {
+		    if (trim($message->translation) == '')
+			$translationNotCompleted++;
+		}else {
+		    $translationNotCompleted++;
+		}
+		$totalSourceMessage++;
+	    }
+	}
+
+	return round((1 - ($translationNotCompleted / $totalSourceMessage )) * 100, 1);
     }
 
     public static function getStatusLabel($status) {
