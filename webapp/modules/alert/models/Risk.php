@@ -15,13 +15,11 @@ class Risk extends BaseRisk {
      */
     public function rules() {
 	return [
-		[['name', 'color', 'i18n'], 'required'],
+		[['name_i18n', 'color'], 'required'],
 		[['created_at', 'updated_at'], 'safe'],
 		[['created_by', 'updated_by'], 'integer'],
 		[['hash'], 'string'],
-		[['name'], 'string', 'max' => 30],
-		[['description'], 'string', 'max' => 500],
-		[['i18n'], 'string', 'max' => 300]
+		[['name_i18n', 'description_i18n'], 'string', 'max' => 300]
 	];
     }
 
@@ -31,9 +29,8 @@ class Risk extends BaseRisk {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('translation', 'risk.id'),
-	    'name' => Yii::t('translation', 'risk.name'),
-	    'description' => Yii::t('translation', 'risk.description'),
-	    'i18n' => Yii::t('translation', 'risk.i18n'),
+	    'name_i18n' => Yii::t('translation', 'risk.name_i18n'),
+	    'description_i18n' => Yii::t('translation', 'risk.description_i18n'),
 	    'hash' => Yii::t('translation', 'risk.hash'),
 	    'color' => Yii::t('translation', 'risk.color'),
 	    'created_at' => Yii::t('translation', 'risk.created_at'),

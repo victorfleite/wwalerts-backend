@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\components\widgets\datailview_i18n\DatailViewI18n;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\alert\models\Risk */
 
-$this->title = $model->name;
+$this->title = Yii::t('translation', $model->name_i18n);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'risks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -32,7 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
     DetailView::widget([
 	'model' => $model,
 	'attributes' => [
-	    'name',
+	    'name_i18n',
+		[
+		'label' => Yii::t('translation', 'risk.name_traduction'),
+		'value' => function($data) {
+		    return Yii::t('translation', $data->name_i18n);
+		},
+	    ],
 		[
 		'attribute' => 'color',
 		'format' => 'raw',
@@ -40,8 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
 		},
 	    ],
-	    'description',
-	    'i18n',
+	    'description_i18n',
 	    'created_at:datetime',
 	    'updated_at:datetime',
 		[
@@ -62,5 +68,22 @@ $this->params['breadcrumbs'][] = $this->title;
 	],
     ])
     ?>
+    
+    <h2><?= Yii::t('translation', 'translations') ?></h2>
+    
+    <?=
+    DatailViewI18n::widget([
+	'model' => $model,
+	'attribute' => 'name_i18n',
+    ])
+    ?>
+    
+    <?=
+    DatailViewI18n::widget([
+	'model' => $model,
+	'attribute' => 'description_i18n',
+    ])
+    ?>
+
 
 </div>

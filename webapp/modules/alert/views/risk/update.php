@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $model app\modules\alert\models\Risk */
 
 $this->title = Yii::t('translation', 'update_title', [
-    'name' => $model->name,
+    'name' => Yii::t('translation', $model->name_i18n),
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'risks'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', $model->name_i18n), 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
 ?>
 <div class="risk-update">

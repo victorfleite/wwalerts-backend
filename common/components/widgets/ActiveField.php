@@ -2,6 +2,7 @@
 
 namespace common\components\widgets;
 
+use yii\helpers\Html;
 use \kartik\widgets\ColorInput;
 use \kartik\slider\Slider;
 
@@ -10,7 +11,8 @@ use \kartik\slider\Slider;
  *
  * @author victor.leite
  */
-class ActiveField extends \yii\widgets\ActiveField {
+class ActiveField extends \yii\bootstrap\ActiveField {
+   
 
     public function colorPickerInput($options = []) {
 	$options = array_merge($this->inputOptions, $options);
@@ -41,6 +43,21 @@ class ActiveField extends \yii\widgets\ActiveField {
 		    'pluginOptions' => $options,
 	]);
 	return $this;
+    }
+    
+    public function inputWithModalI18n($options = []){
+	
+	$this->inputTemplate = "<div class=\"input-append\">{input}\n<button class=\"btn\" type=\"button\">{button}</button></div>";
+	
+	$options = array_merge($this->inputOptions, $options);
+	$this->addAriaAttributes($options);
+	$this->adjustLabelFor($options);
+	$opt = array_merge(['placeholder' => \Yii::t('translation', 'placeholder_select_color')], $options);
+
+	$this->parts['{input}'] = Html::activeInput('text', $this->model, $this->attribute, $options);
+	return $this;
+	
+	
     }
 
 }
