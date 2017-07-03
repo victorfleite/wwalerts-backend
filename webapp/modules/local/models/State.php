@@ -15,14 +15,15 @@ class State extends BaseState {
      * @inheritdoc
      */
     public function rules() {
-	return array_replace_recursive(parent::rules(), [
+	return [
+		[['abbreviati', 'name', 'country_id', 'geom'], 'required'],
 		[['country_id', 'batch_id'], 'integer'],
 		[['center_lat', 'center_lon', 'cd_geocodu'], 'number'],
 		[['geom'], 'string'],
 		[['name'], 'string', 'max' => 254],
 		[['abbreviati'], 'string', 'max' => 2],
 		[['icon_path'], 'string', 'max' => 200]
-	]);
+	];
     }
 
     /**
@@ -57,12 +58,13 @@ class State extends BaseState {
 	    ]
 	]);
     }
+
     /**
      * Get Url for Icon of state
      * @return type
      */
     public function getIconPathUrl() {
-	return \Yii::$app->request->BaseUrl .'/'. $this->icon_path;
+	return \Yii::$app->request->BaseUrl . '/' . $this->icon_path;
     }
 
 }

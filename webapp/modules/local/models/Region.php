@@ -15,7 +15,8 @@ class Region extends BaseRegion {
      * @inheritdoc
      */
     public function rules() {
-	return array_replace_recursive(parent::rules(), [
+	return [
+		[['nm_meso', 'country_id', 'geom'], 'required'],
 		[['geom'], 'string'],
 		[['country_id'], 'required'],
 		[['country_id', 'batch_id'], 'integer'],
@@ -23,7 +24,7 @@ class Region extends BaseRegion {
 		[['description'], 'string', 'max' => 1000],
 		[['cd_geocodu'], 'string', 'max' => 2],
 		[['description'], 'safe']
-	]);
+	];
     }
 
     /**
@@ -51,7 +52,7 @@ class Region extends BaseRegion {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
-		'pk_name'=>'gid',
+		'pk_name' => 'gid',
 	    ]
 	]);
     }

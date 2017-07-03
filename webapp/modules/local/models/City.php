@@ -14,13 +14,14 @@ class City extends BaseCity {
      * @inheritdoc
      */
     public function rules() {
-	return array_replace_recursive(parent::rules(), [
+	return [
+		[['name', 'country_id', 'geom'], 'required'],
 		[['latitude', 'longitude', 'state_id', 'geocode'], 'number'],
 		[['geom'], 'string'],
 		[['batch_id', 'country_id'], 'integer'],
 		[['name'], 'string', 'max' => 75],
 		[['the_geom_s'], 'string', 'max' => 254]
-	]);
+	];
     }
 
     /**
@@ -51,7 +52,7 @@ class City extends BaseCity {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
-		'pk_name'=>'gid',
+		'pk_name' => 'gid',
 	    ]
 	]);
     }
