@@ -120,7 +120,7 @@ class Language extends BaseLanguage {
 
     public static function getMenuLanguageItens() {
 
-	$languages = Language::findAll(['status' => Language::STATUS_ENABLED]);
+	$languages = Language::find()->where(['status' => Language::STATUS_ENABLED])->orderBy('code')->all();
 	$menuItens = [];
 	if (is_array($languages)) {
 	    foreach ($languages as $language) {

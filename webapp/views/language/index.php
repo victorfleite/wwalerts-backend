@@ -7,7 +7,7 @@ use \yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('translation', 'Languages');
+$this->title = Yii::t('translation', 'languages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="language-index">
