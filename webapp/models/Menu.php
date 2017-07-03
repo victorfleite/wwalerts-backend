@@ -20,10 +20,7 @@ class Menu {
 
     public static function getMainManu() {
 
-	$languageMenu = ['label' => Yii::t('translation', 'menu.language'), 'items' => [
-		    ['label' => Yii::t('translation', 'menu.language.english'), 'url' => ['site/set-language', 'language' => 'en']],
-		    ['label' => Yii::t('translation', 'menu.language.portuguese'), 'url' => ['site/set-language', 'language' => 'pt-BR']],
-	]];
+	$languageMenu = ['label' => Yii::t('translation', 'menu.language').' ('.\Yii::$app->language.')', 'items' => Language::getMenuLanguageItens()];
 
 	if (Yii::$app->user->isGuest) { // GUEST
 	    $menuItems[] = $languageMenu;

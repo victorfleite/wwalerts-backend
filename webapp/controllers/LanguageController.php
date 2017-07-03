@@ -106,13 +106,13 @@ class LanguageController extends Controller {
 
 	if (\Yii::$app->request->isPost) {
 	    $language->translations = \Yii::$app->request->getBodyParam("Language")["translations"];
-	    foreach ($language->translations as $key => $txt) {
+	    foreach ($language->translations as $key => $el) {
 		$message = Message::findOne(['id' => $key, 'language' => $language->code]);
 		if (!isset($message))
 		    $message = new Message();
 		$message->id = $key;
 		$message->language = $language->code;
-		$message->translation = $txt;
+		$message->translation = $el;
 		$message->save();
 	    }
 	}

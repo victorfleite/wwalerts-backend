@@ -12,11 +12,10 @@ return [
 	'log',
 	    [
 	    'class' => 'common\components\LanguageSelector',
-	    'supportedLanguages' => ['en', 'pt-BR'],
 	],
     ],
     'language' => 'pt-BR',
-    'sourceLanguage' => 'en',
+    'sourceLanguage' => 'en-US',
     'modules' => [
 	'modules' => [
 	    'i18n' => Zelenin\yii\modules\I18n\Module::className()
@@ -115,7 +114,8 @@ return [
 	    'class' => Zelenin\yii\modules\I18n\components\I18N::className(),
 	    'translations' => [
 		'translation' => [
-		    'class' => yii\i18n\DbMessageSource::className()
+		    'class' => yii\i18n\DbMessageSource::className(),
+		    'forceTranslation'=>true,
 		]
 	    ]
 	],

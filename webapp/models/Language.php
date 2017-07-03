@@ -14,7 +14,7 @@ class Language extends BaseLanguage {
     const STATUS_DISABLED = 0;
 
     // Yii2 List (vendors/yiisoft/yii2/messages)
-    public $list = ['ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'ms', 'nb-NO', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sr-Latn', 'sv', 'tg', 'th', 'uk', 'vi', 'zh-CN', 'zh-TW'];
+    public $list = ['ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'el', 'en-US', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'ms', 'nb-NO', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sr-Latn', 'sv', 'tg', 'th', 'uk', 'vi', 'zh-CN', 'zh-TW'];
     public $sourceMessages = [];
     public $translations = [];
 
@@ -116,6 +116,19 @@ class Language extends BaseLanguage {
 	    Language::STATUS_ENABLED => Yii::t('translation', 'language.status_enabled'),
 	    Language::STATUS_DISABLED => Yii::t('translation', 'language.status_disabled')
 	];
+    }
+
+    public static function getMenuLanguageItens() {
+
+	$languages = Language::findAll(['status' => Language::STATUS_ENABLED]);
+	$menuItens = [];
+	if (is_array($languages)) {
+	    foreach ($languages as $language) {
+		$menuItens[] = ['label' => Yii::t('translation', 'menu.language.' . $language->code), 'url' => ['/site/set-language', 'language' => $language->code]];
+	    }
+	}
+
+	return $menuItens;
     }
 
 }

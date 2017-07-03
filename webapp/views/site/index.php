@@ -8,7 +8,7 @@
 
     <div class="body-content">
 
-   
+       <?php //echo \Yii::$app->language ?>
 
     </div>
 </div>
