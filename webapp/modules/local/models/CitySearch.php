@@ -42,8 +42,7 @@ class CitySearch extends City
      */
     public function search($params)
     {
-        $query = City::find();
-
+        $query = City::find()->select(['name','state_id','country_id']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

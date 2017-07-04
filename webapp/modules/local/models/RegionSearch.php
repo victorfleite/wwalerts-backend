@@ -38,7 +38,7 @@ class RegionSearch extends Region {
      * @return ActiveDataProvider
      */
     public function search($params) {
-	$query = Region::find();
+	$query = Region::find()->select(['nm_meso', 'country_id']);
 
 	// add conditions that should always apply here
 

@@ -42,7 +42,7 @@ class StateSearch extends State
      */
     public function search($params)
     {
-        $query = State::find();
+        $query = State::find()->select(['abbreviati', 'name', 'country_id']);
 
         // add conditions that should always apply here
 
