@@ -34,12 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	'model' => $model,
 	'attributes' => [
 	    'name_i18n',
-		[
-		'label' => Yii::t('translation', 'risk.name_traduction'),
-		'value' => function($data) {
-		    return Yii::t('translation', $data->name_i18n);
-		},
-	    ],
+	
 		[
 		'attribute' => 'color',
 		'format' => 'raw',
@@ -47,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
 		},
 	    ],
-	    'description_i18n',
+	    'description_i18n',	
 	    'created_at:datetime',
 	    'updated_at:datetime',
 		[
