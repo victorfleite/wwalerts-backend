@@ -20,7 +20,7 @@ class Menu {
 
     public static function getMainManu() {
 
-	$languageMenu = ['label' => Yii::t('translation', 'menu.language').' ('.\Yii::$app->language.')', 'items' => Language::getMenuLanguageItens()];
+	$languageMenu = ['label' => Yii::t('translation', 'menu.language') . ' (' . \Yii::$app->language . ')', 'items' => Language::getMenuLanguageItens()];
 
 	if (Yii::$app->user->isGuest) { // GUEST
 	    $menuItems[] = $languageMenu;
@@ -60,11 +60,15 @@ class Menu {
 			    ['label' => Yii::t('translation', 'menu.city'), 'url' => ['/local/city/index']]
 		]];
 
+		$risklMenu = ['label' => Yii::t('translation', 'menu.risk_menu_label'), 'items' => [
+			    ['label' => Yii::t('translation', 'menu.risk'), 'url' => ['/alert/risk/index']],
+		]];
 
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [
 			$generalConfigMenu,
 			$operativeMenu,
-			$localMenu
+			$localMenu,
+			$risklMenu
 		    ],
 		];
 	    }
