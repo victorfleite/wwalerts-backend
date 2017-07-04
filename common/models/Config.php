@@ -42,22 +42,22 @@ class Config extends \yii\db\ActiveRecord {
     }
 
     public function validateValue($attribute, $params, $validator) {
-	
+
 	switch ($this->varname) {
 	    case Config::VARNAME_LANGUAGE_CODE:
-		   // Nothing		
+		// Nothing		
 		break;
 	    case Config::VARNAME_COUNTRY_ID:
-		   $this->validateNumeric($this->$attribute, $attribute);		
+		$this->validateNumeric($this->$attribute, $attribute);
 		break;
 	    case Config::VARNAME_TIME_OFFSET:
-		   $this->validateNumeric($this->$attribute, $attribute);		
+		$this->validateNumeric($this->$attribute, $attribute);
 		break;
 	    case Config::VARNAME_MAP_DEFAULT_CENTER_LATITUDE:
-		   $this->validateNumeric($this->$attribute, $attribute);		
+		$this->validateNumeric($this->$attribute, $attribute);
 		break;
 	    case Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE:
-		   $this->validateNumeric($this->$attribute, $attribute);		
+		$this->validateNumeric($this->$attribute, $attribute);
 		break;
 	    case Config::VARNAME_MAP_DEFULT_ZOOM:
 		$this->validateNumeric($this->$attribute, $attribute);
@@ -68,8 +68,8 @@ class Config extends \yii\db\ActiveRecord {
 	    default:
 	}
     }
-    
-    public function validateNumeric($value, $attribute){
+
+    public function validateNumeric($value, $attribute) {
 	if (!is_numeric($value)) {
 	    $this->addError($attribute, 'The field must to be a number".');
 	}
@@ -84,6 +84,19 @@ class Config extends \yii\db\ActiveRecord {
 	    'varname' => Yii::t('translation', 'config.varname'),
 	    'value' => Yii::t('translation', 'config.value'),
 	];
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+	parent::afterSave($insert, $changedAttributes);
+	switch ($this->varname) {
+	    case Config::VARNAME_LANGUAGE_CODE:
+		// SET DEFAULT LANGUAGE;		
+		\webapp\models\Language::setSystemDefaultLanguage($this->value);		
+		break;
+	    default:
+	}
+
+	return true;
     }
 
 }

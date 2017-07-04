@@ -138,5 +138,29 @@ class Language extends BaseLanguage {
 
 	return $menuItens;
     }
+    /**
+     * Set The defalt language of the system.
+     * @param type $languageCode
+     */
+    public static function setSystemDefaultLanguage($languageCode) {
+	// get the cookie collection (yii\web\CookieCollection) from the "response" component
+	$cookies = Yii::$app->response->cookies;
+	// add a new cookie to the response to be sent
+	$cookies->add(new \yii\web\Cookie([
+	    'name' => 'language',
+	    'value' => $languageCode,
+	]));
+	// Set the language code on system
+	\Yii::$app->language = $languageCode;
+	
+	// Create the language on system.. if not exists;
+	$language = Language::find()->where(['code'=>$languageCode])->one();
+	if(!isset($language)){
+	    $language = new Language();
+	    $language->code = $languageCode;
+	    $language->status = Language::STATUS_ENABLED;
+	    $language->save();
+	}
+    }
 
 }
