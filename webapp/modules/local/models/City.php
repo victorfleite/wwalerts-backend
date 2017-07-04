@@ -18,6 +18,7 @@ class City extends BaseCity {
 		[['name', 'country_id', 'geom'], 'required'],
 		[['latitude', 'longitude', 'state_id', 'geocode'], 'number'],
 		[['geom'], 'string'],
+		[['geom'], \common\components\validators\WktValidator::className()],
 		[['batch_id', 'country_id'], 'integer'],
 		[['name'], 'string', 'max' => 75],
 		[['the_geom_s'], 'string', 'max' => 254]

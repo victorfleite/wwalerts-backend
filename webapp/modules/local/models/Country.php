@@ -20,6 +20,7 @@ class Country extends BaseCountry {
 		[['un', 'area', 'region', 'subregion', 'batch_id'], 'integer'],
 		[['pop2005', 'lon', 'lat'], 'number'],
 		[['geom'], 'string'],
+		[['geom'], \common\components\validators\WktValidator::className()],
 		[['fips', 'iso2'], 'string', 'max' => 2],
 		[['iso3'], 'string', 'max' => 3],
 		[['name'], 'string', 'max' => 50]
@@ -58,7 +59,7 @@ class Country extends BaseCountry {
 		'class' => PolygonBehavior::className(),
 		'attribute' => 'geom',
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
-		'pk_name'=>'gid',
+		'pk_name' => 'gid',
 	    ]
 	]);
     }

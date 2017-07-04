@@ -18,6 +18,7 @@ class Region extends BaseRegion {
 	return [
 		[['nm_meso', 'country_id', 'geom'], 'required'],
 		[['geom'], 'string'],
+		[['geom'], \common\components\validators\WktValidator::className()],
 		[['country_id'], 'required'],
 		[['country_id', 'batch_id'], 'integer'],
 		[['nm_meso'], 'string', 'max' => 100],

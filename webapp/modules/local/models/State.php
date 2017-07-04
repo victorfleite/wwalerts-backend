@@ -20,6 +20,7 @@ class State extends BaseState {
 		[['country_id', 'batch_id'], 'integer'],
 		[['center_lat', 'center_lon', 'cd_geocodu'], 'number'],
 		[['geom'], 'string'],
+		[['geom'], \common\components\validators\WktValidator::className()],
 		[['name'], 'string', 'max' => 254],
 		[['abbreviati'], 'string', 'max' => 2],
 		[['icon_path'], 'string', 'max' => 200]
