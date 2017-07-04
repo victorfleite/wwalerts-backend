@@ -71,6 +71,14 @@ class Language extends BaseLanguage {
 	return $ar;
     }
 
+    public function getComboLanguagesCodes() {
+	$ar = [];
+	foreach ($this->list as $l) {
+	    $ar[$l] = $l;
+	}
+	return $ar;
+    }
+
     /**
      * Return the value of percentage translated
      * @return string

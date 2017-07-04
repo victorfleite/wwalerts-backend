@@ -17,6 +17,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'value')->specificField($model->varname, ['maxlength' => true]) ?>
 
     <div class="form-group">
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['index'], ['class' => 'btn btn-primary']) ?>
         <?= Html::submitButton(Yii::t('app', 'Salvar'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

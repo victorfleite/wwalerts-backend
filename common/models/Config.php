@@ -13,6 +13,7 @@ use Yii;
  */
 class Config extends \yii\db\ActiveRecord {
 
+    const VARNAME_LANGUAGE_CODE = 'LANGUAGE_CODE';
     const VARNAME_COUNTRY_ID = 'COUNTRY_ID';
     const VARNAME_TIME_OFFSET = 'TIME_OFFSET';
     const VARNAME_MAP_DEFAULT_CENTER_LATITUDE = 'MAP_DEFAULT_CENTER_LATITUDE';
@@ -43,6 +44,9 @@ class Config extends \yii\db\ActiveRecord {
     public function validateValue($attribute, $params, $validator) {
 	
 	switch ($this->varname) {
+	    case Config::VARNAME_LANGUAGE_CODE:
+		   // Nothing		
+		break;
 	    case Config::VARNAME_COUNTRY_ID:
 		   $this->validateNumeric($this->$attribute, $attribute);		
 		break;
