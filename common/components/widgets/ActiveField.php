@@ -12,7 +12,6 @@ use \kartik\slider\Slider;
  * @author victor.leite
  */
 class ActiveField extends \yii\bootstrap\ActiveField {
-   
 
     public function colorPickerInput($options = []) {
 	$options = array_merge($this->inputOptions, $options);
@@ -44,20 +43,19 @@ class ActiveField extends \yii\bootstrap\ActiveField {
 	]);
 	return $this;
     }
-    
-    public function inputWithModalI18n($options = []){
-	
-	$this->inputTemplate = "<div class=\"input-append\">{input}\n<button class=\"btn\" type=\"button\">{button}</button></div>";
+
+    public function inputWithModalI18n($options = []) {
+
 	
 	$options = array_merge($this->inputOptions, $options);
 	$this->addAriaAttributes($options);
 	$this->adjustLabelFor($options);
 	$opt = array_merge(['placeholder' => \Yii::t('translation', 'placeholder_select_color')], $options);
+	$this->parts['{input}'] = Html::activeInput('text', $this->model, $this->attribute, $options);	
+	$this->inputTemplate = "<div class=\"input-group\">{input}\n<span class=\"input-group-btn\"><button class=\"btn btn-success\" type=\"button\">".\Yii::t('translation', 'translation')."</button></span></div>";
 
-	$this->parts['{input}'] = Html::activeInput('text', $this->model, $this->attribute, $options);
+
 	return $this;
-	
-	
     }
 
 }
