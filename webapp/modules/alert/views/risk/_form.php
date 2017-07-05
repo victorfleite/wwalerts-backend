@@ -10,15 +10,21 @@ use yii\bootstrap\ActiveForm;
 
 <div class="config-form">
 
-    <?php $form = ActiveForm::begin(['layout' => 'default', 'fieldClass' => '\common\components\widgets\ActiveField']); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'default']); ?>
 
 
     <div class="row">
 	<div class="col-lg-6">
-	    <?= $form->field($model, 'name_i18n')->inputWithModalI18n(['maxlength' => true]) ?>
+	    <?=
+	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\InputModalI18n', [
+		'button_modal_label' => \Yii::t('translation', 'translation')
+	    ]);
+	    ?>
 	</div><!-- /.col-lg-6 -->
 	<div class="col-lg-6">
-	    <?= $form->field($model, 'color')->colorPickerInput(['maxlength' => true]) ?>
+	    <?=
+	    $form->field($model, 'color')->widget('\kartik\widgets\ColorInput', []);
+	    ?>
 	</div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
 
