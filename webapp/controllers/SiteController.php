@@ -186,7 +186,7 @@ class SiteController extends Controller {
 	    'duration' => 12000,
 	    'icon' => 'glyphicon glyphicon-ok-sign',
 	    'title' => Yii::t('translation', 'site.set_language.message_language_selected_title'),
-	    'message' => Yii::t('translation', 'site.set_language.message_language_selected', ['language' => $language]),
+	    'message' => Yii::t('translation', 'site.set_language.message_language_selected', ['language' => Yii::t('translation', 'menu.language.' . $language)]),
 	    'positonY' => 'top',
 	    'positonX' => 'left'
 	]);

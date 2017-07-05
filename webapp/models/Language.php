@@ -138,6 +138,7 @@ class Language extends BaseLanguage {
 
 	return $menuItens;
     }
+
     /**
      * Set The defalt language of the system.
      * @param type $languageCode
@@ -152,14 +153,26 @@ class Language extends BaseLanguage {
 	]));
 	// Set the language code on system
 	\Yii::$app->language = $languageCode;
-	
+
 	// Create the language on system.. if not exists;
-	$language = Language::find()->where(['code'=>$languageCode])->one();
-	if(!isset($language)){
+	$language = Language::find()->where(['code' => $languageCode])->one();
+	if (!isset($language)) {
+	    // Save Language
 	    $language = new Language();
 	    $language->code = $languageCode;
 	    $language->status = Language::STATUS_ENABLED;
 	    $language->save();
+	    // Throw flash message
+	    $link = \yii\helpers\Html::a('link', \yii\helpers\Url::toRoute(['/language/edit-messages', 'code'=>$languageCode]));	    
+	    \Yii::$app->getSession()->setFlash('success', [
+		'type' => 'success',
+		'duration' => 12000,
+		'icon' => 'glyphicon glyphicon-ok-sign',
+		'title' => \Yii::t('translation', 'Info'),
+		'message' => "New language was created. To translate access the {$link}. ",
+		'positonY' => 'top',
+		'positonX' => 'left'
+	    ]);
 	}
     }
 

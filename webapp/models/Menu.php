@@ -27,7 +27,6 @@ class Menu {
 	    $menuItems[] = ['label' => Yii::t('translation', 'menu.login'), 'url' => ['/site/login']];
 	} else { // LOGGED
 	    $menuItems[] = ['label' => Yii::t('translation', 'menu.home'), 'url' => ['/site/index']];
-	    $menuItems[] = $languageMenu;
 
 	    if (Yii::$app->user->can('/admin/*')) {
 
@@ -84,6 +83,7 @@ class Menu {
 
 	    // Profile
 	    $menuItems[] = ['label' => Yii::$app->user->identity->username, 'options' => ['class' => 'nav navbar-nav navbar-right'], 'items' => [
+		    $languageMenu,
 		    $change,
 		    $logout],
 	    ];

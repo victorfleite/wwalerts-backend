@@ -61,7 +61,7 @@ AppAsset::register($this);
 			'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
 			'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
 			'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-			'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
+			'body' => (!empty($message['message'])) ? $message['message'] : 'Message Not Set!',
 			'showSeparator' => true,
 			'delay' => 1, //This delay is how long before the message shows
 			'pluginOptions' => [
