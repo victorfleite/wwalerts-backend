@@ -16,7 +16,7 @@ use yii\bootstrap\ActiveForm;
     <div class="row">
 	<div class="col-lg-6">
 	    <?=
-	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\InputModalI18n', [
+	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
 		'button_modal_label' => \Yii::t('translation', 'translation')
 	    ]);
 	    ?>

@@ -185,4 +185,26 @@ class LanguageController extends Controller {
 	}
     }
 
+    public function actionKeyTranslation() {
+	
+	$message = Yii::$app->request->get('message');
+	
+	//\Yii::$app->dumper->debug($message, true);
+	
+	$sourceMessage = SourceMessage::find()->where(['message'=>$message, 'category' => SourceMessage::CATEGORY])->one();	
+	$languages = Language::find()->where([])->orderBy('code')->all();
+	$inputs = [];
+	if (is_array($languages)) {
+	    foreach ($languages as $language) {
+		$message = Message::find()->where(['id' => $sourceMessage->id, 'language' => $language->code])->one();
+		$inputs[$language->code] = (!empty($message)? $message->translation : '');
+	    }
+	}
+
+	return $this->renderAjax('key-translation', [
+	    'sourceMessage'=>$sourceMessage,
+	    'inputs' => $inputs,
+	]);
+    }
+
 }

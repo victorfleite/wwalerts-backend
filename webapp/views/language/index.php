@@ -23,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	'columns' => [
 		['class' => 'yii\grid\SerialColumn'],
 	    'code',
+	    [
+		'label' => Yii::t('translation', 'language'),
+		'value' => function ($model) {
+		    return Yii::t('translation', 'language.'. $model->code);
+		},
+	    ],
 		[
 		'label' => Yii::t('translation', 'language.translation_percent'),
 		'format' => 'raw',

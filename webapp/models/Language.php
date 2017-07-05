@@ -132,7 +132,7 @@ class Language extends BaseLanguage {
 	$menuItens = [];
 	if (is_array($languages)) {
 	    foreach ($languages as $language) {
-		$menuItens[] = ['label' => Yii::t('translation', 'menu.language.' . $language->code), 'url' => ['/site/set-language', 'language' => $language->code]];
+		$menuItens[] = ['label' => Yii::t('translation', 'language.' . $language->code), 'url' => ['/site/set-language', 'language' => $language->code]];
 	    }
 	}
 
