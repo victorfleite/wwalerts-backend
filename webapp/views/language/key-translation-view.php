@@ -14,7 +14,7 @@ use yii\widgets\ListView;
     <p class="text-right">
 	<?= Html::button(Yii::t('translation', 'language.modal_edit_key_translation_btn'), ['id' => 'edit-key-translation', 'class' => 'btn btn-success']) ?>
     </p>
-
+    <h3><?= Yii::t('translation', 'translations'); ?></h3>
     <?=
     ListView::widget([
 	'dataProvider' => $languageProvider,
@@ -33,7 +33,9 @@ use yii\widgets\ListView;
     <script>
 	$(function () {
 	    $('#edit-key-translation').click(function () {
-		var url = '<?= yii\helpers\Url::toRoute(['key-translation-update', 'message' => $sourceMessage->message, 'fieldType' => $fieldType, 'rows' => $options['rows']]) ?>'
+		var url = '<?= yii\helpers\Url::toRoute(['key-translation-view-and-update']) ?>';
+		var params = {message: '<?= $sourceMessage->message ?>', fieldType: '<?= $fieldType ?>', rows: <?= $rows ?>};
+		url = url + '&' + $.param(params);
 		$.ajax({
 		    type: 'GET',
 		    beforeSend: function (request) {

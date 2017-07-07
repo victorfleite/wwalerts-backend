@@ -4,6 +4,7 @@ namespace webapp\controllers;
 
 use Yii;
 use webapp\models\Language;
+use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -215,7 +216,7 @@ class LanguageController extends Controller {
 		}
 	    }
 
-	    return $this->renderAjax('key-translation', [
+	    return $this->renderAjax('key-translation-update-form', [
 			'sourceMessage' => $sourceMessage,
 			'inputs' => $inputs,
 			'fieldType' => ((!empty($fieldType)) ? $fieldType : 'text'),
@@ -224,13 +225,16 @@ class LanguageController extends Controller {
 			]
 	    ]);
 	} else {
+	    
+	    
 	    // is Post Back
 	    $translation = \Yii::$app->request->getBodyParam("translation"); //Array of languages and translations
+	    
 	    if (is_array($translation)) {
 		$providerData = [];
 		foreach ($translation as $languageCode => $value) {
 		    $messageObj = Message::findOne(['id' => $sourceMessage->id, 'language' => $languageCode]);
-		    if (!isset($message))
+		    if (!isset($messageObj))
 			$messageObj = new Message();
 		    $messageObj->id = $sourceMessage->id;
 		    $messageObj->language = $languageCode;

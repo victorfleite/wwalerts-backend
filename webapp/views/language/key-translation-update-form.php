@@ -31,7 +31,9 @@ use yii\bootstrap\ActiveForm;
     <script>
 	$(function () {
 	    $('#save-translation').click(function () {
-		var url = '<?= yii\helpers\Url::toRoute(['key-translation-update', 'message' => $sourceMessage->message, 'fieldType' => $fieldType, 'rows' => $options['rows']]) ?>'
+		var url = '<?= yii\helpers\Url::toRoute(['key-translation-view-and-update']);?>';
+		var params = { message: '<?= $sourceMessage->message ?>', fieldType: '<?= $fieldType ?>', rows: '<?= $options['rows'] ?>' };
+		url = url + '&'+ $.param(params);
 		$.ajax({
 		    type: 'POST',
 		    beforeSend: function (request) {

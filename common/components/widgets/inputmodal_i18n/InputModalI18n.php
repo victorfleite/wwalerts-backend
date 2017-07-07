@@ -147,7 +147,7 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
 			    request.setRequestHeader('Accept', 'text/html');
 			},
 			url: '{$url}',
-			data: data,
+			data: $.param(data),
 			success: function(data){
 			    
 			    if ($('#{$this->_modalId}').data('bs.modal').isShown) {	
