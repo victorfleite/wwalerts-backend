@@ -4,7 +4,7 @@ namespace webapp\controllers;
 
 use Yii;
 use webapp\models\Language;
-use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -185,26 +185,76 @@ class LanguageController extends Controller {
 	}
     }
 
-    public function actionKeyTranslation() {
-	
+    /**
+     * Update the translations of a specific sourceMessage
+     * @return type
+     */
+    public function actionKeyTranslationViewAndUpdate() {
+
 	$message = Yii::$app->request->get('message');
-	
-	//\Yii::$app->dumper->debug($message, true);
-	
-	$sourceMessage = SourceMessage::find()->where(['message'=>$message, 'category' => SourceMessage::CATEGORY])->one();	
-	$languages = Language::find()->where([])->orderBy('code')->all();
-	$inputs = [];
-	if (is_array($languages)) {
-	    foreach ($languages as $language) {
-		$message = Message::find()->where(['id' => $sourceMessage->id, 'language' => $language->code])->one();
-		$inputs[$language->code] = (!empty($message)? $message->translation : '');
+	$fieldType = Yii::$app->request->get('fieldType');
+	$rows = Yii::$app->request->get('rows');
+	$sourceMessage = SourceMessage::find()->where(['message' => $message, 'category' => SourceMessage::CATEGORY])->one();
+
+	if (!\Yii::$app->request->isPost) {
+	    // first time here	    
+	    // Create key if not exists
+	    if (empty($sourceMessage)) {
+		$sourceMessage = new SourceMessage();
+		$sourceMessage->category = SourceMessage::CATEGORY;
+		$sourceMessage->message = $message;
+		$sourceMessage->save();
+	    }
+
+	    $languages = Language::find()->where([])->orderBy('code')->all();
+	    $inputs = [];
+	    if (is_array($languages)) {
+		foreach ($languages as $language) {
+		    $messageObj = Message::find()->where(['id' => $sourceMessage->id, 'language' => $language->code])->one();
+		    $inputs[$language->code] = (!empty($messageObj) ? $messageObj->translation : '');
+		}
+	    }
+
+	    return $this->renderAjax('key-translation', [
+			'sourceMessage' => $sourceMessage,
+			'inputs' => $inputs,
+			'fieldType' => ((!empty($fieldType)) ? $fieldType : 'text'),
+			'options' => [
+			    'rows' => $rows
+			]
+	    ]);
+	} else {
+	    // is Post Back
+	    $translation = \Yii::$app->request->getBodyParam("translation"); //Array of languages and translations
+	    if (is_array($translation)) {
+		$providerData = [];
+		foreach ($translation as $languageCode => $value) {
+		    $messageObj = Message::findOne(['id' => $sourceMessage->id, 'language' => $languageCode]);
+		    if (!isset($message))
+			$messageObj = new Message();
+		    $messageObj->id = $sourceMessage->id;
+		    $messageObj->language = $languageCode;
+		    $messageObj->translation = $value;
+		    $messageObj->save();
+
+		    $providerData[] = ['language' => \Yii::t('translation', 'language.' . $languageCode), 'value' => $value];
+		}
+
+		$languageProvider = new ArrayDataProvider([
+		    'allModels' => $providerData,
+		    'sort' => [
+			'attributes' => ['label', 'value'],
+		    ],
+		]);
+
+		return $this->renderAjax('key-translation-view', [
+			    "sourceMessage" => $sourceMessage,
+			    "fieldType" => $fieldType,
+			    "rows" => $rows,
+			    "languageProvider" => $languageProvider
+		]);
 	    }
 	}
-
-	return $this->renderAjax('key-translation', [
-	    'sourceMessage'=>$sourceMessage,
-	    'inputs' => $inputs,
-	]);
     }
 
 }

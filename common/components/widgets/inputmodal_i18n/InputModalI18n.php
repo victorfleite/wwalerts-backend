@@ -30,6 +30,7 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
      * @var string the model attribute that this widget is associated with.
      */
     public $attribute;
+    public $fieldType = 'text'; // or 'textarea';
 
     /**
      * @var string the input name. This must be set if [[model]] and [[attribute]] are not set.
@@ -43,11 +44,13 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
     public $modalSize = 'modal-lg';
 
     /**
-     * ids for modals
+     * ids for internal objects
      * @var type 
      */
+    private $_buttonId;
     private $_modalId;
     private $_modalHeaderId;
+    private $_rows;
 
     /**
      *
@@ -67,8 +70,11 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
 	if (!isset($this->options['id'])) {
 	    $this->options['id'] = Html::getInputId($this->model, $this->attribute);
 	}
+	// Generate IDs of objects
+	$this->_buttonId = $this->options['id'] . '_btn_open';
 	$this->_modalId = $this->options['id'] . '_modal';
 	$this->_modalHeaderId = $this->options['id'] . '_modalHeader';
+	$this->_rows = (!empty($this->options['rows'])? $this->options['rows']: 0);
 
 	$this->getView()->registerJs($this->getJsModal());
 	parent::init();
@@ -81,7 +87,7 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
 
 	Modal::begin([
 	    'header' => '<h4 class="modal-title text-center">' . \Yii::t('translation', 'language.modal_key_translation_title') . '</h4>',
-	    'footer' => '<button type="button" class="btn btn-default" id="btn-cancel-'.$this->_modalId.'" >' . \Yii::t('translation', 'language.modal_cancel_btn') . '</button>',
+	    'footer' => '<button type="button" class="btn btn-default" id="btn-cancel-' . $this->_modalId . '" >' . \Yii::t('translation', 'language.modal_close_btn') . '</button>',
 	    'headerOptions' => ['id' => $this->_modalHeaderId],
 	    'id' => $this->_modalId,
 	    'size' => $this->modalSize,
@@ -96,33 +102,64 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
 	echo "</div>";
 	Modal::end();
 
-
 	$parts = [
-	    "{input}" => Html::activeInput('text', $this->model, $this->attribute, $this->options),
-	    "{button}" => Html::button($this->button_modal_label, ['value' => \yii\helpers\Url::to(['/language/key-translation']), 'title' => \Yii::t('translation', 'language.modal_key_translation_title'), 'class' => 'showModalButton btn btn-success']),
+	    "{input}" => $input = Html::activeTextInput($this->model, $this->attribute, $this->options),
+	    "{button}" => Html::button($this->button_modal_label, ['id' =>$this->_buttonId , 'href' => '#', 'title' => \Yii::t('translation', 'language.modal_key_translation_title'), 'class' => 'showModalButton btn btn-success']),
 	    "{button_modal_label}" => $this->button_modal_label,
 	];
+
 
 	return strtr($this->template, $parts);
     }
 
     private function getJsModal() {
 
+	$url = \yii\helpers\Url::toRoute('/language/key-translation-view-and-update');
 	$js = <<<JS
 	$(function () {
+	     var xhr;
+		
+	     if( $.trim( $( '#{$this->options['id']}' ).val() ) == ''){
+		    $('#{$this->_buttonId}').prop('disabled', true);
+	     } else {
+		    $('#{$this->_buttonId}').prop('disabled', false);
+	     }   	
+		
+		
 	     $('#btn-cancel-{$this->_modalId}').click(function(){
-		$('#{$this->_modalId}').modal('toggle');
+		if(xhr){ xhr.abort(); }
+		$('#{$this->_modalId}').modal('toggle');		 
 	     });
-	     $(document) . on('click', '.showModalButton', function () {	
-		if ($('#{$this->_modalId}').data('bs.modal').isShown) {
-		    $('#{$this->_modalId}').find('#modalContent')
-		    .load('opaa');
+	     $('#{$this->options['id']}').keyup(function(){
+		if( $.trim( $(this).val() ) == ''){
+		    $('#{$this->_buttonId}').prop('disabled', true);
 		} else {
-		    //if modal isn't open; open it and load content
-		    $('#{$this->_modalId}').modal('show')
-		    .find('#modalContent')
-		    .load($(this).attr('value'));
-		}
+		    $('#{$this->_buttonId}').prop('disabled', false);
+		}    
+	     });	
+	     $(document) . on('click', '.showModalButton', function () {
+		var data = { message: $( '#{$this->options['id']}' ).val(), fieldType: '{$this->fieldType}', rows: {$this->_rows} };		
+		$('#{$this->_modalId}').modal('show');
+		xhr = $.ajax({
+			type: 'GET',
+			beforeSend: function(request) {
+			    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			    request.setRequestHeader('Accept', 'text/html');
+			},
+			url: '{$url}',
+			data: data,
+			success: function(data){
+			    
+			    if ($('#{$this->_modalId}').data('bs.modal').isShown) {	
+			    
+				$('#{$this->_modalId}').find('#modalContent').html(data);
+			    }
+		
+		
+			},
+		});
+		
+		
 	    });
 	});
 JS;

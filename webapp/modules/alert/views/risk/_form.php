@@ -17,7 +17,11 @@ use yii\bootstrap\ActiveForm;
 	<div class="col-lg-6">
 	    <?=
 	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
-		'button_modal_label' => \Yii::t('translation', 'translation')
+		'button_modal_label' => \Yii::t('translation', 'translation'),
+		'fieldType'=>'text',
+		'options' => [
+		    //'rows' => 6
+		]
 	    ]);
 	    ?>
 	</div><!-- /.col-lg-6 -->
