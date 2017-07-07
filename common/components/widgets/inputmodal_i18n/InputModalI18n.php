@@ -137,7 +137,7 @@ class InputModalI18n extends \yii\bootstrap\InputWidget {
 		    $('#{$this->_buttonId}').prop('disabled', false);
 		}    
 	     });	
-	     $(document) . on('click', '.showModalButton', function () {
+	     $(document) . on('click', '#{$this->_buttonId}', function () {
 		var data = { message: $( '#{$this->options['id']}' ).val(), fieldType: '{$this->fieldType}', rows: {$this->_rows} };		
 		$('#{$this->_modalId}').modal('show');
 		xhr = $.ajax({
