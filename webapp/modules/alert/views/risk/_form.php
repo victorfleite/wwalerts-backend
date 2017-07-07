@@ -14,7 +14,7 @@ use yii\bootstrap\ActiveForm;
 
 
     <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 	    <?=
 	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
 		'button_modal_label' => \Yii::t('translation', 'translation'),
@@ -24,12 +24,24 @@ use yii\bootstrap\ActiveForm;
 		]
 	    ]);
 	    ?>
-	</div><!-- /.col-lg-6 -->
-	<div class="col-lg-6">
+	</div><!-- /.col-lg-4 -->
+	<div class="col-lg-4">
 	    <?=
 	    $form->field($model, 'color')->widget('\kartik\widgets\ColorInput', []);
 	    ?>
-	</div><!-- /.col-lg-6 -->
+	</div><!-- /.col-lg-4 -->
+	
+	<div class="col-lg-4">
+	    <?=
+	    $form->field($model, 'description_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
+		'button_modal_label' => \Yii::t('translation', 'translation'),
+		'fieldType'=>'textarea',
+		'options' => [
+		    'rows' => 6
+		]
+	    ]);
+	    ?>
+	</div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
 
