@@ -33,8 +33,8 @@ class Menu {
 		//$line = '<li role="separator" class="divider"></li>';
 		// ALERTS MENU ITEM ---------------------------------------------------------------------------------
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.alerts_menu_label'), 'items' => [
-			    ['label' => Yii::t('translation', 'menu.alert_create_btn'), 'url' => ['/alerts']],
-			    ['label' => Yii::t('translation', 'menu.alerts_manage'), 'url' => ['/alerts']]
+			    ['label' => Yii::t('translation', 'menu.alert_create_btn'), 'url' => ['/alert']],
+			    ['label' => Yii::t('translation', 'menu.alerts_manage'), 'url' => ['/alert']]
 		    ],
 		];
 
@@ -60,7 +60,8 @@ class Menu {
 		]];
 
 		$risklMenu = ['label' => Yii::t('translation', 'menu.risk_menu_label'), 'items' => [
-			    ['label' => Yii::t('translation', 'menu.risk'), 'url' => ['/alert/risk/index']],
+			    ['label' => Yii::t('translation', 'menu.risk'), 'url' => ['/risk/risk/index']],
+			    ['label' => Yii::t('translation', 'menu.event'), 'url' => ['/risk/event/index']],
 		]];
 
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [

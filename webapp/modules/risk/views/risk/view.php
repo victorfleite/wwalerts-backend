@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	'model' => $model,
 	'attributes' => [
 	    'name_i18n',
-	
 		[
 		'attribute' => 'color',
 		'format' => 'raw',
@@ -42,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
 		},
 	    ],
-	    'description_i18n',	
+	    'description_i18n',
 	    'created_at:datetime',
 	    'updated_at:datetime',
 		[
@@ -60,19 +59,25 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 	    'hash',
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\risk\models\Risk::getStatusLabel($data->status);
+		},
+	    ],
 	],
     ])
     ?>
-    
+
     <h2><?= Yii::t('translation', 'translations') ?></h2>
-    
+
     <?=
     DatailViewI18n::widget([
 	'model' => $model,
 	'attribute' => 'name_i18n',
     ])
     ?>
-    
+
     <?=
     DatailViewI18n::widget([
 	'model' => $model,

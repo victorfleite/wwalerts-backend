@@ -53,8 +53,8 @@ return [
 		],
 	    ],
 	],
-	'alert' => [
-	    'class' => 'webapp\modules\alert\Module',
+	'risk' => [
+	    'class' => 'webapp\modules\risk\Module',
 	],
 	'local' => [
 	    'class' => 'webapp\modules\local\Module',

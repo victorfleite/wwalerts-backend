@@ -1,0 +1,37 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('translation', 'Events');
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="event-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a(Yii::t('translation', 'Create Event'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'name_i18n',
+            'created_at',
+            'updated_at',
+            'created_by',
+            // 'updated_by',
+            // 'hash',
+            // 'status',
+            // 'description_i18n',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+</div>

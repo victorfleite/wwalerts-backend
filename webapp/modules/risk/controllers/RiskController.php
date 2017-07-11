@@ -1,9 +1,9 @@
 <?php
 
-namespace webapp\modules\alert\controllers;
+namespace webapp\modules\risk\controllers;
 
 use Yii;
-use webapp\modules\alert\models\Risk;
+use webapp\modules\risk\models\Risk;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

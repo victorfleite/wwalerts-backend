@@ -37,6 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
             //'i18n',
             'created_at:datetime',
+            [
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\risk\models\Risk::getStatusLabel($data->status);
+		},
+	    ], 			
             // 'updated_at',
             // 'created_by',
             // 'updated_by',

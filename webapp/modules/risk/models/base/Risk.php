@@ -1,6 +1,6 @@
 <?php
 
-namespace webapp\modules\alert\models\base;
+namespace webapp\modules\risk\models\base;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -39,7 +39,7 @@ class Risk extends \yii\db\ActiveRecord {
      * @inheritdoc
      */
     public static function tableName() {
-	return 'alert.risk';
+	return 'risk.risk';
     }
 
     /**

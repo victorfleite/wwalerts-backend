@@ -48,16 +48,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
     	<div class="col-md-6">
-	    <div class="<?php echo (empty($language->translations[$sourceMessage->id])?'has-error':'')?>">
-		<?php 
+    	    <div class="<?php echo (empty($language->translations[$sourceMessage->id]) ? 'has-error' : '') ?>">
+		    <?php
 		    $input = $form->field($language, 'translations[' . $sourceMessage->id . ']', [])->label($link);
-		    if(strlen ($referenceMessage->translation) > 150){			
-			echo $input->textarea(['rows'=>6]);
-		    }else{
+		    if (strlen($referenceMessage->translation) > 150) {
+			echo $input->textarea(['rows' => 6]);
+		    } else {
 			echo $input->textInput();
 		    }
-		?>
-	    </div>
+		    ?>
+    	    </div>
     	</div><!-- /.col-lg-6 -->
     	<div class="col-md-6">
     	    <div class="panel panel-default">
@@ -68,14 +68,16 @@ $this->params['breadcrumbs'][] = $this->title;
     	    </div>
     	</div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
+        <div class="text-right">	
+	    <?= Html::submitButton(Yii::t('translation', 'language.save_messages_btn'), ['class' => 'btn btn-success btn-xs']) ?>
+        </div>
         <hr>
 
 	<?php
     }
     ?>
     <div class="form-group">
-	<?= Html::a(Yii::t('translation', 'Cancel'), ['index'], ['class' => 'btn btn-primary']) ?>	
-	<?= Html::submitButton(Yii::t('translation', 'language.save_messages_btn'), ['class' => 'btn btn-primary']) ?>
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['index'], ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>    

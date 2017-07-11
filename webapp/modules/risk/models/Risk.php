@@ -1,14 +1,16 @@
 <?php
 
-namespace webapp\modules\alert\models;
+namespace webapp\modules\risk\models;
 
 use Yii;
-use webapp\modules\alert\models\base\Risk as BaseRisk;
+use webapp\modules\risk\models\base\Risk as BaseRisk;
 
 /**
  * This is the model class for table "risk.risk".
  */
-class Risk extends BaseRisk {
+class Risk extends BaseRisk implements \common\components\traits\SimpleStatusInterface {
+
+    use \common\components\traits\SimpleStatusTrait;
 
     /**
      * @inheritdoc
