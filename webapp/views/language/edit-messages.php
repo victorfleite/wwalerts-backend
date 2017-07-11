@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    <div class="<?php echo (empty($language->translations[$sourceMessage->id])?'has-error':'')?>">
 		<?php 
 		    $input = $form->field($language, 'translations[' . $sourceMessage->id . ']', [])->label($link);
-		    if(substr_count($referenceMessage->translation) > 150){			
+		    if(strlen ($referenceMessage->translation) > 150){			
 			echo $input->textarea(['rows'=>6]);
 		    }else{
 			echo $input->textInput();
