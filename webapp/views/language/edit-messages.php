@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $generalVars = \Yii::$app->config->getVars();
     $referencelanguage = $generalVars[\common\models\Config::VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE];
     $referencelanguage = (!empty($referencelanguage)) ? $referencelanguage : \webapp\models\Language::ENGLISH_TRANSLATION_CODE;
-
+    $count = 1;
     foreach ($language->sourceMessages as $sourceMessage) {
 
 	$referenceMessage = webapp\models\Message::find()->where(['id' => $sourceMessage->id, 'language' => $referencelanguage])->one();
@@ -57,15 +57,16 @@ $this->params['breadcrumbs'][] = $this->title;
 		    $input = $form->field($language, 'translations[' . $sourceMessage->id . ']', [])->label($link);
 		    $tooltipOptions = [
 			'toggle' => 'popover',
+			'trigger'=> 'focus',
 			'title' => Yii::t('translation', 'tooltip_header_reference_language', [
 			    'language' => Yii::t('translation', 'language.' . $referencelanguage)
 			]),
 			'content' => $referenceMessage->translation,
 		    ];
 		    if (strlen($referenceMessage->translation) > 150) {
-			$tooltipOptions['component'] = $input->textarea(['rows' => 6]);
+			$tooltipOptions['component'] = $input->textarea(['rows' => 6, 'tabindex'=> $count++]);
 		    } else {
-			$tooltipOptions['component'] = $input->textInput();
+			$tooltipOptions['component'] = $input->textInput(['tabindex'=> $count++]);
 		    }
 		    echo Tooltip::widget($tooltipOptions);
 		    ?>
