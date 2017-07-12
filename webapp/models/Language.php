@@ -8,10 +8,10 @@ use \webapp\models\base\Language as BaseLanguage;
 /**
  * This is the model class for table "public.language".
  */
-class Language extends BaseLanguage {
+class Language extends BaseLanguage implements \common\components\traits\SimpleStatusInterface {
 
-    const STATUS_ENABLED = 1;
-    const STATUS_DISABLED = 0;
+    use \common\components\traits\SimpleStatusTrait;
+
     const ENGLISH_TRANSLATION_CODE = 'en-US';
 
     // Yii2 List (vendors/yiisoft/yii2/messages)
@@ -21,7 +21,7 @@ class Language extends BaseLanguage {
 
     public function init() {
 	parent::init();
-	$this->status = Language::STATUS_ENABLED;
+	$this->status = Language::STATUS_ACTIVE;
     }
 
     public function loadProprieties() {
@@ -106,30 +106,11 @@ class Language extends BaseLanguage {
 
 	return round((1 - ($translationNotCompleted / $totalSourceMessage )) * 100, 1);
     }
-
-    public static function getStatusLabel($status) {
-	switch ($status) {
-	    case Language::STATUS_ENABLED:
-		return Yii::t('translation', 'language.status_enabled');
-		break;
-	    case Language::STATUS_DISABLED:
-		return Yii::t('translation', 'language.status_disabled');
-		break;
-	    default:
-		break;
-	}
-    }
-
-    public static function getStatusCombo() {
-	return [
-	    Language::STATUS_ENABLED => Yii::t('translation', 'language.status_enabled'),
-	    Language::STATUS_DISABLED => Yii::t('translation', 'language.status_disabled')
-	];
-    }
+   
 
     public static function getMenuLanguageItens() {
 
-	$languages = Language::find()->where(['status' => Language::STATUS_ENABLED])->orderBy('code')->all();
+	$languages = Language::find()->where(['status' => Language::STATUS_ACTIVE])->orderBy('code')->all();
 	$menuItens = [];
 	if (is_array($languages)) {
 	    foreach ($languages as $language) {
@@ -161,10 +142,10 @@ class Language extends BaseLanguage {
 	    // Save Language
 	    $language = new Language();
 	    $language->code = $languageCode;
-	    $language->status = Language::STATUS_ENABLED;
+	    $language->status = Language::STATUS_ACTIVE;
 	    $language->save();
 	    // Throw flash message
-	    $link = \yii\helpers\Html::a('link', \yii\helpers\Url::toRoute(['/language/edit-messages', 'code'=>$languageCode]));	    
+	    $link = \yii\helpers\Html::a('link', \yii\helpers\Url::toRoute(['/language/edit-messages', 'code' => $languageCode]));
 	    \Yii::$app->getSession()->setFlash('success', [
 		'type' => 'success',
 		'duration' => 12000,

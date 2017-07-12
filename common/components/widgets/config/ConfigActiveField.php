@@ -63,7 +63,7 @@ class ConfigActiveField extends ActiveField {
 			    ],
 		]);
 	    case Config::VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE:
-		$items = ArrayHelper::map(Language::find()->where(['status'=> Language::STATUS_ENABLED])->orderBy('code')->all(), 'code', 'code');
+		$items = ArrayHelper::map(Language::find()->where(['status'=> Language::STATUS_ACTIVE])->orderBy('code')->all(), 'code', 'code');
 		return $this->dropDownList($items);
 	    default:
 		return $this->textInput($options);
