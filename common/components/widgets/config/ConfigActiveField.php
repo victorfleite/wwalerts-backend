@@ -6,6 +6,8 @@ use \yii\helpers\ArrayHelper;
 use \kartik\slider\Slider;
 use \common\components\widgets\ActiveField;
 use \common\models\Config;
+use \webapp\modules\local\models\Country;
+use \webapp\models\Language;
 
 /**
  * Description of ConfigActiveField
@@ -30,7 +32,7 @@ class ConfigActiveField extends ActiveField {
 		$items = (new \webapp\models\Language)->getComboLanguagesCodes();
 		return $this->dropDownList($items);
 	    case Config::VARNAME_COUNTRY_ID:
-		$items = ArrayHelper::map(\webapp\modules\local\models\Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name');
+		$items = ArrayHelper::map(Country::find()->select(['gid', 'name'])->orderBy('name')->all(), 'gid', 'name');
 		return $this->dropDownList($items);
 	    case Config::VARNAME_MAP_DEFULT_ZOOM:
 		return $this->widget('\kartik\slider\Slider', [
@@ -60,6 +62,9 @@ class ConfigActiveField extends ActiveField {
 				'tooltip' => 'always'
 			    ],
 		]);
+	    case Config::VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE:
+		$items = ArrayHelper::map(Language::find()->where(['status'=> Language::STATUS_ENABLED])->orderBy('code')->all(), 'code', 'code');
+		return $this->dropDownList($items);
 	    default:
 		return $this->textInput($options);
 	}

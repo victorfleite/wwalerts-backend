@@ -12,7 +12,7 @@ class Language extends BaseLanguage {
 
     const STATUS_ENABLED = 1;
     const STATUS_DISABLED = 0;
-    const REFERENCE_TRANSLATION_CODE = 'en-US';
+    const ENGLISH_TRANSLATION_CODE = 'en-US';
 
     // Yii2 List (vendors/yiisoft/yii2/messages)
     public $list = ['ar', 'az', 'bg', 'bs', 'ca', 'cs', 'da', 'de', 'el', 'en-US', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu', 'id', 'it', 'ja', 'ka', 'kk', 'ko', 'lt', 'lv', 'ms', 'nb-NO', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sr', 'sr-Latn', 'sv', 'tg', 'th', 'uk', 'vi', 'zh-CN', 'zh-TW'];

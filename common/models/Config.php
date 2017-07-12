@@ -21,6 +21,7 @@ class Config extends \yii\db\ActiveRecord {
     const VARNAME_MAP_DEFULT_ZOOM = 'MAP_DEFULT_ZOOM';
     const VARNAME_JURISDICTION_DEFAULT_LAYER_COLOR = 'JURISDICTION_DEFAULT_LAYER_COLOR';
     const VARNAME_JURISDICTION_DEFAULT_LAYER_OPACITY = 'JURISDICTION_DEFAULT_LAYER_OPACITY';
+    const VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE = 'LANGUAGE_REFERENCE_TRANSLATION_CODE';
 
     /**
      * @inheritdoc
@@ -65,6 +66,9 @@ class Config extends \yii\db\ActiveRecord {
 	    case Config::VARNAME_JURISDICTION_DEFAULT_LAYER_OPACITY:
 		$this->validateNumeric($this->$attribute, $attribute);
 		break;
+	    case Config::VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE:
+		// Nothing		
+		break;
 	    default:
 	}
     }
@@ -91,7 +95,7 @@ class Config extends \yii\db\ActiveRecord {
 	switch ($this->varname) {
 	    case Config::VARNAME_LANGUAGE_CODE:
 		// SET DEFAULT LANGUAGE;		
-		\webapp\models\Language::setSystemDefaultLanguage($this->value);		
+		\webapp\models\Language::setSystemDefaultLanguage($this->value);
 		break;
 	    default:
 	}

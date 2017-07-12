@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use \common\components\widgets\tooltip\Tooltip;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\models\Language */
@@ -10,6 +11,14 @@ $this->title = $language->code . ' ( ' . $language->getTranslationPercentage() .
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'languages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<style>
+
+    .tooltip-inner {
+	max-width: 300px !important; 
+    }
+
+</style>
 <a id="up"></a>
 <div class="language-create">
 
@@ -20,21 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr>
     <br>
 
-    <div class="row">
-	<div class="col-md-6">
-	    <h2><?= Yii::t('translation', 'language.keys_available_title') ?></h2>
-	</div><!-- /.col-lg-6 -->
-	<div class="col-md-6">
-	    <h2><?= Yii::t('translation', 'language.english_reference') ?></h2>
-	</div><!-- /.col-lg-6 -->
-    </div><!-- /.row -->
+    <h2><?= Yii::t('translation', 'language.keys_available_title') ?></h2>
 
     <?php $form = ActiveForm::begin(); ?>
     <?php echo $form->field($language, 'code')->label('')->hiddenInput(); ?>
     <?php
+    $generalVars = \Yii::$app->config->getVars();
+    $referencelanguage = $generalVars[\common\models\Config::VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE];
+    $referencelanguage = (!empty($referencelanguage)) ? $referencelanguage : \webapp\models\Language::ENGLISH_TRANSLATION_CODE;
+
     foreach ($language->sourceMessages as $sourceMessage) {
 
-	$referenceMessage = webapp\models\Message::find()->where(['id' => $sourceMessage->id, 'language' => webapp\models\Language::REFERENCE_TRANSLATION_CODE])->one();
+	$referenceMessage = webapp\models\Message::find()->where(['id' => $sourceMessage->id, 'language' => $referencelanguage])->one();
 
 	$link = Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-source-message', 'id' => $sourceMessage->id, 'code' => $language->code], [
 		    'data' => [
@@ -42,34 +48,30 @@ $this->params['breadcrumbs'][] = $this->title;
 			'method' => 'post',
 		    ],
 		]) . '  ' . Html::tag("strong", $sourceMessage->message);
-
-	$link = '<a href="#down"><span class="glyphicon glyphicon-arrow-down"></span></a> <a href="#up"><span class="glyphicon glyphicon-arrow-up"></span></a> ' . $link;
 	?>
 
         <div class="row">
-    	<div class="col-md-6">
+    	<div class="col-md-12">
     	    <div class="<?php echo (empty($language->translations[$sourceMessage->id]) ? 'has-error' : '') ?>">
 		    <?php
 		    $input = $form->field($language, 'translations[' . $sourceMessage->id . ']', [])->label($link);
+		    $tooltipOptions = [
+			'toggle' => 'popover',
+			'title' => Yii::t('translation', 'tooltip_header_reference_language', [
+			    'language' => Yii::t('translation', 'language.' . $referencelanguage)
+			]),
+			'content' => $referenceMessage->translation,
+		    ];
 		    if (strlen($referenceMessage->translation) > 150) {
-			echo $input->textarea(['rows' => 6]);
+			$tooltipOptions['component'] = $input->textarea(['rows' => 6]);
 		    } else {
-			echo $input->textInput();
+			$tooltipOptions['component'] = $input->textInput();
 		    }
+		    echo Tooltip::widget($tooltipOptions);
 		    ?>
     	    </div>
-    	</div><!-- /.col-lg-6 -->
-    	<div class="col-md-6">
-    	    <div class="panel panel-default">
-    		<div class="panel-heading"><?= Html::tag("strong", $sourceMessage->message); ?></div>
-    		<div class="panel-body">
-			<?php echo $referenceMessage->translation ?>
-    		</div>
-    	    </div>
-    	</div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
-        <div class="text-right">	
-	    <?= Html::submitButton(Yii::t('translation', 'language.save_messages_btn'), ['class' => 'btn btn-success btn-xs']) ?>
+		<?= Html::submitButton(Yii::t('translation', 'language.save_messages_btn'), ['class' => 'btn btn-success btn-xs']) ?>
+    	</div><!-- /.col-lg-12 -->
         </div>
         <hr>
 
