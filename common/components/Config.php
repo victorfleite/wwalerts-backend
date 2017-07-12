@@ -2,6 +2,7 @@
 
 namespace common\components;
 
+use Yii;
 use \common\models\Config as ConfigModel;
 
 /**
@@ -11,25 +12,40 @@ use \common\models\Config as ConfigModel;
  */
 class Config extends \yii\base\Component {
 
+    const CACHE_KEY_NAME = 'SYSTEM_CONFIG_VARS';
+
     public $vars = [];
 
     public function setVars() {
 	$configs = ConfigModel::find()->all();
 	$r = [];
 	foreach ($configs as $config) {
-	    if(is_numeric($config->value)){
+	    if (is_numeric($config->value)) {
 		$r[$config->varname] = floatval($config->value);
-	    }else{
+	    } else {
 		$r[$config->varname] = $config->value;
 	    }
-	    
 	}
 	$this->vars = $r;
+	
+	$cache = Yii::$app->cache;
+	// Deletes all values from cache.
+	$cache->flush();
+	//Save in CACHE
+	$cache->set(Config::CACHE_KEY_NAME, $this->vars);
     }
 
     public function getVar($name) {
+	$cache = Yii::$app->cache;
 	if (empty($this->vars)) {
-	    $this->setVars();
+	    $data = $cache->get(Config::CACHE_KEY_NAME);
+	    if ($data === false) {
+		// Set cache data
+		$this->setVars();
+	    } else {
+		//Get from cache
+		$this->vars = $data;
+	    }
 	}
 	return $this->vars[$name];
     }
