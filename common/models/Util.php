@@ -70,4 +70,32 @@ class Util {
 	return substr_replace($string, $middleString, $maxChars / 2, $textLength - $maxChars);
     }
 
+    /**
+     * Generate a token 
+     * @param type $quantity
+     * @return type
+     */
+    static function generateHashSha256($quantity = null) {
+	$token = md5(uniqid(""));
+	if (!empty($quantity)) {
+	    return substr(hash('sha256', $token . date('dmY')), 0, $quantity);
+	}
+	return hash('sha256', $token . date('dmY'));
+    }
+    /**
+     * Remove special characters 
+     * @param type $str
+     * @return type
+     */
+    static function sanitizeString($str) {
+	$str = Util::removeAccent($str);
+	$str = preg_replace('/ /', '', $str);
+	return $str;
+    }
+    
+    static function fileRemovePath($fullPath){
+	$path = pathinfo($fullPath);
+	return $path['basename'];
+    }
+
 }

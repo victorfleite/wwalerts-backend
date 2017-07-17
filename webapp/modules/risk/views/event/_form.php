@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+use kartik\widgets\FileInput;
+use common\models\Util;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\risk\models\Event */
@@ -12,24 +14,53 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name_i18n')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+	<div class="col-lg-6">
+	    <?=
+	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
+		'button_modal_label' => \Yii::t('translation', 'translation'),
+		'fieldType' => 'text',
+		'options' => [
+		//'rows' => 6
+		]
+	    ]);
+	    ?>
+	</div><!-- /.col-lg-6 -->
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+	<div class="col-lg-6">
+	    <?=
+	    $form->field($model, 'description_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
+		'button_modal_label' => \Yii::t('translation', 'translation'),
+		'fieldType' => 'textarea',
+		'options' => [
+		    'rows' => 6
+		]
+	    ]);
+	    ?>
+	</div><!-- /.col-lg-6 -->
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    </div>
+    <div class="row">
+	<div class="col-lg-10">
+	    <?php
+	    $label = \Yii::t('translation', 'event.icon_path');
+	    $label .= (!$model->isNewRecord) ? '  [ ' . Html::a( Util::fileRemovePath($model->icon_path), $model->icon_path, $options = ['target' => '_blank'] ).' ]' : '';
+	    echo $form->field($model, 'imageFile')->label($label)->widget(FileInput::classname(), [
+		'options' => [
+		    'multiple' => false,
+		    'showPreview' => true,
+		]
+	    ]);
+	    ?>	    
+	</div><!-- /.col-lg-10 -->
+	<div class="col-lg-2">
+	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
+	</div><!-- /.col-lg-2 -->
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'hash')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'description_i18n')->textInput(['maxlength' => true]) ?>
+    </div><!-- /.row -->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

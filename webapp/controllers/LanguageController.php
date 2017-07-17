@@ -85,10 +85,10 @@ class LanguageController extends Controller {
      */
     public function actionToggleStatus($id) {
 	$model = $this->findModel($id);
-	if ($model->status == Language::STATUS_ENABLED) {
-	    $model->status = Language::STATUS_DISABLED;
+	if ($model->status == Language::STATUS_ACTIVE) {
+	    $model->status = Language::STATUS_INACTIVE;
 	} else {
-	    $model->status = Language::STATUS_ENABLED;
+	    $model->status = Language::STATUS_ACTIVE;
 	}
 	$model->save();
 

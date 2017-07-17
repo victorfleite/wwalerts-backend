@@ -5,11 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\risk\models\Event */
 
-$this->title = Yii::t('translation', 'Update {modelClass}: ', [
-    'modelClass' => 'Event',
-]) . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Events'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->title = Yii::t('translation', 'update_title', [
+    'name' => Yii::t('translation', $model->name_i18n),
+]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'events'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', $model->name_i18n), 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
 ?>
 <div class="event-update">

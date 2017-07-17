@@ -8,40 +8,39 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * EventController implements the CRUD actions for Event model.
  */
-class EventController extends Controller
-{
+class EventController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+    public function behaviors() {
+	return [
+	    'verbs' => [
+		'class' => VerbFilter::className(),
+		'actions' => [
+		    'delete' => ['POST'],
+		],
+	    ],
+	];
     }
 
     /**
      * Lists all Event models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Event::find(),
-        ]);
+    public function actionIndex() {
+	$dataProvider = new ActiveDataProvider([
+	    'query' => Event::find(),
+	]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+	return $this->render('index', [
+		    'dataProvider' => $dataProvider,
+	]);
     }
 
     /**
@@ -49,11 +48,10 @@ class EventController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+    public function actionView($id) {
+	return $this->render('view', [
+		    'model' => $this->findModel($id),
+	]);
     }
 
     /**
@@ -61,17 +59,24 @@ class EventController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Event();
+    public function actionCreate() {
+	$model = new Event();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+	if ($model->load(Yii::$app->request->post())) {
+	    $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+	    if ($model->upload() && $model->save()) {
+		// file is uploaded successfully
+		return $this->redirect(['view', 'id' => $model->id]);
+	    } else {
+		return $this->render('create', [
+			    'model' => $model,
+		]);
+	    }
+	} else {
+	    return $this->render('create', [
+			'model' => $model,
+	    ]);
+	}
     }
 
     /**
@@ -80,17 +85,24 @@ class EventController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    public function actionUpdate($id) {
+	$model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+	if ($model->load(Yii::$app->request->post())) {
+	    $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+	    if ($model->upload() && $model->save()) {
+		// file is uploaded successfully
+		return $this->redirect(['view', 'id' => $model->id]);
+	    } else {
+		return $this->render('create', [
+			    'model' => $model,
+		]);
+	    }
+	} else {
+	    return $this->render('update', [
+			'model' => $model,
+	    ]);
+	}
     }
 
     /**
@@ -99,11 +111,10 @@ class EventController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    public function actionDelete($id) {
+	$this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+	return $this->redirect(['index']);
     }
 
     /**
@@ -113,12 +124,12 @@ class EventController extends Controller
      * @return Event the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = Event::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+    protected function findModel($id) {
+	if (($model = Event::findOne($id)) !== null) {
+	    return $model;
+	} else {
+	    throw new NotFoundHttpException('The requested page does not exist.');
+	}
     }
+
 }

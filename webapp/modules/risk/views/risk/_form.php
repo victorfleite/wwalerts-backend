@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
 
 <div class="config-form">
 
-    <?php $form = ActiveForm::begin(['layout' => 'default']); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'default', 'options' => ['enctype' => 'multipart/form-data']]); ?>
 
 
     <div class="row">

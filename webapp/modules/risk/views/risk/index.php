@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
             //'i18n',
-            'created_at:datetime',
+            'updated_at:datetime',
             [
 		'attribute' => 'status',
 		'value' => function($data) {
