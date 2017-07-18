@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model webapp\models\Language */
 
-$this->title = Yii::t('translation', 'Create Language');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Languages'), 'url' => ['index']];
+$this->title = Yii::t('translation', 'language.create_title');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'languages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="language-create">

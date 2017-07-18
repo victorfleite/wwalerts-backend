@@ -3,12 +3,13 @@
 namespace webapp\modules\risk\controllers;
 
 use Yii;
-use webapp\modules\risk\models\Event;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use \common\models\Util;
+use webapp\modules\risk\models\Event;
 
 /**
  * EventController implements the CRUD actions for Event model.
@@ -63,9 +64,9 @@ class EventController extends Controller {
 	$model = new Event();
 
 	if ($model->load(Yii::$app->request->post())) {
-	    $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-	    if ($model->upload() && $model->save()) {
-		// file is uploaded successfully
+
+	    $image = UploadedFile::getInstance($model, 'imageFile');
+	    if ($model->saveImage($image) && $model->save()) {
 		return $this->redirect(['view', 'id' => $model->id]);
 	    } else {
 		return $this->render('create', [
@@ -89,12 +90,12 @@ class EventController extends Controller {
 	$model = $this->findModel($id);
 
 	if ($model->load(Yii::$app->request->post())) {
-	    $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-	    if ($model->upload() && $model->save()) {
-		// file is uploaded successfully
+
+	    $image = UploadedFile::getInstance($model, 'imageFile');
+	    if ($model->saveImage($image) && $model->save()) {
 		return $this->redirect(['view', 'id' => $model->id]);
 	    } else {
-		return $this->render('create', [
+		return $this->render('update', [
 			    'model' => $model,
 		]);
 	    }

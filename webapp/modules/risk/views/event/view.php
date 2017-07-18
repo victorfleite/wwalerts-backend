@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\components\widgets\datailview_i18n\DatailViewI18n;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\risk\models\Event */
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?=
 	Html::a(Yii::t('translation', 'Delete'), ['delete', 'id' => $model->id], [
@@ -71,6 +73,22 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 	],
+    ])
+    ?>
+
+    <h2><?= Yii::t('translation', 'translations') ?></h2>
+
+    <?=
+    DatailViewI18n::widget([
+	'model' => $model,
+	'attribute' => 'name_i18n',
+    ])
+    ?>
+
+    <?=
+    DatailViewI18n::widget([
+	'model' => $model,
+	'attribute' => 'description_i18n',
     ])
     ?>
 

@@ -34,8 +34,8 @@ class DatailViewI18n extends Widget {
 	$i = 0;
 	$sourceMessage = SourceMessage::find()->where(['category' => SourceMessage::CATEGORY, 'message' => $this->model->{$this->attribute}])->one();
 	if (isset($sourceMessage)) {
-	    $rows[] = $this->renderAttribute($this->model->getAttributeLabel($this->attribute) . ' ( ' . $this->model->{$this->attribute} . ' )', '<strong>' . Yii::t('translation', 'translations') . '</strong>', $i++);
-	    $languages = Language::find()->where(['status' => Language::STATUS_ENABLED])->orderBy('code')->all();
+	    $rows[] = $this->renderAttribute($this->model->getAttributeLabel($this->attribute) . '<br><span style="color:#8e8e8e">' . $this->model->{$this->attribute} . '</span>', '<strong>' . Yii::t('translation', 'translations') . '</strong>', $i++);
+	    $languages = Language::find()->where(['status' => Language::STATUS_ACTIVE])->orderBy('code')->all();
 
 	    if (is_array($languages)) {
 		foreach ($languages as $language) {

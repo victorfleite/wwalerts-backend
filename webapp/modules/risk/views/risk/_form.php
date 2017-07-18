@@ -10,8 +10,13 @@ use yii\bootstrap\ActiveForm;
 
 <div class="config-form">
 
-    <?php $form = ActiveForm::begin(['layout' => 'default', 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'default']); ?>
 
+    <div class="alert alert-info">
+	<p><strong><i class='fa fa-book'></i> <?php echo \Yii::t('translation', 'risk.documentation'); ?></strong></p>
+    </div>
+
+    <?= $form->errorSummary($model); ?>
 
     <div class="row">
 	<div class="col-lg-3">

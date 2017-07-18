@@ -24,6 +24,10 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
      * @inheritdoc
      */
     public function rules() {
+	
+	
+	
+	
 	return [
 		[['name_i18n', 'status'], 'required'],
 		[['name_i18n'], 'unique'],
@@ -31,8 +35,13 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 		[['created_by', 'updated_by', 'status'], 'integer'],
 		[['hash'], 'string'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
-		[['imageFile'], 'file', 'skipOnEmpty' => (!$this->isNewRecord) ? true : false],
-		[['icon_path'], 'safe']
+		[['imageFile', 'icon_path'], 'safe'],
+		[['imageFile'], 'file', 'extensions' => 'png'],
+		[['imageFile'], 'file', 'maxSize' => 1024 * 1024 * 0.5 /* 500Kb */],
+		['imageFile', 'image', 'extensions' => 'png',
+		'minWidth' => 20, 'maxWidth' => 30,
+		'minHeight' => 20, 'maxHeight' => 30,
+	    ],
 	];
     }
 
@@ -58,17 +67,15 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
      * Upload icon
      * @return boolean
      */
-    public function upload() {
-	if ($this->validate()) {
-	    if (!empty($this->imageFile)) {
-		$fileName = Util::sanitizeString($this->imageFile->baseName) . '_' . Util::generateHashSha256(6) . '.' . $this->imageFile->extension;
-		$this->icon_path = Event::ICON_PATH . strtolower($fileName);
-		$this->imageFile->saveAs($this->icon_path);
-	    }
-	    return true;
-	} else {
-	    return false;
+    public function saveImage($image) {
+	if (!is_null($image)) {
+	    $ext = end((explode(".", $image->name)));
+	    // generate a unique file name to prevent duplicate filenames
+	    $fileName = Util::sanitizeString($image->baseName) . '_' . Util::generateHashSha256(6) . ".{$ext}";
+	    $this->icon_path = Event::ICON_PATH . strtolower($fileName);
+	    return $image->saveAs($this->icon_path);
 	}
+	return true;
     }
 
 }

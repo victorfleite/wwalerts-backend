@@ -12,7 +12,14 @@ use common\models\Util;
 
 <div class="event-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['layout' => 'default', 'options' => ['enctype' => 'multipart/form-data']]); ?>
+
+    <div class="alert alert-info">
+	<p><strong><i class='fa fa-book'></i> <?php echo \Yii::t('translation', 'event.documentation'); ?></strong></p>
+    </div>
+
+
+    <?= $form->errorSummary($model); ?>
 
     <div class="row">
 	<div class="col-lg-6">
@@ -44,25 +51,24 @@ use common\models\Util;
 	<div class="col-lg-10">
 	    <?php
 	    $label = \Yii::t('translation', 'event.icon_path');
-	    $label .= (!$model->isNewRecord) ? '  [ ' . Html::a( Util::fileRemovePath($model->icon_path), $model->icon_path, $options = ['target' => '_blank'] ).' ]' : '';
+	    $label .= (!$model->isNewRecord) ? '  [ ' . Html::a(Util::fileRemovePath($model->icon_path), $model->icon_path, $options = ['target' => '_blank']) . ' ]' : '';
+
 	    echo $form->field($model, 'imageFile')->label($label)->widget(FileInput::classname(), [
-		'options' => [
-		    'multiple' => false,
-		    'showPreview' => true,
-		]
+		'options' => ['accept' => 'image/*'],
+		'pluginOptions' => ['allowedFileExtensions' => ['png'], 'showUpload' => false,],
 	    ]);
-	    ?>	    
+	    ?>
 	</div><!-- /.col-lg-10 -->
 	<div class="col-lg-2">
-	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
+<?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
 	</div><!-- /.col-lg-2 -->
 
     </div><!-- /.row -->
 
     <div class="form-group">
-	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>
