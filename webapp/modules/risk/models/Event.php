@@ -24,10 +24,10 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
      * @inheritdoc
      */
     public function rules() {
-	
-	
-	
-	
+
+
+
+
 	return [
 		[['name_i18n', 'status'], 'required'],
 		[['name_i18n'], 'unique'],
@@ -39,8 +39,8 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 		[['imageFile'], 'file', 'extensions' => 'png'],
 		[['imageFile'], 'file', 'maxSize' => 1024 * 1024 * 0.5 /* 500Kb */],
 		['imageFile', 'image', 'extensions' => 'png',
-		'minWidth' => 20, 'maxWidth' => 30,
-		'minHeight' => 20, 'maxHeight' => 30,
+		'minWidth' => 240, 'maxWidth' => 240,
+		'minHeight' => 240, 'maxHeight' => 240,
 	    ],
 	];
     }
