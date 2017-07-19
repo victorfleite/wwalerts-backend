@@ -22,6 +22,11 @@ class Config extends \yii\db\ActiveRecord {
     const VARNAME_JURISDICTION_DEFAULT_LAYER_COLOR = 'JURISDICTION_DEFAULT_LAYER_COLOR';
     const VARNAME_JURISDICTION_DEFAULT_LAYER_OPACITY = 'JURISDICTION_DEFAULT_LAYER_OPACITY';
     const VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE = 'LANGUAGE_REFERENCE_TRANSLATION_CODE';
+    const VARNAME_EVENT_ICON_MAX_SIZE = 'EVENT_ICON_MAX_SIZE';
+    const VARNAME_EVENT_ICON_MIN_WIDTH = 'EVENT_ICON_MIN_WIDTH';
+    const VARNAME_EVENT_ICON_MIN_HEIGHT = 'EVENT_ICON_MIN_HEIGHT';
+    const VARNAME_EVENT_ICON_MAX_WIDTH = 'EVENT_ICON_MAX_WIDTH';
+    const VARNAME_EVENT_ICON_MAX_HEIGHT = 'EVENT_ICON_MAX_HEIGHT';
 
     /**
      * @inheritdoc
@@ -68,6 +73,21 @@ class Config extends \yii\db\ActiveRecord {
 		break;
 	    case Config::VARNAME_LANGUAGE_REFERENCE_TRANSLATION_CODE:
 		// Nothing		
+		break;
+	    case Config::VARNAME_EVENT_ICON_MAX_SIZE:
+		$this->validateNumeric($this->$attribute, $attribute);
+		break;
+	    case Config::VARNAME_EVENT_ICON_MAX_WIDTH:
+		$this->validateNumeric($this->$attribute, $attribute);
+		break;
+	    case Config::VARNAME_EVENT_ICON_MAX_HEIGHT:
+		$this->validateNumeric($this->$attribute, $attribute);
+		break;
+	    case Config::VARNAME_EVENT_ICON_MIN_WIDTH:
+		$this->validateNumeric($this->$attribute, $attribute);
+		break;
+	    case Config::VARNAME_EVENT_ICON_MIN_HEIGHT:
+		$this->validateNumeric($this->$attribute, $attribute);
 		break;
 	    default:
 	}

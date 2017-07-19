@@ -5,6 +5,7 @@ namespace webapp\modules\risk\models;
 use Yii;
 use \webapp\modules\risk\models\base\Event as BaseEvent;
 use \common\models\Util;
+use \common\models\Config;
 
 /**
  * This is the model class for table "risk.event".
@@ -25,8 +26,12 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
      */
     public function rules() {
 
-
-
+	$generalVars = \Yii::$app->config->getVars();
+	$maxSize = $generalVars[Config::VARNAME_EVENT_ICON_MAX_SIZE];
+	$minWidth = $generalVars[Config::VARNAME_EVENT_ICON_MIN_WIDTH];
+	$minHeight = $generalVars[Config::VARNAME_EVENT_ICON_MIN_HEIGHT];
+	$maxWidth = $generalVars[Config::VARNAME_EVENT_ICON_MAX_WIDTH];
+	$maxHeight = $generalVars[Config::VARNAME_EVENT_ICON_MAX_HEIGHT];
 
 	return [
 		[['name_i18n', 'status'], 'required'],
@@ -37,10 +42,10 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
 		[['imageFile', 'icon_path'], 'safe'],
 		[['imageFile'], 'file', 'extensions' => 'png'],
-		[['imageFile'], 'file', 'maxSize' => 1024 * 1024 * 0.5 /* 500Kb */],
+		[['imageFile'], 'file', 'maxSize' => $maxSize],
 		['imageFile', 'image', 'extensions' => 'png',
-		'minWidth' => 240, 'maxWidth' => 240,
-		'minHeight' => 240, 'maxHeight' => 240,
+		'minWidth' => $minWidth, 'maxWidth' => $maxWidth,
+		'minHeight' => $minHeight, 'maxHeight' => $maxHeight,
 	    ],
 	];
     }

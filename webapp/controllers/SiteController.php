@@ -10,8 +10,8 @@ use yii\filters\VerbFilter;
 use yii\web\Cookie;
 use common\models\LoginForm;
 use common\models\User;
-use backend\models\PasswordResetRequestForm;
-use backend\models\ResetPasswordForm;
+use webapp\models\PasswordResetRequestForm;
+use webapp\models\ResetPasswordForm;
 
 /**
  * Site controller
