@@ -11,6 +11,7 @@ use webapp\modules\risk\models\base\Risk as BaseRisk;
 class Risk extends BaseRisk implements \common\components\traits\SimpleStatusInterface {
 
     use \common\components\traits\SimpleStatusTrait;
+    use \common\components\traits\TranslationTrait;
 
     /**
      * @inheritdoc

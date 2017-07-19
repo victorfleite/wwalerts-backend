@@ -13,6 +13,7 @@ use \common\models\Config;
 class Event extends BaseEvent implements \common\components\traits\SimpleStatusInterface {
 
     use \common\components\traits\SimpleStatusTrait;
+    use \common\components\traits\TranslationTrait;
 
     const ICON_PATH = 'images/icones/events/';
 

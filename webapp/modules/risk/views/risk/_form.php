@@ -10,26 +10,16 @@ use yii\bootstrap\ActiveForm;
 
 <div class="config-form">
 
-    <?php $form = ActiveForm::begin(['layout' => 'default']); ?>
-
     <div class="alert alert-info">
 	<p><strong><i class='fa fa-book'></i> <?php echo \Yii::t('translation', 'risk.documentation'); ?></strong></p>
     </div>
 
+    <?php $form = ActiveForm::begin(['layout' => 'default']); ?>
+
     <?= $form->errorSummary($model); ?>
 
     <div class="row">
-	<div class="col-lg-3">
-	    <?=
-	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
-		'button_modal_label' => \Yii::t('translation', 'translation'),
-		'fieldType' => 'text',
-		'options' => [
-		//'rows' => 6
-		]
-	    ]);
-	    ?>
-	</div><!-- /.col-lg-3 -->
+
 	<div class="col-lg-3">
 	    <?=
 	    $form->field($model, 'color')->widget('\kartik\widgets\ColorInput', []);
@@ -50,6 +40,18 @@ use yii\bootstrap\ActiveForm;
 
 	<div class="col-lg-3">
 	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
+	</div><!-- /.col-lg-3 -->
+
+	<div class="col-lg-3">
+	    <?=
+	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
+		'button_modal_label' => \Yii::t('translation', 'translation'),
+		'fieldType' => 'text',
+		'options' => [
+		//'rows' => 6
+		]
+	    ]);
+	    ?>
 	</div><!-- /.col-lg-3 -->
     </div><!-- /.row -->
 

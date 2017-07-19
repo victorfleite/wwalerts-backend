@@ -42,7 +42,7 @@ class DatailViewI18n extends Widget {
 		    $message = Message::find()->where(['id' => $sourceMessage->id, 'language' => $language->code])->one();
 		    if (!isset($message))
 			$message = new Message();
-		    $rows[] = $this->renderAttribute(Yii::t('translation', 'menu.language.' . $language->code), $message->translation, $i++);
+		    $rows[] = $this->renderAttribute(Yii::t('translation', 'language.' . $language->code), $message->translation, $i++);
 		}
 	    }
 

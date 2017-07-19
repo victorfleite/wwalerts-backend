@@ -11,13 +11,13 @@ use common\models\Util;
 ?>
 
 <div class="event-form">
-
-    <?php $form = ActiveForm::begin(['layout' => 'default', 'options' => ['enctype' => 'multipart/form-data']]); ?>
-
+    
     <div class="alert alert-info">
 	<p><strong><i class='fa fa-book'></i> <?php echo \Yii::t('translation', 'event.documentation'); ?></strong></p>
     </div>
 
+
+    <?php $form = ActiveForm::begin(['layout' => 'default', 'options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->errorSummary($model); ?>
 
