@@ -11,7 +11,7 @@ use common\models\Util;
 ?>
 
 <div class="event-form">
-    
+
     <div class="alert alert-info">
 	<p><strong><i class='fa fa-book'></i> <?php echo \Yii::t('translation', 'event.documentation'); ?></strong></p>
     </div>
@@ -48,7 +48,7 @@ use common\models\Util;
 
     </div>
     <div class="row">
-	<div class="col-lg-10">
+	<div class="col-lg-6">
 	    <?php
 	    $label = \Yii::t('translation', 'event.icon_path');
 	    $label .= (!$model->isNewRecord) ? '  [ ' . Html::a(Util::fileRemovePath($model->icon_path), $model->icon_path, $options = ['target' => '_blank']) . ' ]' : '';
@@ -59,16 +59,19 @@ use common\models\Util;
 	    ]);
 	    ?>
 	</div><!-- /.col-lg-10 -->
+	<div class="col-lg-4">
+	    <?= $form->field($model, 'code')->textInput(); ?>
+	</div><!-- /.col-lg-2 -->
 	<div class="col-lg-2">
-<?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
+	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
 	</div><!-- /.col-lg-2 -->
 
     </div><!-- /.row -->
 
     <div class="form-group">
-<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>

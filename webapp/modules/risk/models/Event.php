@@ -41,7 +41,8 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 		[['created_by', 'updated_by', 'status'], 'integer'],
 		[['hash'], 'string'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
-		[['imageFile', 'icon_path'], 'safe'],
+		[['code'], 'string', 'max' => 128],
+		[['imageFile', 'icon_path', 'code'], 'safe'],
 		[['imageFile'], 'file', 'extensions' => 'png'],
 		[['imageFile'], 'file', 'maxSize' => $maxSize],
 		['imageFile', 'image', 'extensions' => 'png',
@@ -66,6 +67,7 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	    'updated_by' => Yii::t('translation', 'event.updated_by'),
 	    'status' => Yii::t('translation', 'event.status'),
 	    'icon_path' => Yii::t('translation', 'event.icon_path'),
+	    'code' => Yii::t('translation', 'event.code'),
 	];
     }
 

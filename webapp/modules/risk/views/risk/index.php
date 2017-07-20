@@ -16,39 +16,40 @@ $this->params['breadcrumbs'][] = $this->title;
     <p class="text-right">
 	<?= Html::a(Yii::t('translation', 'risk.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'name_i18n',
-            [
+    <?=
+    GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+		['class' => 'yii\grid\SerialColumn'],
+	    'name_i18n',
+		[
 		'label' => Yii::t('translation', 'risk.name_traduction'),
 		'value' => function($data) {
 		    return Yii::t('translation', $data->name_i18n);
 		},
 	    ],
-	    [
+		[
 		'attribute' => 'color',
 		'format' => 'raw',
 		'value' => function($data) {
 		    return "<div style='background-color:" . $data->color . "'>&nbsp;</div>";
 		},
 	    ],
-            //'i18n',
-            'updated_at:datetime',
-            [
+	    'code',
+	    //'i18n',
+	    'updated_at:datetime',
+		[
 		'attribute' => 'status',
 		'value' => function($data) {
 		    return webapp\modules\risk\models\Risk::getStatusLabel($data->status);
 		},
-	    ], 			
-            // 'updated_at',
-            // 'created_by',
-            // 'updated_by',
-            // 'hash',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+	    ],
+	    // 'updated_at',
+	    // 'created_by',
+	    // 'updated_by',
+	    // 'hash',
+	    ['class' => 'yii\grid\ActionColumn'],
+	],
+    ]);
+    ?>
 </div>

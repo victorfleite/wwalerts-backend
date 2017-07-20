@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 	    'name_i18n',
+	    'code',
 	    //'i18n',
 	    'updated_at:datetime',
 		[

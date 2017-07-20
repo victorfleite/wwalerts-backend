@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 	    'description_i18n',
+	    'code',
 	    'created_at:datetime',
 	    'updated_at:datetime',
 		[
