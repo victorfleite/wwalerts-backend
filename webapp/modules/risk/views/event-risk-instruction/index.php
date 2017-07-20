@@ -6,15 +6,15 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('translation', 'event_risk_descriptions');
+$this->title = Yii::t('translation', 'event_risk_instructions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="event-risk-description-index">
+<div class="event-risk-instruction-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p class="text-right">
-	<?= Html::a(Yii::t('translation', 'event_risk_description.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
+	<?= Html::a(Yii::t('translation', 'event_risk_instruction.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?=
     GridView::widget([

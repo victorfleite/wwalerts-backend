@@ -3,16 +3,16 @@
 namespace webapp\modules\risk\controllers;
 
 use Yii;
-use webapp\modules\risk\models\EventRiskDescription;
+use webapp\modules\risk\models\EventRiskInstruction;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EventRiskDescriptionController implements the CRUD actions for EventRiskDescription model.
+ * EventRiskInstructionController implements the CRUD actions for EventRiskInstruction model.
  */
-class EventRiskDescriptionController extends Controller {
+class EventRiskInstructionController extends Controller {
 
     /**
      * @inheritdoc
@@ -29,12 +29,12 @@ class EventRiskDescriptionController extends Controller {
     }
 
     /**
-     * Lists all EventRiskDescription models.
+     * Lists all EventRiskInstruction models.
      * @return mixed
      */
     public function actionIndex() {
 	$dataProvider = new ActiveDataProvider([
-	    'query' => EventRiskDescription::find(),
+	    'query' => EventRiskInstruction::find(),
 	    'sort' => ['defaultOrder' => ['event_id' => SORT_ASC, 'risk_id' => SORT_ASC, 'name_i18n' => SORT_ASC]]
 	]);
 
@@ -44,7 +44,7 @@ class EventRiskDescriptionController extends Controller {
     }
 
     /**
-     * Displays a single EventRiskDescription model.
+     * Displays a single EventRiskInstruction model.
      * @param integer $id
      * @return mixed
      */
@@ -55,12 +55,12 @@ class EventRiskDescriptionController extends Controller {
     }
 
     /**
-     * Creates a new EventRiskDescription model.
+     * Creates a new EventRiskInstruction model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate() {
-	$model = new EventRiskDescription();
+	$model = new EventRiskInstruction();
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
 	    return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class EventRiskDescriptionController extends Controller {
     }
 
     /**
-     * Updates an existing EventRiskDescription model.
+     * Updates an existing EventRiskInstruction model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,7 +90,7 @@ class EventRiskDescriptionController extends Controller {
     }
 
     /**
-     * Deletes an existing EventRiskDescription model.
+     * Deletes an existing EventRiskInstruction model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -102,14 +102,14 @@ class EventRiskDescriptionController extends Controller {
     }
 
     /**
-     * Finds the EventRiskDescription model based on its primary key value.
+     * Finds the EventRiskInstruction model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return EventRiskDescription the loaded model
+     * @return EventRiskInstruction the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-	if (($model = EventRiskDescription::findOne($id)) !== null) {
+	if (($model = EventRiskInstruction::findOne($id)) !== null) {
 	    return $model;
 	} else {
 	    throw new NotFoundHttpException('The requested page does not exist.');

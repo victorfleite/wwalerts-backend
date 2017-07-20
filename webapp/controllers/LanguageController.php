@@ -203,7 +203,7 @@ class LanguageController extends Controller {
 	    if (empty($sourceMessage)) {
 		$sourceMessage = new SourceMessage();
 		$sourceMessage->category = SourceMessage::CATEGORY;
-		$sourceMessage->message = $message;
+		$sourceMessage->message = trim($message);
 		$sourceMessage->save();
 	    }
 
