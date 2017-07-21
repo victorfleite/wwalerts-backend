@@ -62,6 +62,9 @@ return [
 	'operative' => [
 	    'class' => 'webapp\modules\operative\Module',
 	],
+	'communication' => [
+	    'class' => 'webapp\modules\communication\Module',
+	],
 	'gridview' => [
 	    'class' => '\kartik\grid\Module',
 	// see settings on http://demos.krajee.com/grid#module
@@ -115,7 +118,7 @@ return [
 	    'translations' => [
 		'translation' => [
 		    'class' => yii\i18n\DbMessageSource::className(),
-		    'forceTranslation'=>true,
+		    'forceTranslation' => true,
 		]
 	    ]
 	],

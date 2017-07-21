@@ -66,11 +66,19 @@ class Menu {
 			    ['label' => Yii::t('translation', 'menu.event_risk_instruction'), 'url' => ['/risk/event-risk-instruction/index']],
 		]];
 
+		$communicationMenu = ['label' => Yii::t('translation', 'menu.communication_menu_label'), 'items' => [
+			    ['label' => Yii::t('translation', 'menu.group'), 'url' => ['/communication/group/index']],
+			    ['label' => Yii::t('translation', 'menu.recipient'), 'url' => ['/communication/recipient/index']],
+			    ['label' => Yii::t('translation', 'menu.trigger'), 'url' => ['/communication/trigger/index']],
+			    ['label' => Yii::t('translation', 'menu.behavior'), 'url' => ['/communication/behavior/index']],
+		]];
+
 		$menuItems[] = ['label' => Yii::t('translation', 'menu.administration'), 'items' => [
 			$generalConfigMenu,
 			$operativeMenu,
 			$localMenu,
-			$risklMenu
+			$risklMenu,
+			$communicationMenu
 		    ],
 		];
 	    }
