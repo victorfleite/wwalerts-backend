@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\communication\models\Behavior */
 
-$this->title = Yii::t('translation', 'Create Behavior');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Behaviors'), 'url' => ['index']];
+$this->title = Yii::t('translation', 'behavior.create_title');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'behaviors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="behavior-create">

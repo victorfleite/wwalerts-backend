@@ -15,8 +15,9 @@ class Behavior extends BaseBehavior {
      */
     public function rules() {
 	return [
-		[['name'], 'required'],
+		[['name', 'class'], 'required'],
 		[['params'], 'string'],
+		[['description'], 'string'],
 		[['name'], 'string', 'max' => 50],
 		[['class'], 'string', 'max' => 300]
 	];
@@ -31,6 +32,7 @@ class Behavior extends BaseBehavior {
 	    'name' => Yii::t('translation', 'behavior.name'),
 	    'class' => Yii::t('translation', 'behavior.class'),
 	    'params' => Yii::t('translation', 'behavior.params'),
+	    'description' => Yii::t('translation', 'behavior.description'),
 	];
     }
 
