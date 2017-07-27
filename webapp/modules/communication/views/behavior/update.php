@@ -8,7 +8,8 @@ use yii\helpers\Html;
 $this->title = Yii::t('translation', 'Update {modelClass}: ', [
     'modelClass' => 'Behavior',
 ]) . $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Behaviors'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'behaviors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
 ?>

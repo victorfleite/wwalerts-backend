@@ -10,6 +10,7 @@ use yii\helpers\Url;
 /* @var $model webapp\modules\communication\models\Group */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
