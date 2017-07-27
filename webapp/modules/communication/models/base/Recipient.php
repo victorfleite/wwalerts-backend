@@ -62,4 +62,11 @@ class Recipient extends \yii\db\ActiveRecord
             'status' => Yii::t('translation', 'Status'),
         ];
     }
+    
+      /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroups() {
+	return $this->hasMany(\webapp\modules\communication\models\Group::className(), ['id' => 'group_id'])->viaTable('communication.rl_group_recipient', ['recipient_id' => 'id']);
+    }
 }

@@ -36,4 +36,18 @@ class Group extends BaseGroup implements \common\components\traits\SimpleStatusI
 	];
     }
 
+    /**
+     * @return Array
+     */
+    public function getAllRecipientsIds() {
+	$recipients = parent::getRecipients()->all();
+	$recipientsIds = [];
+	if (is_array($recipients)) {
+	    foreach ($recipients as $j) {
+		$recipientsIds[] = $j->id;
+	    }
+	}
+	return $recipientsIds;
+    }
+
 }

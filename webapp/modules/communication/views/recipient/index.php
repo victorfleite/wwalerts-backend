@@ -23,6 +23,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'email',
             'phone',
+	    [
+		'label' => \Yii::t('translation', 'groups'),
+		'format' => 'raw',
+		'value' => function($data) {
+		    $groups = $data->getGroups()->all();
+		    $links = [];
+		    if (is_array($groups)) {
+			foreach ($groups as $group) {
+			    $links[] = Html::a($group->name, \yii\helpers\Url::toRoute(['group/view', 'id' => $group->id]));
+			}
+		    }
+		    return implode(' ,', $links);
+		},
+	    ],
             [
 		'attribute' => 'status',
 		'value' => function($data) {
