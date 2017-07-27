@@ -34,7 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'class',
 	    'description:ntext',
-            'params:ntext',
+		[
+		'attribute' => 'params',
+		'format' => 'raw',
+		'value' => function($data) {
+		    return "<pre>".$data->params."</pre>";
+		},
+	    ],
         ],
     ]) ?>
 

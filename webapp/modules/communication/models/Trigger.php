@@ -15,10 +15,10 @@ class Trigger extends BaseTrigger {
      */
     public function rules() {
 	return [
-		[['group_id', 'behavior_id', 'event_id', 'risk_id'], 'integer'],
-		[['behavior_id', 'event_id', 'risk_id'], 'required'],
-		[['behavior_id', 'event_id', 'risk_id'], 'unique', 'targetAttribute' => ['behavior_id', 'event_id', 'risk_id'], 'message' => 'The combination of Behavior ID, Event ID and Risk ID has already been taken.'],
-		[['group_id', 'behavior_id'], 'unique', 'targetAttribute' => ['group_id', 'behavior_id'], 'message' => 'The combination of Group ID and Behavior ID has already been taken.']
+		[['behavior_id', 'event_id', 'risk_id'], 'integer'],
+		[['name', 'behavior_id', 'event_id', 'risk_id'], 'required'],
+		[['description'], 'safe'],
+		[['behavior_id', 'event_id', 'risk_id'], 'unique', 'targetAttribute' => ['behavior_id', 'event_id', 'risk_id'], 'message' => \Yii::t('translation', 'trigger.unique_key_behavior_event_risk')],
 	];
     }
 
@@ -27,10 +27,12 @@ class Trigger extends BaseTrigger {
      */
     public function attributeLabels() {
 	return [
-	    'group_id' => Yii::t('translation', 'trigger.group_id'),
+	    'id' => Yii::t('translation', 'trigger.id'),
 	    'behavior_id' => Yii::t('translation', 'trigger.behavior_id'),
 	    'event_id' => Yii::t('translation', 'trigger.event_id'),
 	    'risk_id' => Yii::t('translation', 'trigger.risk_id'),
+	    'name' => Yii::t('translation', 'trigger.name'),
+	    'description' => Yii::t('translation', 'trigger.description'),
 	];
     }
 

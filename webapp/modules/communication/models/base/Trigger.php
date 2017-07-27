@@ -37,18 +37,6 @@ class Trigger extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['group_id', 'behavior_id', 'event_id', 'risk_id'], 'integer'],
-            [['behavior_id', 'event_id', 'risk_id'], 'required'],
-            [['behavior_id', 'event_id', 'risk_id'], 'unique', 'targetAttribute' => ['behavior_id', 'event_id', 'risk_id'], 'message' => 'The combination of Behavior ID, Event ID and Risk ID has already been taken.'],
-            [['group_id', 'behavior_id'], 'unique', 'targetAttribute' => ['group_id', 'behavior_id'], 'message' => 'The combination of Group ID and Behavior ID has already been taken.']
-        ];
-    }
     
     /**
      * @inheritdoc
