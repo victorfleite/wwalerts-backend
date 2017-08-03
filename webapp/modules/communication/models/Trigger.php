@@ -8,7 +8,9 @@ use \webapp\modules\communication\models\base\Trigger as BaseTrigger;
 /**
  * This is the model class for table "communication.trigger".
  */
-class Trigger extends BaseTrigger {
+class Trigger extends BaseTrigger implements \common\components\traits\SimpleStatusInterface {
+
+    use \common\components\traits\SimpleStatusTrait;
 
     /**
      * @inheritdoc
@@ -16,10 +18,30 @@ class Trigger extends BaseTrigger {
     public function rules() {
 	return [
 		[['behavior_id', 'event_id', 'risk_id'], 'integer'],
-		[['name', 'behavior_id', 'event_id', 'risk_id'], 'required'],
+		[['name', 'behavior_id', 'status'], 'required'],
 		[['description'], 'safe'],
-		[['behavior_id', 'event_id', 'risk_id'], 'unique', 'targetAttribute' => ['behavior_id', 'event_id', 'risk_id'], 'message' => \Yii::t('translation', 'trigger.unique_key_behavior_event_risk')],
+		[['behavior_id', 'event_id', 'risk_id'], 'checkUnique'],
 	];
+    }
+
+    public function checkUnique($attribute, $params, $validator) {
+
+	$eventId = $this->event_id;
+	if (empty($eventId)) {
+	    $eventId = null;
+	}
+	$riskId = $this->risk_id;
+	if (empty($riskId)) {
+	    $riskId = null;
+	}
+	$query = Trigger::find()->where(['behavior_id' => $this->behavior_id, 'event_id' => $eventId, 'risk_id' => $riskId]);
+	if (!$this->isNewRecord) {
+	    $query->andWhere(['<>', 'id', $this->id]);
+	}
+	$founded = $query->exists();
+	if ($founded) {
+	    $this->addError($attribute, \Yii::t('translation', 'trigger.unique_key_behavior_event_risk'));
+	}
     }
 
     /**
@@ -34,6 +56,21 @@ class Trigger extends BaseTrigger {
 	    'name' => Yii::t('translation', 'trigger.name'),
 	    'description' => Yii::t('translation', 'trigger.description'),
 	];
+    }
+
+    /**
+     * @return Array
+     */
+    public function getAllGroupsIds() {
+	$groups = parent::getGroups()->all();
+	$groupsIds = [];
+	if (is_array($groupsIds)) {
+	    foreach ($groups as $g) {
+		$groupsIds[] = $g->id;
+	    }
+	}
+	
+	return $groupsIds;
     }
 
 }

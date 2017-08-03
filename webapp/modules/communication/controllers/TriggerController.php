@@ -3,18 +3,18 @@
 namespace webapp\modules\communication\controllers;
 
 use Yii;
+use webapp\modules\communication\models\Trigger;
+use webapp\modules\communication\models\AssociateTriggerGroupForm;
+use \webapp\modules\communication\models\RlTriggerGroup;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use webapp\modules\communication\models\Group;
-use webapp\modules\communication\models\RlGroupRecipient;
-use \webapp\modules\communication\models\AssociateRecipientGroupForm;
 
 /**
- * GroupController implements the CRUD actions for Group model.
+ * TriggerController implements the CRUD actions for Trigger model.
  */
-class GroupController extends Controller {
+class TriggerController extends Controller {
 
     /**
      * @inheritdoc
@@ -31,12 +31,12 @@ class GroupController extends Controller {
     }
 
     /**
-     * Lists all Group models.
+     * Lists all Trigger models.
      * @return mixed
      */
     public function actionIndex() {
 	$dataProvider = new ActiveDataProvider([
-	    'query' => Group::find(),
+	    'query' => Trigger::find(),
 	]);
 
 	return $this->render('index', [
@@ -45,7 +45,7 @@ class GroupController extends Controller {
     }
 
     /**
-     * Displays a single Group model.
+     * Displays a single Trigger model.
      * @param integer $id
      * @return mixed
      */
@@ -56,12 +56,12 @@ class GroupController extends Controller {
     }
 
     /**
-     * Creates a new Group model.
+     * Creates a new Trigger model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate() {
-	$model = new Group();
+	$model = new Trigger();
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
 	    return $this->redirect(['view', 'id' => $model->id]);
@@ -73,7 +73,7 @@ class GroupController extends Controller {
     }
 
     /**
-     * Updates an existing Group model.
+     * Updates an existing Trigger model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class GroupController extends Controller {
     }
 
     /**
-     * Deletes an existing Group model.
+     * Deletes an existing Trigger model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -103,45 +103,51 @@ class GroupController extends Controller {
     }
 
     /**
-     * Finds the Group model based on its primary key value.
+     * Associate Group of Recipients
+     * @param type $id
+     * @return type
+     */
+    public function actionAssociateGroup($id) {
+
+	$model = new AssociateTriggerGroupForm();
+	$trigger = $this->findModel($id);
+
+	if ($model->load(Yii::$app->request->post())) {	    
+	    $groups = $model->groups;	    
+	    // Delete all jurisdictions found
+	    RlTriggerGroup::deleteAll('trigger_id = :trigger_id', [':trigger_id' => $trigger->id]);
+	    // Create jurisdictions 
+	    if (is_array($groups)) {
+		foreach ($groups as $id) {
+		    $rl = new RlTriggerGroup();
+		    $rl->group_id = $id;
+		    $rl->trigger_id = $trigger->id;
+		    $rl->save();
+		}
+	    }
+	    return $this->redirect(['view', 'id' => $trigger->id]);
+	}
+	$model->groups = $trigger->getAllGroupsIds();
+		    
+	return $this->render('associate-group', [
+		    'model' => $model,
+		    'trigger' => $trigger,
+	]);
+    }
+
+    /**
+     * Finds the Trigger model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Group the loaded model
+     * @return Trigger the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-	if (($model = Group::findOne($id)) !== null) {
+	if (($model = Trigger::findOne($id)) !== null) {
 	    return $model;
 	} else {
 	    throw new NotFoundHttpException('The requested page does not exist.');
 	}
-    }
-
-    public function actionAssociateRecipient($id) {
-
-	$model = new AssociateRecipientGroupForm();
-	$group = $this->findModel($id);
-
-	if ($model->load(Yii::$app->request->post())) {
-	    $recipients = $model->recipients;
-	    // Delete all recipients found
-	    RlGroupRecipient::deleteAll('group_id = :group_id', [':group_id' => $group->id]);
-	    // Create jurisdictions 
-	    if (is_array($recipients)) {
-		foreach ($recipients as $id) {
-		    $rl = new RlGroupRecipient();
-		    $rl->recipient_id = $id;
-		    $rl->group_id = $group->id;
-		    $rl->save();
-		}
-	    }
-	    return $this->redirect(['view', 'id' => $group->id]);
-	}
-	$model->recipients = $group->getAllRecipientsIds();
-	return $this->render('associate-recipient', [
-		    'model' => $model,
-		    'group' => $group,
-	]);
     }
 
 }

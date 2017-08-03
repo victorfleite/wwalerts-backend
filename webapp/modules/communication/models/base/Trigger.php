@@ -19,84 +19,68 @@ use Yii;
  * @property \webapp\modules\communication\models\RiskRisk $risk
  * @property \webapp\modules\communication\models\CommunicationTriggerFilter[] $communicationTriggerFilters
  */
-class Trigger extends \yii\db\ActiveRecord
-{
+class Trigger extends \yii\db\ActiveRecord {
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
-    public function relationNames()
-    {
-        return [
-            'behavior',
-            'group',
-            'event',
-            'risk',
-            'triggerFilters'
-        ];
-    }
-
-    
-    /**
-     * @inheritdoc
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
      */
-    public static function tableName()
-    {
-        return 'communication.trigger';
+    public function relationNames() {
+	return [
+	    'behaviorTrigger',
+	    'event',
+	    'risk',
+	    'triggerFilters'
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('translation', 'ID'),
-            'group_id' => Yii::t('translation', 'Group ID'),
-            'behavior_id' => Yii::t('translation', 'Behavior ID'),
-            'event_id' => Yii::t('translation', 'Event ID'),
-            'risk_id' => Yii::t('translation', 'Risk ID'),
-        ];
+    public static function tableName() {
+	return 'communication.trigger';
     }
-    
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels() {
+	return [
+	    'id' => Yii::t('translation', 'ID'),
+	    'behavior_id' => Yii::t('translation', 'Behavior ID'),
+	    'event_id' => Yii::t('translation', 'Event ID'),
+	    'risk_id' => Yii::t('translation', 'Risk ID'),
+	];
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBehavior()
-    {
-        return $this->hasOne(\webapp\modules\communication\models\Behavior::className(), ['id' => 'behavior_id']);
+    public function getBehaviorTrigger() {
+	return $this->hasOne(\webapp\modules\communication\models\Behavior::className(), ['id' => 'behavior_id']);
     }
-        
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGroup()
-    {
-        return $this->hasOne(\webapp\modules\communication\models\Group::className(), ['id' => 'group_id']);
+    public function getEvent() {
+	return $this->hasOne(\webapp\modules\risk\models\Event::className(), ['id' => 'event_id']);
     }
-        
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEvent()
-    {
-        return $this->hasOne(\webapp\modules\communication\models\Event::className(), ['id' => 'event_id']);
+    public function getRisk() {
+	return $this->hasOne(\webapp\modules\risk\models\Risk::className(), ['id' => 'risk_id']);
     }
-        
-    /**
+
+     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRisk()
+    public function getGroups()
     {
-        return $this->hasOne(\webapp\modules\communication\models\Risk::className(), ['id' => 'risk_id']);
+        return $this->hasMany(\webapp\modules\communication\models\Group::className(), ['id' => 'group_id'])->viaTable('communication.rl_trigger_group', ['trigger_id' => 'id']);
     }
-        
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTriggerFilters()
-    {
-        return $this->hasMany(\webapp\modules\communication\models\TriggerFilter::className(), ['behavior_id' => 'behavior_id', 'event_id' => 'event_id', 'risk_id' => 'risk_id']);
-    }
-    }
+  
+
+}

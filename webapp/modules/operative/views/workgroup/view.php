@@ -78,6 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 		[
 		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
 		'template' => '{view}',
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'view') {
@@ -120,6 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'created_at:datetime',
 		[
 		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
 		'template' => '{view}',
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'view') {
@@ -171,13 +173,13 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 	],
     ]);
-    
-    
+
+
     // Centralizing map from feature
     $script = new JsExpression("setMapCenterFromFeatures(sibilino.olwidget.getMapById('map'));");
     $this->registerJs($script);
     ?>    
-    
+
 
 
 
