@@ -22,7 +22,8 @@ class Group extends \yii\db\ActiveRecord {
      */
     public function relationNames() {
 	return [
-	    'triggers'
+	    'triggers',
+	    'communicationFilters'
 	];
     }
 
@@ -57,11 +58,8 @@ class Group extends \yii\db\ActiveRecord {
 	];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getTriggers() {
-	return $this->hasMany(\webapp\modules\communication\models\Trigger::className(), ['group_id' => 'id']);
+	return $this->hasMany(\webapp\modules\communication\models\Trigger::className(), ['id' => 'trigger_id'])->viaTable('communication.rl_trigger_group', ['group_id' => 'id']);
     }
 
     /**
@@ -76,6 +74,12 @@ class Group extends \yii\db\ActiveRecord {
      */
     public function getRecipients() {
 	return $this->hasMany(\webapp\modules\communication\models\Recipient::className(), ['id' => 'recipient_id'])->viaTable('communication.rl_group_recipient', ['group_id' => 'id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCommunicationFilters(){
+	return $this->hasMany(\webapp\modules\communication\models\TriggerGroupFilter::className(), ['group_id' => 'id']);
     }
 
 }

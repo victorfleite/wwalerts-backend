@@ -50,12 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 			[
 		'label' => \Yii::t('translation', 'groups'),
+		'format' => 'raw',
 		'value' => function ($model) {
-		    $names = [];
+		    $links = [];
 		    foreach ($model->getGroups()->all() as $group) {
-			$names[] = $group->name;
+			$links[] = Html::a($group->name, \yii\helpers\Url::toRoute(['/communication/group/view', 'id' => $group->id]));
+			
 		    }
-		    return implode(', ', $names);
+		    return implode(', ', $links);
 		},
 	    ],
 		[

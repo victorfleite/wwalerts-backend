@@ -49,5 +49,5 @@ class Group extends BaseGroup implements \common\components\traits\SimpleStatusI
 	}
 	return $recipientsIds;
     }
-
+   
 }
