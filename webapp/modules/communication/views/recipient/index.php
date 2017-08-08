@@ -7,6 +7,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('translation', 'recipients');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recipient-index">
@@ -23,6 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'email',
             'phone',
+	    [
+		'label' => \Yii::t('translation', 'groups'),
+		'format' => 'raw',
+		'value' => function($data) {
+		    $groups = $data->getGroups()->all();
+		    $links = [];
+		    if (is_array($groups)) {
+			foreach ($groups as $group) {
+			    $links[] = Html::a($group->name, \yii\helpers\Url::toRoute(['group/view', 'id' => $group->id]));
+			}
+		    }
+		    return implode(' ,', $links);
+		},
+	    ],
             [
 		'attribute' => 'status',
 		'value' => function($data) {

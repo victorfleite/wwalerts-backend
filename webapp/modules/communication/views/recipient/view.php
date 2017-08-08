@@ -2,11 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\communication\models\Recipient */
 $name = (!empty($model->name))? $model->name: $model->email;
 $this->title = $name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'recipients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -40,5 +44,46 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
         ],
     ]) ?>
+    
+    
+    <h3><?= Yii::t('translation', 'groups') ?></h3>
+    <?php
+    $groups = $model->getGroups()->all();
+    $dataProvider = new ArrayDataProvider([
+	'allModels' => $groups,
+	'sort' => [
+	    'attributes' => ['name'],
+	],
+	'pagination' => [
+	    'pageSize' => 10,
+	],
+    ]);
+
+    echo GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+	    'name',
+		[
+		'attribute' => 'description',
+		'contentOptions' => ['class' => 'text-wrap'],
+	    ],
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\communication\models\Group::getStatusLabel($data->status);
+		},
+	    ],
+		[
+		'class' => 'yii\grid\ActionColumn',
+		'template' => '{view}',
+		'urlCreator' => function ($action, $model, $key, $index) {
+		    if ($action === 'view') {
+			return Url::to(['group/view', 'id' => $model->id]);
+		    }
+		}
+	    ],
+	],
+    ]);
+    ?>
 
 </div>

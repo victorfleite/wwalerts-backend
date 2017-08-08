@@ -5,7 +5,7 @@ use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->title = Yii::t('translation', 'behaviors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>

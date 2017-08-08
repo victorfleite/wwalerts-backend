@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model webapp\modules\communication\models\Behavior */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'behaviors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -33,7 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'class',
 	    'description:ntext',
-            'params:ntext',
+		[
+		'attribute' => 'params',
+		'format' => 'raw',
+		'value' => function($data) {
+		    return "<pre>".$data->params."</pre>";
+		},
+	    ],
         ],
     ]) ?>
 

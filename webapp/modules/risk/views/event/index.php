@@ -48,7 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	    // 'updated_by',
 	    // 'hash',
 	    // 'status',
-	    ['class' => 'yii\grid\ActionColumn'],
+	    ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+	    ],
 	],
     ]);
     ?>

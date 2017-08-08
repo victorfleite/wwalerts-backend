@@ -53,6 +53,9 @@ return [
 		],
 	    ],
 	],
+	'alert' => [
+	    'class' => 'webapp\modules\alert\Module',
+	],
 	'risk' => [
 	    'class' => 'webapp\modules\risk\Module',
 	],
