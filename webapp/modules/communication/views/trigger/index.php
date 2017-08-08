@@ -25,6 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	    //'id',
 	    'name',
 		[
+		'attribute' => 'type',
+		'value' => function($data) {
+		    return \webapp\modules\communication\models\Trigger::getTypeLabel($data->type);
+		},
+	    ],
+		[
+		'attribute' => 'behavior_id',
+		'value' => function($data) {
+		    return $data->behaviorTrigger->name;
+		},
+	    ],
+		[
 		'attribute' => 'event_id',
 		'value' => function($data) {
 		    if (empty($data->event)) {
@@ -43,19 +55,18 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 		[
-		'attribute' => 'behavior_id',
+		'attribute' => 'status_alert_id',
 		'value' => function($data) {
-		    return $data->behaviorTrigger->name;
+		    return Yii::t('translation', $data->statusAlert->name_i18n);
 		},
 	    ],
-			[
+		[
 		'label' => \Yii::t('translation', 'groups'),
 		'format' => 'raw',
 		'value' => function ($model) {
 		    $links = [];
 		    foreach ($model->getGroups()->all() as $group) {
 			$links[] = Html::a($group->name, \yii\helpers\Url::toRoute(['/communication/group/view', 'id' => $group->id]));
-			
 		    }
 		    return implode(', ', $links);
 		},
@@ -75,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			return Html::a('<span class="glyphicon glyphicon-check"></span>', $url, [
 				    'title' => Yii::t('translation', 'trigger.associate_group_btn'),
 			]);
-		    },		   
+		    },
 		],
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'view') {

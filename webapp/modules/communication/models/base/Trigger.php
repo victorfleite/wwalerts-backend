@@ -21,6 +21,7 @@ use Yii;
  */
 class Trigger extends \yii\db\ActiveRecord {
 
+
     /**
      * This function helps \mootensai\relation\RelationTrait runs faster
      * @return array relation names of this model
@@ -30,7 +31,8 @@ class Trigger extends \yii\db\ActiveRecord {
 	    'behaviorTrigger',
 	    'event',
 	    'risk',
-	    'triggerFilters'
+	    'triggerFilters',
+	    'statusAlert'
 	];
     }
 
@@ -74,13 +76,20 @@ class Trigger extends \yii\db\ActiveRecord {
 	return $this->hasOne(\webapp\modules\risk\models\Risk::className(), ['id' => 'risk_id']);
     }
 
-     /**
+    /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGroups()
-    {
-        return $this->hasMany(\webapp\modules\communication\models\Group::className(), ['id' => 'group_id'])->viaTable('communication.rl_trigger_group', ['trigger_id' => 'id']);
+    public function getGroups() {
+	return $this->hasMany(\webapp\modules\communication\models\Group::className(), ['id' => 'group_id'])->viaTable('communication.rl_trigger_group', ['trigger_id' => 'id']);
     }
-  
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatusAlert() {
+	return $this->hasOne(\webapp\modules\alert\models\StatusAlert::className(), ['id' => 'status_alert_id']);
+    }
+
+    
 
 }

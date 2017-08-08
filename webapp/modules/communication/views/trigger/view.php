@@ -40,6 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	    //'id',
 	    'name',
 		[
+		'attribute' => 'type',
+		'value' => function($data) {
+		    return webapp\modules\communication\models\Trigger::getTypeLabel($data->type);
+		}
+	    ],
+		[
+		'attribute' => 'behavior_id',
+		'value' => function($data) {
+		    return $data->behaviorTrigger->name;
+		},
+	    ],
+		[
 		'attribute' => 'event_id',
 		'value' => function($data) {
 		    if (empty($data->event_id)) {
@@ -55,12 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			return \Yii::t('translation', 'trigger.all_risks');
 		    }
 		    return Yii::t('translation', $data->risk->name_i18n);
-		},
-	    ],
-		[
-		'attribute' => 'behavior_id',
-		'value' => function($data) {
-		    return $data->behaviorTrigger->name;
 		},
 	    ],
 	    'description',

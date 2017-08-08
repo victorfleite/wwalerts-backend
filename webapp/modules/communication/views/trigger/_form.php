@@ -5,7 +5,9 @@ use yii\widgets\ActiveForm;
 use \yii\helpers\ArrayHelper;
 use webapp\modules\risk\models\Event;
 use webapp\modules\risk\models\Risk;
+use webapp\modules\alert\models\StatusAlert;
 use webapp\modules\communication\models\Behavior;
+use webapp\modules\communication\models\Trigger;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\communication\models\Trigger */
@@ -23,13 +25,20 @@ use webapp\modules\communication\models\Behavior;
     <?= $form->errorSummary($model); ?>
 
     <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 	</div><!-- /.col-lg-4 -->
-	<div class="col-lg-4">
+	<div class="col-lg-3">
 	    <?=
 	    $form->field($model, 'behavior_id')->dropDownList(
 		    ArrayHelper::map(Behavior::find()->select(['id', 'name'])->orderBy('name')->all(), 'id', 'name')
+		    , ['prompt' => '']);
+	    ?>
+	</div><!-- /.col-lg-4 -->
+	<div class="col-lg-3">
+	    <?=
+	    $form->field($model, 'type')->dropDownList(
+	    Trigger::getComboType()
 		    , ['prompt' => '']);
 	    ?>
 	</div><!-- /.col-lg-4 -->
@@ -37,21 +46,27 @@ use webapp\modules\communication\models\Behavior;
 	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\communication\models\Trigger::getStatusCombo()); ?>
 	</div><!-- /.col-lg-2 -->
     </div>
-    <div class="row">	
-	<div class="col-lg-6">
+    <div class="row">
+	<div class="col-lg-4">
 	    <?=
 	    $form->field($model, 'event_id')->dropDownList(
 		    Event::getTranslatedComboArray('id', 'name_i18n')
 		    , ['prompt' => \Yii::t('translation', 'trigger.all_events')]);
 	    ?>
-	</div><!-- /.col-lg-2 -->
-	<div class="col-lg-6">
+	</div><!-- /.col-lg-4 -->
+
+	<div class="col-lg-4">
 	    <?=
 	    $form->field($model, 'risk_id')->dropDownList(
 		    Risk::getTranslatedComboArray('id', 'name_i18n')
 		    , ['prompt' => \Yii::t('translation', 'trigger.all_risks')]);
 	    ?>
-	</div><!-- /.col-lg-2 -->	
+	</div><!-- /.col-lg-4 -->
+	<div class="col-lg-4">
+	    <?=
+	    $form->field($model, 'status_alert_id')->dropDownList(StatusAlert::getTranslatedComboArray('id', 'name_i18n', ['status'=> StatusAlert::STATUS_ACTIVE]), ['prompt' =>'']);
+	    ?>
+	</div><!-- /.col-lg-4 -->	
 
     </div><!-- /.row -->
     <div class="row">

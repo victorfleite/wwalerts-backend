@@ -19,8 +19,12 @@ trait TranslationTrait {
      * @param type $value
      * @return type
      */
-    public static function getTranslatedComboArray($key, $value) {
-	$list = self::find()->orderBy($value)->all();	
+    public static function getTranslatedComboArray($key, $value, $where = []) {
+	$listQuery = self::find()->orderBy($value);
+	if(!empty($where)){
+	    $listQuery->where($where);
+	}
+	$list = $listQuery->all();
 	$r = [];
 	if (count($list) > 0) {
 	    foreach ($list as $item) {

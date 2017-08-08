@@ -27,34 +27,66 @@ $this->params['breadcrumbs'][] = $this->title
 
 
     <?=
-    DetailView::widget(['model' => $trigger, 'attributes' => ['name', 'description']]);
+    DetailView::widget(['model' => $trigger, 'attributes' => [
+	    'name',
+		[
+		'attribute' => 'type',
+		'value' => function($data) {
+		    return webapp\modules\communication\models\Trigger::getTypeLabel($data->type);
+		}
+	    ],
+		[
+		'attribute' => 'behavior_id',
+		'value' => function($data) {
+		    return $data->behaviorTrigger->name;
+		},
+	    ],
+		[
+		'attribute' => 'event_id',
+		'value' => function($data) {
+		    if (empty($data->event_id)) {
+			return \Yii::t('translation', 'trigger.all_events');
+		    }
+		    return Yii::t('translation', $data->event->name_i18n);
+		},
+	    ],
+		[
+		'attribute' => 'risk_id',
+		'value' => function($data) {
+		    if (empty($data->risk_id)) {
+			return \Yii::t('translation', 'trigger.all_risks');
+		    }
+		    return Yii::t('translation', $data->risk->name_i18n);
+		},
+	    ],
+    ]]);
     $form = ActiveForm::begin();
     ?>
     <div>
 
-	<?php
-	$options = [
-	    'multiple' => true,
-	    'size' => 20,
-	];
-	$groupsAvailable = Group::find()->orderBy('name')->asArray()->all();
-	$items = ArrayHelper::map($groupsAvailable, 'id', 'name');
-	// echo $form->field($model, $attribute)->listBox($items, $options);
-	echo $form->field($model, 'groups')->widget(DualListbox::className(), [
-	    'items' => $items,
-	    'options' => $options,
-	    'clientOptions' => [
-		'moveOnSelect' => false,
-		'selectedListLabel' => Yii::t('translation', 'group.selected'),
-		'nonSelectedListLabel' => Yii::t('translation', 'group.available'),
-	    ],
-	]);
-	?>
+<?php
+$options = [
+    'multiple' => true,
+    'size' => 20,
+];
+$groupsAvailable = Group::find()->orderBy('name')->asArray()->all();
+$items = ArrayHelper::map($groupsAvailable, 'id', 'name');
+// echo $form->field($model, $attribute)->listBox($items, $options);
+echo $form->field($model, 'groups')->widget(DualListbox::className(), [
+    'items' => $items,
+    'options' => $options,
+    'clientOptions' => [
+	'moveOnSelect' => false,
+	'selectedListLabel' => Yii::t('translation', 'group.selected'),
+	'nonSelectedListLabel' => Yii::t('translation', 'group.available'),
+    ],
+]);
+?>
 
     </div>
     <p>&nbsp;</p>
     <div class="form-group">
-	<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/trigger/index'], ['class' => 'btn btn-primary']) ?>	
+<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/trigger/index'], ['class' => 'btn btn-primary']) ?>	
 	<?= Html::submitButton(Yii::t('translation', 'Update'), ['class' => 'btn btn-primary']) ?>
     </div>
 
