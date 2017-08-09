@@ -62,13 +62,19 @@ class EventController extends Controller {
      */
     public function actionCreate() {
 	$model = new Event();
-
+	
 	if ($model->load(Yii::$app->request->post())) {
-
+	    
 	    $image = UploadedFile::getInstance($model, 'imageFile');
-	    if ($model->saveImage($image) && $model->save()) {
-		return $this->redirect(['view', 'id' => $model->id]);
+	    
+	    if ($model->saveImage($image)) {
+		if($model->save()){
+		    return $this->redirect(['view', 'id' => $model->id]);
+		}
+	    //\Yii::$app->dumper->debug($model, true);
+		
 	    } else {
+		\Yii::$app->dumper->debug($model, true);
 		return $this->render('create', [
 			    'model' => $model,
 		]);

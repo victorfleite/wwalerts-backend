@@ -5,7 +5,9 @@ namespace webapp\modules\communication\controllers;
 use Yii;
 use webapp\modules\communication\models\Trigger;
 use webapp\modules\communication\models\AssociateTriggerGroupForm;
-use \webapp\modules\communication\models\RlTriggerGroup;
+use webapp\modules\communication\models\AssociateTriggerWorkgroupForm;
+use webapp\modules\communication\models\RlTriggerGroup;
+use webapp\modules\communication\models\RlTriggerWorkgroup;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -103,7 +105,7 @@ class TriggerController extends Controller {
     }
 
     /**
-     * Associate Group of Recipients
+     * Associate Group of Recipients (external)
      * @param type $id
      * @return type
      */
@@ -112,8 +114,8 @@ class TriggerController extends Controller {
 	$model = new AssociateTriggerGroupForm();
 	$trigger = $this->findModel($id);
 
-	if ($model->load(Yii::$app->request->post())) {	    
-	    $groups = $model->groups;	    
+	if ($model->load(Yii::$app->request->post())) {
+	    $groups = $model->groups;
 	    // Delete all jurisdictions found
 	    RlTriggerGroup::deleteAll('trigger_id = :trigger_id', [':trigger_id' => $trigger->id]);
 	    // Create jurisdictions 
@@ -128,8 +130,41 @@ class TriggerController extends Controller {
 	    return $this->redirect(['view', 'id' => $trigger->id]);
 	}
 	$model->groups = $trigger->getAllGroupsIds();
-		    
+
 	return $this->render('associate-group', [
+		    'model' => $model,
+		    'trigger' => $trigger,
+	]);
+    }
+
+    /**
+     * Associate Workgroup of User (internal users)
+     * @param type $id
+     * @return type
+     */
+    public function actionAssociateWorkgroup($id) {
+
+	$model = new AssociateTriggerWorkgroupForm();
+	$trigger = $this->findModel($id);
+
+	if ($model->load(Yii::$app->request->post())) {
+	    $workgroups = $model->workgroups;
+	    // Delete all jurisdictions found
+	    RlTriggerWorkgroup::deleteAll('trigger_id = :trigger_id', [':trigger_id' => $trigger->id]);
+	    // Create jurisdictions 
+	    if (is_array($workgroups)) {
+		foreach ($workgroups as $id) {
+		    $rl = new RlTriggerWorkgroup();
+		    $rl->workgroup_id = $id;
+		    $rl->trigger_id = $trigger->id;
+		    $rl->save();
+		}
+	    }
+	    return $this->redirect(['view', 'id' => $trigger->id]);
+	}
+	$model->workgroups = $trigger->getAllWorkgroupsIds();
+
+	return $this->render('associate-workgroup', [
 		    'model' => $model,
 		    'trigger' => $trigger,
 	]);

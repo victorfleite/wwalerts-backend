@@ -8,17 +8,19 @@ use \yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "operative.workgroup".
  */
-class Workgroup extends BaseWorkgroup {
+class Workgroup extends BaseWorkgroup implements \common\components\traits\SimpleStatusInterface {
+
+    use \common\components\traits\SimpleStatusTrait;
 
     /**
      * @inheritdoc
      */
     public function rules() {
-	return array_replace_recursive(parent::rules(), [
-		[['name'], 'required'],
+	return [
+		[['name', 'status'], 'required'],
 		[['name'], 'string', 'max' => 150],
 		[['description'], 'string', 'max' => 500]
-	]);
+	];
     }
 
     /**
@@ -33,6 +35,7 @@ class Workgroup extends BaseWorkgroup {
 	    'updated_at' => \Yii::t('translation', 'workgroup.updated_at'),
 	    'created_by' => \Yii::t('translation', 'workgroup.created_by'),
 	    'updated_by' => \Yii::t('translation', 'workgroup.updated_by'),
+	    'status' => \Yii::t('translation', 'workgroup.status'),
 	];
     }
 
@@ -81,7 +84,6 @@ class Workgroup extends BaseWorkgroup {
 	    $rl = RlWorkgroupJurisdiction::deleteAll(['workgroup_id' => $this->id]);
 	    $rl = RlWorkgroupUser::deleteAll(['workgroup_id' => $this->id]);
 	    $transaction->commit();
-	    
 	} catch (\Exception $e) {
 	    $transaction->rollBack();
 	    throw $e;
@@ -89,9 +91,8 @@ class Workgroup extends BaseWorkgroup {
 	    $transaction->rollBack();
 	    throw $e;
 	}
-	
+
 	return true;
-	
     }
 
 }

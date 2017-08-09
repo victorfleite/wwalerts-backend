@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class="text-right">
 	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>  
+	<?= Html::a(Yii::t('translation', 'trigger.associate_workgroup_btn'), ['trigger/associate-workgroup', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'trigger.associate_group_btn'), ['trigger/associate-group', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?=
@@ -72,6 +73,46 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'description',
 	],
     ])
+    ?>
+     <h3><?= Yii::t('translation', 'workgroups') ?></h3>
+    <?php
+    $workgroups = $model->getWorkgroups()->all();
+    $dataProvider = new ArrayDataProvider([
+	'allModels' => $workgroups,
+	'sort' => [
+	    'attributes' => ['name'],
+	],
+	'pagination' => [
+	    'pageSize' => 10,
+	],
+    ]);
+
+    echo GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+	    'name',
+		[
+		'attribute' => 'description',
+		'contentOptions' => ['class' => 'text-wrap'],
+	    ],
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\operative\models\Workgroup::getStatusLabel($data->status);
+		},
+	    ],
+		[
+		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+		'template' => '{view}',
+		'urlCreator' => function ($action, $model, $key, $index) {
+		    if ($action === 'view') {
+			return Url::to(['/operative/workgroup/view', 'id' => $model->id]);
+		    }
+		}
+	    ],
+	],
+    ]);
     ?>
 
     <h3><?= Yii::t('translation', 'groups') ?></h3>

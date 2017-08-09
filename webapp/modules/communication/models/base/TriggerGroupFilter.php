@@ -44,20 +44,7 @@ class TriggerGroupFilter extends \yii\db\ActiveRecord {
 	return 'communication.trigger_group_filter';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels() {
-	return [
-	    'id' => Yii::t('translation', 'ID'),
-	    'trigger_id' => Yii::t('translation', 'Trigger ID'),
-	    'group_id' => Yii::t('translation', 'Group ID'),
-	    'name' => Yii::t('translation', 'Name'),
-	    'geom' => Yii::t('translation', 'Geom'),
-	    'status' => Yii::t('translation', 'Status'),
-	];
-    }
-
+   
     /**
      * @return \yii\db\ActiveQuery
      */

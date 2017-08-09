@@ -36,6 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 	    'created_at:datetime',
 		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\operative\models\Workgroup::getStatusLabel($data->status);
+		},
+	    ],
+		[
 		'class' => 'yii\grid\ActionColumn',
 		'contentOptions' => ['class' => 'text-right'],
 		'template' => '{view}{associate-user}{associate-jurisdiction}{update}{delete}',

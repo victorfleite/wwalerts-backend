@@ -46,8 +46,70 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'name',
 	    'description',
 	    'created_at:datetime',
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\operative\models\Workgroup::getStatusLabel($data->status);
+		},
+	    ],
 	],
     ])
+    ?>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'workgroup.communication_filter_btn'), ['/communication/trigger-workgroup-filter/create', 'workgroup_id' => $model->id], ['class' => 'btn btn-primary']) ?>	
+    </p>
+
+    <h3><?= Yii::t('translation', 'workgroup.communication_filter_title') ?></h3>
+    <?php
+    $filters = $model->getCommunicationFilters()->all();
+    $dataProvider = new ArrayDataProvider([
+	'allModels' => $filters,
+	'sort' => [
+	    'attributes' => ['name'],
+	],
+	'pagination' => [
+	    'pageSize' => 10,
+	],
+    ]);
+
+    echo GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+		[
+		'label' => \Yii::t('translation', 'triggergroupfilter.name'),
+		'value' => function($data) {
+		    return $data->name;
+		},
+	    ], [
+		'label' => \Yii::t('translation', 'triggergroupfilter.trigger_id'),
+		'value' => function($data) {
+		    return $data->trigger->name;
+		},
+	    ],
+		[
+		'label' => \Yii::t('translation', 'triggergroupfilter.status'),
+		'value' => function($data) {
+		    return webapp\modules\communication\models\TriggerGroupFilter::getStatusLabel($data->status);
+		},
+	    ],
+		[
+		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+		'template' => '{view}{update}{delete}',
+		'urlCreator' => function ($action, $model, $key, $index) {
+		    if ($action === 'view') {
+			return Url::to(['/communication/trigger-group-filter/view', 'group_id' => $model->group_id, 'trigger_id' => $model->trigger_id]);
+		    }
+		    if ($action === 'update') {
+			return Url::to(['/communication/trigger-group-filter/update', 'group_id' => $model->group_id, 'trigger_id' => $model->trigger_id]);
+		    }
+		    if ($action === 'delete') {
+			return Url::to(['/communication/trigger-group-filter/delete', 'group_id' => $model->group_id, 'trigger_id' => $model->trigger_id]);
+		    }
+		}
+	    ],
+	],
+    ]);
     ?>
 
     <h3><?= Yii::t('translation', 'users') ?></h3>

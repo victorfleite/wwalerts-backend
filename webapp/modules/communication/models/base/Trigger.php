@@ -32,7 +32,7 @@ class Trigger extends \yii\db\ActiveRecord {
 	    'event',
 	    'risk',
 	    'triggerFilters',
-	    'statusAlert'
+	    'alertStatus'
 	];
     }
 
@@ -82,12 +82,19 @@ class Trigger extends \yii\db\ActiveRecord {
     public function getGroups() {
 	return $this->hasMany(\webapp\modules\communication\models\Group::className(), ['id' => 'group_id'])->viaTable('communication.rl_trigger_group', ['trigger_id' => 'id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWorkgroups() {
+	return $this->hasMany(\webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('communication.rl_trigger_workgroup', ['trigger_id' => 'id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStatusAlert() {
-	return $this->hasOne(\webapp\modules\alert\models\StatusAlert::className(), ['id' => 'status_alert_id']);
+    public function getAlertStatus() {
+	return $this->hasOne(\webapp\modules\alert\models\AlertStatus::className(), ['id' => 'alert_status_id']);
     }
 
     

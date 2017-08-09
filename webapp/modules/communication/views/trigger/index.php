@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		[
 		'attribute' => 'status_alert_id',
 		'value' => function($data) {
-		    return Yii::t('translation', $data->statusAlert->name_i18n);
+		    return Yii::t('translation', $data->alertStatus->name_i18n);
 		},
 	    ],
 		[

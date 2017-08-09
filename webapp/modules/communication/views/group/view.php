@@ -70,15 +70,19 @@ $this->params['breadcrumbs'][] = $this->title;
     echo GridView::widget([
 	'dataProvider' => $dataProvider,
 	'columns' => [
-	    'name',
 		[
-		'attribute' => 'trigger_id',
+		'label' => \Yii::t('translation', 'triggergroupfilter.name'),
+		'value' => function($data) {
+		    return $data->name;
+		},
+	    ], [
+		'label' => \Yii::t('translation', 'triggergroupfilter.trigger_id'),
 		'value' => function($data) {
 		    return $data->trigger->name;
 		},
 	    ],
 		[
-		'attribute' => 'status',
+		'label' => \Yii::t('translation', 'triggergroupfilter.status'),
 		'value' => function($data) {
 		    return webapp\modules\communication\models\TriggerGroupFilter::getStatusLabel($data->status);
 		},

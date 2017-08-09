@@ -34,7 +34,7 @@ use common\models\Util;
 	    ?>
 	</div><!-- /.col-lg-6 -->
 
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 	    <?=
 	    $form->field($model, 'description_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
 		'button_modal_label' => \Yii::t('translation', 'translation'),
@@ -44,7 +44,13 @@ use common\models\Util;
 		]
 	    ]);
 	    ?>
-	</div><!-- /.col-lg-6 -->
+	</div><!-- /.col-lg-4 -->
+	<div class="col-lg-2">
+	    <?php
+	    $eventsType = webapp\modules\risk\models\EventType::getTranslatedComboArray('id', 'name_i18n');
+	    echo $form->field($model, 'event_type_id')->dropDownList($eventsType, ['prompt' => '']);
+	    ?>
+	</div><!-- /.col-lg-2 -->
 
     </div>
     <div class="row">
