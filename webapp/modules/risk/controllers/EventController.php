@@ -70,11 +70,8 @@ class EventController extends Controller {
 	    if ($model->saveImage($image)) {
 		if($model->save()){
 		    return $this->redirect(['view', 'id' => $model->id]);
-		}
-	    //\Yii::$app->dumper->debug($model, true);
-		
+		}		
 	    } else {
-		\Yii::$app->dumper->debug($model, true);
 		return $this->render('create', [
 			    'model' => $model,
 		]);

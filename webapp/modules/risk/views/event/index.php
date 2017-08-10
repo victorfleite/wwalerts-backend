@@ -26,8 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		[
 		'label' => Yii::t('translation', 'event.icon'),
 		'format' => 'raw',
+		'contentOptions' => ['class' => 'text-center'],
 		'value' => function($data) {
-		    return Html::a(Html::img($data->icon_path), $data->icon_path, $options = ['target' => '_blank']);
+		    return Html::a(Html::img($data->icon_path, ['width' => 40, 'height' => 40]), $data->icon_path, $options = ['target' => '_blank']);
 		},
 	    ],
 		[
@@ -39,11 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'name_i18n',
 	    'code',
 	    //'i18n',
-	    'updated_at:datetime',
-		[
-		'attribute' => 'status',
+	    [
+		'label' => Yii::t('translation', 'event.event_type_id'),
 		'value' => function($data) {
-		    return webapp\modules\risk\models\Event::getStatusLabel($data->status);
+		    return Yii::t('translation', $data->eventType->name_i18n);
 		},
 	    ],
 	    //'created_by',

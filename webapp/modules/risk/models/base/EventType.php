@@ -25,7 +25,7 @@ class EventType extends \yii\db\ActiveRecord
     public function relationNames()
     {
         return [
-            'riskEvents'
+            'events'
         ];
     }
 
@@ -67,8 +67,9 @@ class EventType extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRiskEvents()
-    {
-        return $this->hasMany(\webapp\modules\risk\models\RiskEvent::className(), ['event_type_id' => 'id']);
+    public function getEvents() {
+	return $this->hasMany(\webapp\modules\risk\models\Event::className(), ['event_type_id' => 'id']);
     }
-    }
+  
+
+}

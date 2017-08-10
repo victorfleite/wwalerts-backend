@@ -52,6 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'name_i18n',
 	    'description_i18n',
 	    'code',
+		[
+		'label' => Yii::t('translation', 'event.event_type_id'),
+		'value' => function($data) {
+		    return Yii::t('translation', $data->eventType->name_i18n);
+		},
+	    ],
 	    'created_at:datetime',
 	    'updated_at:datetime',
 		[

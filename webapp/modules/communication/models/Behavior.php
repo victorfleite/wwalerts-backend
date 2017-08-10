@@ -16,6 +16,7 @@ class Behavior extends BaseBehavior {
     public function rules() {
 	return [
 		[['name', 'class'], 'required'],
+		[['class'], \common\components\validators\BehaviorClassValidator::className()],
 		[['params'], 'string'],
 		[['description'], 'string'],
 		[['name'], 'string', 'max' => 50],
@@ -34,6 +35,10 @@ class Behavior extends BaseBehavior {
 	    'params' => Yii::t('translation', 'behavior.params'),
 	    'description' => Yii::t('translation', 'behavior.description'),
 	];
+    }
+    
+    public function checkUnique($attribute, $params, $validator) {
+	
     }
 
 

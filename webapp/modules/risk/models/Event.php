@@ -82,7 +82,7 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	    // generate a unique file name to prevent duplicate filenames
 	    $fileName = Util::sanitizeString($image->baseName) . '_' . Util::generateHashSha256(6) . ".{$ext}";
 	    $this->icon_path = Event::ICON_PATH . strtolower($fileName);
-	    return $image->saveAs($this->icon_path);
+	    return $image->saveAs($this->icon_path, true);
 	}
 	return true;
     }
