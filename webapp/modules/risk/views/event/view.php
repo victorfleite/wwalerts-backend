@@ -8,6 +8,8 @@ use common\components\widgets\datailview_i18n\DatailViewI18n;
 /* @var $model webapp\modules\risk\models\Event */
 
 $this->title = Yii::t('translation', $model->name_i18n);
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.risk_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'events'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -50,6 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'name_i18n',
 	    'description_i18n',
 	    'code',
+		[
+		'label' => Yii::t('translation', 'event.event_type_id'),
+		'value' => function($data) {
+		    return Yii::t('translation', $data->eventType->name_i18n);
+		},
+	    ],
 	    'created_at:datetime',
 	    'updated_at:datetime',
 		[

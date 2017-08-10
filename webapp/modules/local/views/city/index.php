@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('translation', 'cities');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
 $this->params['breadcrumbs'][] = $this->title;
 ?>

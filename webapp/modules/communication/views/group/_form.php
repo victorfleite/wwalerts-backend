@@ -20,18 +20,18 @@ use yii\widgets\ActiveForm;
     <?= $form->errorSummary($model); ?>
     
     <div class="row">
-	<div class="col-lg-4">
+	<div class="col-lg-8">
 	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-	</div><!-- /.col-lg-4 -->
-	<div class="col-lg-6">
-	    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
-	</div><!-- /.col-lg-6 -->
-	<div class="col-lg-2">
+	</div><!-- /.col-lg-8 -->
+	
+	<div class="col-lg-4">
 	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\communication\models\Group::getStatusCombo()); ?>
-	</div><!-- /.col-lg-2 -->
+	</div><!-- /.col-lg-4 -->
 
     </div><!-- /.row -->
-
+    <?= $form->field($model, 'description')
+	    ->textArea(['rows' => '6'])
+    ?>
 
     <div class="form-group">
 	<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

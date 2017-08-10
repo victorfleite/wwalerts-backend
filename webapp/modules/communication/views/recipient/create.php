@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model webapp\modules\communication\models\Recipient */
 
 $this->title = Yii::t('translation', 'recipient.create_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'recipients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

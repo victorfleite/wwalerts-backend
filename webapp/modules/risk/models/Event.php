@@ -35,10 +35,10 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	$maxHeight = $generalVars[Config::VARNAME_EVENT_ICON_MAX_HEIGHT];
 
 	return [
-		[['name_i18n', 'status'], 'required'],
+		[['name_i18n', 'event_type_id', 'status'], 'required'],
 		[['name_i18n'], 'unique'],
 		[['created_at', 'updated_at'], 'safe'],
-		[['created_by', 'updated_by', 'status'], 'integer'],
+		[['created_by', 'updated_by', 'status', 'event_type_id'], 'integer'],
 		[['hash'], 'string'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
 		[['code'], 'string', 'max' => 128],
@@ -68,6 +68,7 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	    'status' => Yii::t('translation', 'event.status'),
 	    'icon_path' => Yii::t('translation', 'event.icon_path'),
 	    'code' => Yii::t('translation', 'event.code'),
+	    'event_type_id'=> Yii::t('translation', 'event.event_type_id'),
 	];
     }
 
@@ -81,7 +82,7 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	    // generate a unique file name to prevent duplicate filenames
 	    $fileName = Util::sanitizeString($image->baseName) . '_' . Util::generateHashSha256(6) . ".{$ext}";
 	    $this->icon_path = Event::ICON_PATH . strtolower($fileName);
-	    return $image->saveAs($this->icon_path);
+	    return $image->saveAs($this->icon_path, true);
 	}
 	return true;
     }

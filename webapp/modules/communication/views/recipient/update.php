@@ -8,6 +8,7 @@ $name = (!empty($model->name))? $model->name: $model->email;
 $this->title = Yii::t('translation', 'update_title', [
     'name' => $name,
 ]);
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'recipients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $name, 'url' => ['view', 'id' => $model->id]];

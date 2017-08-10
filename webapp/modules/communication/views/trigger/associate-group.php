@@ -10,6 +10,7 @@ use softark\duallistbox\DualListbox;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Workgroup */
 $this->title = Yii::t('translation', 'trigger.associate_group_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'triggers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $trigger->name, 'url' => ['view', 'id' => $trigger->id]];
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title
     </p>
 
 
-
+    <h3><?= Yii::t('translation', 'trigger') ?></h3>
     <?=
     DetailView::widget(['model' => $trigger, 'attributes' => [
 	    'name',
@@ -59,38 +60,45 @@ $this->params['breadcrumbs'][] = $this->title
 		    return Yii::t('translation', $data->risk->name_i18n);
 		},
 	    ],
+		[
+		'attribute' => 'alert_status_id',
+		'value' => function($data) {
+		    return Yii::t('translation', $data->alertStatus->name_i18n);
+		}
+	    ],
     ]]);
     $form = ActiveForm::begin();
     ?>
+    <h3><?= Yii::t('translation', 'groups') ?></h3>
     <div>
 
-<?php
-$options = [
-    'multiple' => true,
-    'size' => 20,
-];
-$groupsAvailable = Group::find()->orderBy('name')->asArray()->all();
-$items = ArrayHelper::map($groupsAvailable, 'id', 'name');
+	<?php
+	$options = [
+	    'multiple' => true,
+	    'size' => 20,
+	];
+	$groupsAvailable = Group::find()->orderBy('name')->asArray()->all();
+	$items = ArrayHelper::map($groupsAvailable, 'id', 'name');
 // echo $form->field($model, $attribute)->listBox($items, $options);
-echo $form->field($model, 'groups')->widget(DualListbox::className(), [
-    'items' => $items,
-    'options' => $options,
-    'clientOptions' => [
-	'moveOnSelect' => false,
-	'selectedListLabel' => Yii::t('translation', 'group.selected'),
-	'nonSelectedListLabel' => Yii::t('translation', 'group.available'),
-    ],
-]);
-?>
+	echo $form->field($model, 'groups')->label('')->widget(DualListbox::className(), [
+	    'items' => $items,
+	    'options' => $options,
+	    'clientOptions' => [
+		'moveOnSelect' => false,
+		'selectedListLabel' => Yii::t('translation', 'group.selected'),
+		'nonSelectedListLabel' => Yii::t('translation', 'group.available'),
+	    ],
+	]);
+	?>
 
     </div>
     <p>&nbsp;</p>
     <div class="form-group">
-<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/trigger/index'], ['class' => 'btn btn-primary']) ?>	
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/trigger/view', 'id' => $trigger->id], ['class' => 'btn btn-primary']) ?>	
 	<?= Html::submitButton(Yii::t('translation', 'Update'), ['class' => 'btn btn-primary']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 
 </div>

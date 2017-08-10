@@ -20,10 +20,10 @@ class Trigger extends BaseTrigger implements \common\components\traits\SimpleSta
      */
     public function rules() {
 	return [
-		[['behavior_id', 'event_id', 'risk_id', 'status_alert_id'], 'integer'],
-		[['name', 'behavior_id', 'type', 'status_alert_id', 'status'], 'required'],
+		[['behavior_id', 'event_id', 'risk_id', 'alert_status_id'], 'integer'],
+		[['name', 'behavior_id', 'type', 'status'], 'required'],
 		[['description'], 'safe'],
-		[['behavior_id', 'event_id', 'risk_id', 'status_alert_id'], 'checkUnique'],
+		[['behavior_id', 'event_id', 'risk_id', 'alert_status_id'], 'checkUnique'],
 	];
     }
 
@@ -37,13 +37,25 @@ class Trigger extends BaseTrigger implements \common\components\traits\SimpleSta
 	if (empty($riskId)) {
 	    $riskId = null;
 	}
-	$query = Trigger::find()->where(['behavior_id' => $this->behavior_id, 'event_id' => $eventId, 'risk_id' => $riskId, 'status_alert_id' => $this->status_alert_id]);
+	$alertStatusId = $this->alert_status_id;
+	if (empty($alertStatusId)) {
+	    $alertStatusId = null;
+	}
+	
+	$query = Trigger::find()->where([
+	    'behavior_id' => $this->behavior_id,
+	    'event_id' => $eventId,
+	    'risk_id' => $riskId,
+	    'alert_status_id' => $alertStatusId,
+	    'type' => $this->type]
+	);
+
 	if (!$this->isNewRecord) {
 	    $query->andWhere(['<>', 'id', $this->id]);
 	}
 	$founded = $query->exists();
 	if ($founded) {
-	    $this->addError($attribute, \Yii::t('translation', 'trigger.unique_key_behavior_status_event_risk'));
+	    $this->addError($attribute, \Yii::t('translation', 'trigger.unique_key_behavior_status_event_risk_type'));
 	}
     }
 
@@ -59,12 +71,12 @@ class Trigger extends BaseTrigger implements \common\components\traits\SimpleSta
 	    'risk_id' => Yii::t('translation', 'trigger.risk_id'),
 	    'name' => Yii::t('translation', 'trigger.name'),
 	    'description' => Yii::t('translation', 'trigger.description'),
-	    'status_alert_id' => Yii::t('translation', 'trigger.status_alert_id'),
+	    'alert_status_id' => Yii::t('translation', 'trigger.alert_status_id'),
 	];
     }
 
     /**
-     * @return Array
+     * @return Array Groups
      */
     public function getAllGroupsIds() {
 	$groups = parent::getGroups()->all();
@@ -76,6 +88,20 @@ class Trigger extends BaseTrigger implements \common\components\traits\SimpleSta
 	}
 
 	return $groupsIds;
+    }
+
+    /**
+     * @return All Workgroups
+     */
+    public function getAllWorkgroupsIds() {
+	$workgroups = parent::getWorkgroups()->all();
+	$workgroupsIds = [];
+	if (is_array($workgroupsIds)) {
+	    foreach ($workgroups as $w) {
+		$workgroupsIds[] = $w->id;
+	    }
+	}
+	return $workgroupsIds;
     }
 
     /**
@@ -103,6 +129,24 @@ class Trigger extends BaseTrigger implements \common\components\traits\SimpleSta
 	$arr[self::TYPE_INTERNAL] = \Yii::t('translation', 'trigger.type_internal');
 	$arr[self::TYPE_EXTERNAL] = \Yii::t('translation', 'trigger.type_external');
 	return $arr;
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+	parent::afterSave($insert, $changedAttributes);
+
+	/**
+	 * Remove all references of relationals
+	 */
+	if ($this->type == Trigger::TYPE_EXTERNAL) {
+	    RlTriggerWorkgroup::deleteAll(['trigger_id' => $this->id]);
+	}
+
+	/**
+	 * Remove all references of relationals
+	 */
+	if ($this->type == Trigger::TYPE_INTERNAL) {
+	    RlTriggerGroup::deleteAll(['trigger_id' => $this->id]);
+	}
     }
 
 }

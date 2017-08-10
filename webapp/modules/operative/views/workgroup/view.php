@@ -15,6 +15,7 @@ use \common\models\Config;
 /* @var $model app\models\Workgroup */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class='text-right'>
 	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
-	<?= Html::a(Yii::t('translation', 'workgroup.associate_user_btn'), ['workgroup/associate-user', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-	<?= Html::a(Yii::t('translation', 'workgroup.associate_jurisdiction_btn'), ['workgroup/associate-jurisdiction', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?=
 	Html::a(Yii::t('translation', 'Delete'), ['delete', 'id' => $model->id], [
@@ -46,9 +45,74 @@ $this->params['breadcrumbs'][] = $this->title;
 	    'name',
 	    'description',
 	    'created_at:datetime',
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\operative\models\Workgroup::getStatusLabel($data->status);
+		},
+	    ],
 	],
     ])
     ?>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'workgroup.communication_filter_btn'), ['/communication/trigger-workgroup-filter/create', 'workgroup_id' => $model->id], ['class' => 'btn btn-primary']) ?>	
+    </p>
+
+    <h3><?= Yii::t('translation', 'workgroup.communication_filter_title') ?></h3>
+    <?php
+    $filters = $model->getCommunicationFilters()->all();
+    $dataProvider = new ArrayDataProvider([
+	'allModels' => $filters,
+	'sort' => [
+	    'attributes' => ['name'],
+	],
+	'pagination' => [
+	    'pageSize' => 10,
+	],
+    ]);
+
+    echo GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+		[
+		'label' => \Yii::t('translation', 'triggerworkgroupfilter.name'),
+		'value' => function($data) {
+		    return $data->name;
+		},
+	    ], [
+		'label' => \Yii::t('translation', 'triggerworkgroupfilter.trigger_id'),
+		'value' => function($data) {
+		    return $data->trigger->name;
+		},
+	    ],
+		[
+		'label' => \Yii::t('translation', 'triggerworkgroupfilter.status'),
+		'value' => function($data) {
+		    return webapp\modules\communication\models\TriggerWorkgroupFilter::getStatusLabel($data->status);
+		},
+	    ],
+		[
+		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+		'template' => '{view}{update}{delete}',
+		'urlCreator' => function ($action, $model, $key, $index) {
+		    if ($action === 'view') {
+			return Url::to(['/communication/trigger-workgroup-filter/view', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id]);
+		    }
+		    if ($action === 'update') {
+			return Url::to(['/communication/trigger-workgroup-filter/update', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id]);
+		    }
+		    if ($action === 'delete') {
+			return Url::to(['/communication/trigger-workgroup-filter/delete', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id]);
+		    }
+		}
+	    ],
+	],
+    ]);
+    ?>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'workgroup.associate_user_btn'), ['workgroup/associate-user', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <h3><?= Yii::t('translation', 'users') ?></h3>
     <?php
@@ -82,13 +146,16 @@ $this->params['breadcrumbs'][] = $this->title;
 		'template' => '{view}',
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'view') {
-			return Url::to(['user/view', 'id' => $model->id]);
+			return Url::to(['/user/view', 'id' => $model->id]);
 		    }
 		}
 	    ],
 	],
     ]);
     ?>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'workgroup.associate_jurisdiction_btn'), ['workgroup/associate-jurisdiction', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <h3><?= Yii::t('translation', 'jurisdictions') ?></h3>
     <?php

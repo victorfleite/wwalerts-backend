@@ -8,6 +8,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('translation', 'update_title', [
     'name' => $model->nm_meso,
 ]);
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'regions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->nm_meso, 'url' => ['view', 'id' => $model->gid]];

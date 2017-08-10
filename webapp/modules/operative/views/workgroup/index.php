@@ -8,6 +8,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('translation', 'workgroups');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -35,6 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 	    'created_at:datetime',
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\operative\models\Workgroup::getStatusLabel($data->status);
+		},
+	    ],
 		[
 		'class' => 'yii\grid\ActionColumn',
 		'contentOptions' => ['class' => 'text-right'],

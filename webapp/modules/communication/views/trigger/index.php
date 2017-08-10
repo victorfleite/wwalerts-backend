@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use webapp\modules\communication\models\Trigger;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->title = Yii::t('translation', 'trigger');
 $this->params['breadcrumbs'][] = $this->title;
@@ -55,18 +57,29 @@ $this->params['breadcrumbs'][] = $this->title;
 		},
 	    ],
 		[
-		'attribute' => 'status_alert_id',
+		'attribute' => 'alert_status_id',
 		'value' => function($data) {
-		    return Yii::t('translation', $data->statusAlert->name_i18n);
+		     if (empty($data->alertStatus)) {
+			return \Yii::t('translation', 'trigger.all_alerts_status');
+		    }
+		    return Yii::t('translation', $data->alertStatus->name_i18n);
 		},
 	    ],
 		[
-		'label' => \Yii::t('translation', 'groups'),
+		'label' => \Yii::t('translation', 'trigger.groups'),
 		'format' => 'raw',
 		'value' => function ($model) {
 		    $links = [];
-		    foreach ($model->getGroups()->all() as $group) {
-			$links[] = Html::a($group->name, \yii\helpers\Url::toRoute(['/communication/group/view', 'id' => $group->id]));
+
+		    if ($model->type == Trigger::TYPE_EXTERNAL) {
+			foreach ($model->getGroups()->all() as $group) {
+			    $links[] = Html::a($group->name, \yii\helpers\Url::toRoute(['/communication/group/view', 'id' => $group->id]));
+			}
+		    }
+		    if ($model->type == Trigger::TYPE_INTERNAL) {
+			foreach ($model->getWorkgroups()->all() as $workgroup) {
+			    $links[] = Html::a($workgroup->name, \yii\helpers\Url::toRoute(['/operative/workgroup/view', 'id' => $workgroup->id]));
+			}
 		    }
 		    return implode(', ', $links);
 		},

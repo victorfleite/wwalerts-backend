@@ -50,7 +50,7 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
 	<div class="col-lg-6">
 	    <?=
 	    $form->field($model, 'trigger_id')->dropDownList(
-		    ArrayHelper::map(Trigger::find()->select(['id', 'name'])->orderBy('name')->all(), 'id', 'name')
+		    ArrayHelper::map(Trigger::find()->select(['id', 'name'])->where(['type'=>Trigger::TYPE_EXTERNAL])->orderBy('name')->all(), 'id', 'name')
 		    , ['disabled' => (!$model->isNewRecord) ? True : False]);
 	    ?>
 	</div><!-- /.col-lg-6 -->

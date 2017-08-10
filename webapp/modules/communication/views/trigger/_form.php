@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use \yii\helpers\ArrayHelper;
 use webapp\modules\risk\models\Event;
 use webapp\modules\risk\models\Risk;
-use webapp\modules\alert\models\StatusAlert;
+use webapp\modules\alert\models\AlertStatus;
 use webapp\modules\communication\models\Behavior;
 use webapp\modules\communication\models\Trigger;
 
@@ -38,7 +38,7 @@ use webapp\modules\communication\models\Trigger;
 	<div class="col-lg-3">
 	    <?=
 	    $form->field($model, 'type')->dropDownList(
-	    Trigger::getComboType()
+		    Trigger::getComboType()
 		    , ['prompt' => '']);
 	    ?>
 	</div><!-- /.col-lg-4 -->
@@ -64,7 +64,10 @@ use webapp\modules\communication\models\Trigger;
 	</div><!-- /.col-lg-4 -->
 	<div class="col-lg-4">
 	    <?=
-	    $form->field($model, 'status_alert_id')->dropDownList(StatusAlert::getTranslatedComboArray('id', 'name_i18n', ['status'=> StatusAlert::STATUS_ACTIVE]), ['prompt' =>'']);
+	    $form->field($model, 'alert_status_id')->dropDownList(
+		    AlertStatus::getTranslatedComboArray('id', 'name_i18n', ['status' => AlertStatus::STATUS_ACTIVE]), [
+		'prompt' => \Yii::t('translation', 'trigger.all_alerts_status')
+	    ]);
 	    ?>
 	</div><!-- /.col-lg-4 -->	
 

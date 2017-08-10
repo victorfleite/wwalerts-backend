@@ -10,6 +10,7 @@ use yii\helpers\Url;
 /* @var $model webapp\modules\communication\models\Group */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -20,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class="text-right">
 	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
-	<?= Html::a(Yii::t('translation', 'group.associate_recipient_btn'), ['group/associate-recipient', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?=
 	Html::a(Yii::t('translation', 'Delete'), ['delete', 'id' => $model->id], [
@@ -70,15 +70,19 @@ $this->params['breadcrumbs'][] = $this->title;
     echo GridView::widget([
 	'dataProvider' => $dataProvider,
 	'columns' => [
-	    'name',
 		[
-		'attribute' => 'trigger_id',
+		'label' => \Yii::t('translation', 'triggergroupfilter.name'),
+		'value' => function($data) {
+		    return $data->name;
+		},
+	    ], [
+		'label' => \Yii::t('translation', 'triggergroupfilter.trigger_id'),
 		'value' => function($data) {
 		    return $data->trigger->name;
 		},
 	    ],
 		[
-		'attribute' => 'status',
+		'label' => \Yii::t('translation', 'triggergroupfilter.status'),
 		'value' => function($data) {
 		    return webapp\modules\communication\models\TriggerGroupFilter::getStatusLabel($data->status);
 		},
@@ -102,7 +106,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	],
     ]);
     ?>
-
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'group.associate_recipient_btn'), ['group/associate-recipient', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
     <h3><?= Yii::t('translation', 'recipients') ?></h3>
     <?php
     $recipients = $model->getRecipients()->all();

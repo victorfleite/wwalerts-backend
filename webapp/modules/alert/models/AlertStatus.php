@@ -3,12 +3,12 @@
 namespace webapp\modules\alert\models;
 
 use Yii;
-use \webapp\modules\alert\models\base\StatusAlert as BaseStatusAlert;
+use \webapp\modules\alert\models\base\AlertStatus as BaseAlertStatus;
 
 /**
  * This is the model class for table "alert.status_alert".
  */
-class StatusAlert extends BaseStatusAlert implements \common\components\traits\SimpleStatusInterface {
+class AlertStatus extends BaseAlertStatus implements \common\components\traits\SimpleStatusInterface {
 
     use \common\components\traits\SimpleStatusTrait;
     use \common\components\traits\TranslationTrait;
