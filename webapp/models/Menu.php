@@ -62,6 +62,7 @@ class Menu {
 		$risklMenu = ['label' => Yii::t('translation', 'menu.risk_menu_label'), 'items' => [
 			    ['label' => Yii::t('translation', 'menu.risk'), 'url' => ['/risk/risk/index']],
 			    ['label' => Yii::t('translation', 'menu.event'), 'url' => ['/risk/event/index']],
+			    ['label' => Yii::t('translation', 'menu.eventtype'), 'url' => ['/risk/event-type/index']],
 			    ['label' => Yii::t('translation', 'menu.event_risk_description'), 'url' => ['/risk/event-risk-description/index']],
 			    ['label' => Yii::t('translation', 'menu.event_risk_instruction'), 'url' => ['/risk/event-risk-instruction/index']],
 		]];

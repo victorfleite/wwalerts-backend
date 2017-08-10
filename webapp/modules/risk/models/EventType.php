@@ -25,4 +25,17 @@ class EventType extends BaseEventType implements \common\components\traits\Simpl
 	];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels() {
+	return [
+	    'id' => Yii::t('translation', 'eventtype.id'),
+	    'name_i18n' => Yii::t('translation', 'eventtype.name_I18n'),
+	    'description_i18n' => Yii::t('translation', 'eventtype.description_I18n'),
+	    'status' => Yii::t('translation', 'eventtype.status'),
+	    'abbrev' => Yii::t('translation', 'eventtype.abbrev'),
+	];
+    }
+
 }

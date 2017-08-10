@@ -11,6 +11,7 @@ use \common\models\Config;
 /* @var $model webapp\modules\communication\models\TriggerGroupFilter */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['/operative/workgroup/index']];
 $this->params['breadcrumbs'][] = ['label' => $workgroup->name, 'url' => ['/operative/workgroup/view', 'id' => $workgroup->id]];

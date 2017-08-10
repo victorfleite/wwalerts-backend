@@ -7,6 +7,8 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('translation', 'events');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.risk_menu_label');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-index">
@@ -22,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	'columns' => [
 		['class' => 'yii\grid\SerialColumn'],
 		[
-		'label' => Yii::t('translation', 'event.icon_path'),
+		'label' => Yii::t('translation', 'event.icon'),
 		'format' => 'raw',
 		'value' => function($data) {
 		    return Html::a(Html::img($data->icon_path), $data->icon_path, $options = ['target' => '_blank']);
@@ -41,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		[
 		'attribute' => 'status',
 		'value' => function($data) {
-		    return webapp\modules\risk\models\Risk::getStatusLabel($data->status);
+		    return webapp\modules\risk\models\Event::getStatusLabel($data->status);
 		},
 	    ],
 	    //'created_by',

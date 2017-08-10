@@ -11,6 +11,7 @@ use webapp\modules\communication\models\Trigger;
 /* @var $model webapp\modules\communication\models\Behavior */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'triggers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

@@ -10,6 +10,7 @@ use softark\duallistbox\DualListbox;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Workgroup */
 $this->title = Yii::t('translation', 'workgroup.associate_jurisdiction_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $workgroup->name, 'url' => ['view', 'id' => $workgroup->id]];

@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Workgroup */
 
 $this->title = Yii::t('translation', 'workgroup.create_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

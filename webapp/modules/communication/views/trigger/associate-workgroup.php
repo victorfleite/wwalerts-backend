@@ -10,6 +10,7 @@ use softark\duallistbox\DualListbox;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Workworkgroup */
 $this->title = Yii::t('translation', 'trigger.associate_workgroup_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'triggers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $trigger->name, 'url' => ['view', 'id' => $trigger->id]];

@@ -7,6 +7,8 @@ use yii\helpers\Html;
 /* @var $model webapp\modules\risk\models\Event */
 
 $this->title = Yii::t('translation', 'event.create_title');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.risk_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'events'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

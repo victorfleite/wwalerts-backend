@@ -11,6 +11,7 @@ use \common\models\Config;
 /* @var $model app\models\State */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'states'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

@@ -7,6 +7,7 @@ use webapp\modules\communication\models\Trigger;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->title = Yii::t('translation', 'trigger');
 $this->params['breadcrumbs'][] = $this->title;

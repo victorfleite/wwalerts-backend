@@ -8,6 +8,7 @@ use webapp\modules\operative\models\Institution;
 /* @var $model app\models\Institution */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'institutions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

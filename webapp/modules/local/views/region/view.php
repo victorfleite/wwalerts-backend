@@ -11,6 +11,7 @@ use \common\models\Config;
 /* @var $model app\models\Region */
 
 $this->title = $model->nm_meso;
+$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.local_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'regions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
