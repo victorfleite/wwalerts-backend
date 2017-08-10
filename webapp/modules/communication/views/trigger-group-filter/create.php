@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $model webapp\modules\communication\models\TriggerGroupFilter */
 $this->title = Yii::t('translation', 'triggergroupfilter.create_title');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['/operative/workgroups/index']];
-$this->params['breadcrumbs'][] = ['label' => $workgroup->name, 'url' => ['/communication/group/view', 'id' => $group->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'groups'), 'url' => ['/communication/group/index']];
+$this->params['breadcrumbs'][] = ['label' => $group->name, 'url' => ['/communication/group/view', 'id' => $group->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="trigger-group-filter-create">

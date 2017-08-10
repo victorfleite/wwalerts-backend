@@ -76,7 +76,7 @@ use \common\components\widgets\modal_import_geometry\ModalImportGeometry;
     ?>
 
     <div class="form-group">
-	<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/workgroup/view', 'id' => $group->id], ['class' => 'btn btn-primary']) ?>
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/operative/workgroup/view', 'id' => $model->workgroup_id], ['class' => 'btn btn-primary']) ?>
 	<?php if (!$model->isNewRecord) { ?>	
 	    <?= Html::a(Yii::t('translation', 'Preview'), ['/communication/trigger-workgroup-filter/view', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id], ['class' => 'btn btn-warning']) ?>
 	<?php } ?>	

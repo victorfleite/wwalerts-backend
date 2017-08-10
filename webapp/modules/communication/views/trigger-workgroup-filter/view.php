@@ -12,8 +12,8 @@ use \common\models\Config;
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['/communication/workgroup/index']];
-$this->params['breadcrumbs'][] = ['label' => $workgroup->name, 'url' => ['/communication/workgroup/view', 'id' => $workgroup->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['/operative/workgroup/index']];
+$this->params['breadcrumbs'][] = ['label' => $workgroup->name, 'url' => ['/operative/workgroup/view', 'id' => $workgroup->id]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'triggerworkgroupfilter');
 $this->params['breadcrumbs'][] = $this->title;
 ?>

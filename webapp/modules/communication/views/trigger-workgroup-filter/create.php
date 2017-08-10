@@ -8,7 +8,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('translation', 'triggerworkgroupfilter.create_title');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.communication_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'workgroups'), 'url' => ['/operative/workgroup/index']];
-$this->params['breadcrumbs'][] = ['label' => $group->name, 'url' => ['/operative/workgroup/view', 'id' => $workgroup->id]];
+$this->params['breadcrumbs'][] = ['label' => $workgroup->name, 'url' => ['/operative/workgroup/view', 'id' => $workgroup->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="trigger-workgroup-filter-create">

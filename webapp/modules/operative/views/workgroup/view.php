@@ -25,8 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class='text-right'>
 	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
-	<?= Html::a(Yii::t('translation', 'workgroup.associate_user_btn'), ['workgroup/associate-user', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-	<?= Html::a(Yii::t('translation', 'workgroup.associate_jurisdiction_btn'), ['workgroup/associate-jurisdiction', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?= Html::a(Yii::t('translation', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 	<?=
 	Html::a(Yii::t('translation', 'Delete'), ['delete', 'id' => $model->id], [
@@ -76,20 +74,20 @@ $this->params['breadcrumbs'][] = $this->title;
 	'dataProvider' => $dataProvider,
 	'columns' => [
 		[
-		'label' => \Yii::t('translation', 'triggergroupfilter.name'),
+		'label' => \Yii::t('translation', 'triggerworkgroupfilter.name'),
 		'value' => function($data) {
 		    return $data->name;
 		},
 	    ], [
-		'label' => \Yii::t('translation', 'triggergroupfilter.trigger_id'),
+		'label' => \Yii::t('translation', 'triggerworkgroupfilter.trigger_id'),
 		'value' => function($data) {
 		    return $data->trigger->name;
 		},
 	    ],
 		[
-		'label' => \Yii::t('translation', 'triggergroupfilter.status'),
+		'label' => \Yii::t('translation', 'triggerworkgroupfilter.status'),
 		'value' => function($data) {
-		    return webapp\modules\communication\models\TriggerGroupFilter::getStatusLabel($data->status);
+		    return webapp\modules\communication\models\TriggerWorkgroupFilter::getStatusLabel($data->status);
 		},
 	    ],
 		[
@@ -98,19 +96,22 @@ $this->params['breadcrumbs'][] = $this->title;
 		'template' => '{view}{update}{delete}',
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'view') {
-			return Url::to(['/communication/trigger-group-filter/view', 'group_id' => $model->group_id, 'trigger_id' => $model->trigger_id]);
+			return Url::to(['/communication/trigger-workgroup-filter/view', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id]);
 		    }
 		    if ($action === 'update') {
-			return Url::to(['/communication/trigger-group-filter/update', 'group_id' => $model->group_id, 'trigger_id' => $model->trigger_id]);
+			return Url::to(['/communication/trigger-workgroup-filter/update', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id]);
 		    }
 		    if ($action === 'delete') {
-			return Url::to(['/communication/trigger-group-filter/delete', 'group_id' => $model->group_id, 'trigger_id' => $model->trigger_id]);
+			return Url::to(['/communication/trigger-workgroup-filter/delete', 'workgroup_id' => $model->workgroup_id, 'trigger_id' => $model->trigger_id]);
 		    }
 		}
 	    ],
 	],
     ]);
     ?>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'workgroup.associate_user_btn'), ['workgroup/associate-user', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <h3><?= Yii::t('translation', 'users') ?></h3>
     <?php
@@ -144,13 +145,16 @@ $this->params['breadcrumbs'][] = $this->title;
 		'template' => '{view}',
 		'urlCreator' => function ($action, $model, $key, $index) {
 		    if ($action === 'view') {
-			return Url::to(['user/view', 'id' => $model->id]);
+			return Url::to(['/user/view', 'id' => $model->id]);
 		    }
 		}
 	    ],
 	],
     ]);
     ?>
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'workgroup.associate_jurisdiction_btn'), ['workgroup/associate-jurisdiction', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <h3><?= Yii::t('translation', 'jurisdictions') ?></h3>
     <?php

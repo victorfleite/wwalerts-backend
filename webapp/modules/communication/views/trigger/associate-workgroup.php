@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title
     </p>
 
 
-
+    <h3><?= Yii::t('translation', 'trigger') ?></h3>
     <?=
     DetailView::widget(['model' => $trigger, 'attributes' => [
 	    'name',
@@ -59,38 +59,45 @@ $this->params['breadcrumbs'][] = $this->title
 		    return Yii::t('translation', $data->risk->name_i18n);
 		},
 	    ],
+		[
+		'attribute' => 'alert_status_id',
+		'value' => function($data) {
+		    return Yii::t('translation', $data->alertStatus->name_i18n);
+		}
+	    ],
     ]]);
     $form = ActiveForm::begin();
     ?>
+    <h3><?= Yii::t('translation', 'workgroups') ?></h3>
     <div>
 
-<?php
-$options = [
-    'multiple' => true,
-    'size' => 20,
-];
-$workgroupsAvailable = Workgroup::find()->orderBy('name')->asArray()->all();
-$items = ArrayHelper::map($workgroupsAvailable, 'id', 'name');
+	<?php
+	$options = [
+	    'multiple' => true,
+	    'size' => 20,
+	];
+	$workgroupsAvailable = Workgroup::find()->orderBy('name')->asArray()->all();
+	$items = ArrayHelper::map($workgroupsAvailable, 'id', 'name');
 // echo $form->field($model, $attribute)->listBox($items, $options);
-echo $form->field($model, 'workgroups')->widget(DualListbox::className(), [
-    'items' => $items,
-    'options' => $options,
-    'clientOptions' => [
-	'moveOnSelect' => false,
-	'selectedListLabel' => Yii::t('translation', 'workgroup.selected'),
-	'nonSelectedListLabel' => Yii::t('translation', 'workgroup.available'),
-    ],
-]);
-?>
+	echo $form->field($model, 'workgroups')->label('')->widget(DualListbox::className(), [
+	    'items' => $items,
+	    'options' => $options,
+	    'clientOptions' => [
+		'moveOnSelect' => false,
+		'selectedListLabel' => Yii::t('translation', 'workgroup.selected'),
+		'nonSelectedListLabel' => Yii::t('translation', 'workgroup.available'),
+	    ],
+	]);
+	?>
 
     </div>
     <p>&nbsp;</p>
     <div class="form-workgroup">
-<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/trigger/index'], ['class' => 'btn btn-primary']) ?>	
+	<?= Html::a(Yii::t('translation', 'Cancel'), ['/communication/trigger/view', 'id' => $trigger->id], ['class' => 'btn btn-primary']) ?>	
 	<?= Html::submitButton(Yii::t('translation', 'Update'), ['class' => 'btn btn-primary']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 
 </div>
