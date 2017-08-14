@@ -3,6 +3,7 @@
 namespace common\components\behaviors\communication;
 
 use common\components\behaviors\communication\CommunicationBehavior;
+use common\components\behaviors\communication\iCommunicationBehavior;
 
 /**
  * Description of EmailBehavior

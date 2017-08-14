@@ -36,7 +36,8 @@
 	"softark/yii2-dual-listbox": "dev-master",
 	"sibilino/yii2-openlayers": "*",
 	"yii2assets/yii2-fullscreen-modal": "*",
-	"zelenin/yii2-i18n-module": "dev-master"
+	"zelenin/yii2-i18n-module": "dev-master",
+	"nezhelskoy/yii2-highlight": "*"
     },
     "require-dev": {
 	"yiisoft/yii2-debug": "~2.0.0",

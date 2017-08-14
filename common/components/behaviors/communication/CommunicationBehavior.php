@@ -5,16 +5,17 @@ namespace common\components\behaviors\communication;
 use yii\db\ActiveRecord;
 use yii\base\Behavior;
 
+
 /**
  * Description of CommunicationBehavior
  *
  * @author victor.leite
  */
-class CommunicationBehavior extends Behavior {
+class CommunicationBehavior extends Behavior{
 
-    public $groups = [];
-    public $workgroups = [];
-    public $params = [];
+    public $groups;
+    public $workgroups;
+    public $params;
 
     public function events() {
 	return [

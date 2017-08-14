@@ -82,6 +82,7 @@ class Util {
 	}
 	return hash('sha256', $token . date('dmY'));
     }
+
     /**
      * Remove special characters 
      * @param type $str
@@ -92,10 +93,14 @@ class Util {
 	$str = preg_replace('/ /', '', $str);
 	return $str;
     }
-    
-    static function fileRemovePath($fullPath){
+
+    static function fileRemovePath($fullPath) {
 	$path = pathinfo($fullPath);
 	return $path['basename'];
+    }
+
+    static function getFileContents($filename) {
+	return file_get_contents($filename);
     }
 
 }
