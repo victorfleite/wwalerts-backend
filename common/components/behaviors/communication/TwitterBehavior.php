@@ -6,14 +6,14 @@ use common\components\behaviors\communication\CommunicationBehavior;
 use common\components\behaviors\communication\iCommunicationBehavior;
 
 /**
- * Description of EmailBehavior
+ * Description of WhatsappBehavior
  *
  * @author victor.leite
  */
-class EmailBehavior extends CommunicationBehavior implements iCommunicationBehavior {
+class TwitterBehavior extends CommunicationBehavior implements iCommunicationBehavior {
 
     public function run($event) {
-	//TODO Implement here the code. Use Job queue, if possible.	
+	//TODO Implement here the code. Use Job queue, if possible.
     }
 
 }

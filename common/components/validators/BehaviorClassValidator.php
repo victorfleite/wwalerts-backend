@@ -21,6 +21,7 @@ class BehaviorClassValidator extends Validator {
     public function validateClassBehavior($model, $attribute) {
 	$class = $model->$attribute;
 	try {
+	    
 	    $obj = \Yii::createObject([
 			'class' => $class,
 	    ]);
@@ -34,12 +35,9 @@ class BehaviorClassValidator extends Validator {
 	    if (!$reflect->implementsInterface($iCommunicationBehaviorName)) {
 		$this->addError($model, $attribute, \Yii::t('translation', 'behavior.class_error_instenceof_interface_message', ['classChield' => $class, 'interfaceClass' => $iCommunicationBehaviorName]));
 	    }
-	} catch (\yii\base\ErrorException $e) {
+	} catch (\yii\base\Exception $e) {
 	    $this->addError($model, $attribute, $e->getCode() . ' - ' . substr($e->getMessage(), 0, 300));
-	} finally {
-
-	    return;
-	}
+	} 
     }
 
 }
