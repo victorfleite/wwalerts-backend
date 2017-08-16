@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		    }
 		    return implode(', ', $names);
 		},
-	    ],
+	    ],	    
 	    'created_at:datetime',
 		[
 		'attribute' => 'status',

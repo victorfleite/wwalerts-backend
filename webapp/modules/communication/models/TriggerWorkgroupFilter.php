@@ -56,4 +56,24 @@ class TriggerWorkgroupFilter extends BaseTriggerWorkgroupFilter implements \comm
 	]);
     }
 
+    /**
+     * Save RlTriggerWorkgroup if not exists
+     * @param type $insert
+     * @param type $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes) {
+	parent::afterSave($insert, $changedAttributes);
+
+	if ($insert == true) {
+
+	    $exists = RlTriggerWorkgroup::find(['trigger_id' => $this->trigger_id, 'workgroup_id' => $this->workgroup_id])->exists();
+	    if (!$exists) {
+		$rl = new RlTriggerWorkgroup();
+		$rl->trigger_id = $this->trigger_id;
+		$rl->workgroup_id = $this->workgroup_id;
+		$rl->save();
+	    }
+	}
+    }
+
 }
