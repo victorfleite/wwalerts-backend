@@ -35,7 +35,7 @@ class CommunicationBehavior extends Behavior {
      * The object of webapp\modules\communication\models\Behavior will be injected
      * @var type 
      */
-    public $behavior;
+    public $behaviorModel;
 
     /**
      * 

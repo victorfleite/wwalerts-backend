@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
+use yii\helpers\Url;
 use common\components\widgets\datailview_i18n\DatailViewI18n;
 
 /* @var $this yii\web\View */
@@ -77,5 +80,65 @@ $this->params['breadcrumbs'][] = $this->title;
 	'attribute' => 'name_i18n',
     ])
     ?>
+
+    <h2><?= Yii::t('translation', 'event_risk_instruction.itens_label') ?></h2>	
+    <p class="text-right">
+	<?= Html::a(Yii::t('translation', 'event_risk_instruction_item.create_btn'), ['event-risk-instruction-item/create', 'event_risk_instruction_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+    </p>
+    <?php
+    $itens = $model->getEventRiskInstructionItens()->all();
+    $dataProvider = new ArrayDataProvider([
+	'allModels' => $itens,
+	'sort' => [
+	    'attributes' => ['description_i18n', 'order'],
+	],
+	'pagination' => [
+	    'pageSize' => 10,
+	],
+    ]);
+    echo GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+		['class' => 'yii\grid\SerialColumn'],
+		[
+		'attribute' => 'description_i18n',
+		'format' => 'raw',
+		'value' => function($data) {
+		    return Html::a($data->description_i18n, Url::to(['/risk/event-risk-instruction-item/view', 'id' => $data->id]), $options = [/* 'target' => '_blank' */]);
+		},
+	    ],
+	    /* [
+	      'label' => Yii::t('translation', 'event_risk_instruction_item.description_i18n_label'),
+	      'value' => function($data) {
+	      return Yii::t('translation', $data->description_i18n);
+	      },
+	      ], */
+	    'order',
+		[
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\risk\models\EventRiskInstructionItem::getStatusLabel($data->status);
+		},
+	    ],
+		[
+		'class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+		'template' => '{view}{update}{delete}',
+		'urlCreator' => function ($action, $model, $key, $index) {
+		    if ($action === 'view') {
+			return Url::to(['/risk/event-risk-instruction-item/view', 'id' => $model->id]);
+		    }
+		    if ($action === 'update') {
+			return Url::to(['/risk/event-risk-instruction-item/update', 'id' => $model->id]);
+		    }
+		    if ($action === 'delete') {
+			return Url::to(['/risk/event-risk-instruction-item/delete', 'id' => $model->id]);
+		    }
+		}
+	    ],
+	],
+    ]);
+    ?>
+
 
 </div>

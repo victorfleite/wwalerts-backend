@@ -8,7 +8,10 @@ use \webapp\modules\risk\models\base\EventRiskInstructionItem as BaseEventRiskIn
 /**
  * This is the model class for table "risk.event_risk_instruction_item".
  */
-class EventRiskInstructionItem extends BaseEventRiskInstructionItem {
+class EventRiskInstructionItem extends BaseEventRiskInstructionItem implements \common\components\traits\SimpleStatusInterface {
+
+    use \common\components\traits\SimpleStatusTrait;
+    use \common\components\traits\TranslationTrait;
 
     /**
      * @inheritdoc
