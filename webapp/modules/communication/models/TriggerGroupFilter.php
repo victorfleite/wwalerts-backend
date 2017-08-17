@@ -12,7 +12,7 @@ use \common\components\behaviors\PolygonBehavior;
 class TriggerGroupFilter extends BaseTriggerGroupFilter implements \common\components\traits\SimpleStatusInterface {
 
     use \common\components\traits\SimpleStatusTrait;
-    
+
     public $wktErrorMessage;
 
     /**
@@ -55,6 +55,26 @@ class TriggerGroupFilter extends BaseTriggerGroupFilter implements \common\compo
 		'type' => PolygonBehavior::GEOMETRY_POLYGON,
 	    ]
 	]);
+    }
+
+    /**
+     * Save RlTriggerGroup if not exists
+     * @param type $insert
+     * @param type $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes) {
+	parent::afterSave($insert, $changedAttributes);
+
+	if ($insert == true) {
+
+	    $exists = RlTriggerGroup::find(['trigger_id' => $this->trigger_id, 'group_id' => $this->group_id])->exists();
+	    if (!$exists) {
+		$rl = new RlTriggerGroup();
+		$rl->trigger_id = $this->trigger_id;
+		$rl->group_id = $this->group_id;
+		$rl->save();
+	    }
+	}
     }
 
 }

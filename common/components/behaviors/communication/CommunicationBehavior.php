@@ -12,10 +12,35 @@ use yii\base\Behavior;
  */
 class CommunicationBehavior extends Behavior {
 
-    public $groups = [];
-    public $workgroups = [];
-    public $params = [];
+    /**
+     * The object of webapp\modules\communication\models\Trigger will be injected
+     * @var type 
+     */
+    public $trigger;
 
+    /**
+     * The object of webapp\modules\communication\models\Group will be injected
+     * @var type 
+     */
+    public $groups;
+
+    /**
+     * The object of webapp\modules\communication\models\Workgroups will be injected automatically.
+     * It is a list of workgroups
+     * @var type 
+     */
+    public $workgroups;
+
+    /**
+     * The object of webapp\modules\communication\models\Behavior will be injected
+     * @var type 
+     */
+    public $behaviorModel;
+
+    /**
+     * 
+     * @return type
+     */
     public function events() {
 	return [
 	    ActiveRecord::EVENT_AFTER_INSERT => 'run',

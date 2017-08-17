@@ -15,19 +15,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p class="text-right">
-        <?= Html::a(Yii::t('translation', 'behavior.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a(Yii::t('translation', 'behavior.create_btn'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'id',
-            'name',
-            'class',
-            //'params:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <?=
+    GridView::widget([
+	'dataProvider' => $dataProvider,
+	'columns' => [
+		['class' => 'yii\grid\SerialColumn'],
+	    //'id',
+	    'name',
+		[
+		'attribute' => 'class',
+		'format' => 'raw',
+		'value' => function ($model) {
+		    return Html::a($model->class, \yii\helpers\Url::toRoute(['/communication/behavior/view-class', 'id' => $model->id], ['target' => '_blank']));
+		},
+	    ],
+	    //'params:ntext',
+	    ['class' => 'yii\grid\ActionColumn'],
+	],
+    ]);
+    ?>
 </div>

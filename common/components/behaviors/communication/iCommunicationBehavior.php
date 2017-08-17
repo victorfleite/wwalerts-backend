@@ -14,5 +14,5 @@ namespace common\components\behaviors\communication;
  * @author victor.leite
  */
 interface iCommunicationBehavior {
-    public function run();
+    public function run($event);
 }

@@ -6,6 +6,8 @@ use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use webapp\modules\communication\models\Trigger;
+use webapp\modules\communication\models\TriggerWorkgroupFilter;
+use webapp\modules\communication\models\TriggerGroupFilter;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\communication\models\Behavior */
@@ -110,6 +112,25 @@ $this->params['breadcrumbs'][] = $this->title;
 		    'contentOptions' => ['class' => 'text-wrap'],
 		],
 		    [
+		    'label' => \Yii::t('translation', 'workgroup.has_filter_label'),
+		    'format' => 'raw',
+		    'value' => function ($workgroup) {
+
+			$filter = TriggerWorkgroupFilter::find([
+				    'trigger_id' => $model->id,
+				    'workgroup_id' => $workgroup->id
+				])->one();
+			if (!empty($filter)) {
+			    return Html::a(\Yii::t('translation', 'workgroup.has_filter_label_yes'), \yii\helpers\Url::toRoute(
+						    ['trigger-workgroup-filter/view',
+							'workgroup_id' => $filter->workgroup_id,
+							'trigger_id' => $filter->trigger_id,
+			    ]));
+			}
+			return \Yii::t('translation', 'workgroup.has_filter_label_no');
+		    },
+		],
+		    [
 		    'attribute' => 'status',
 		    'value' => function($data) {
 			return webapp\modules\operative\models\Workgroup::getStatusLabel($data->status);
@@ -153,6 +174,25 @@ $this->params['breadcrumbs'][] = $this->title;
 		    [
 		    'attribute' => 'description',
 		    'contentOptions' => ['class' => 'text-wrap'],
+		],
+		    [
+		    'label' => \Yii::t('translation', 'group.has_filter_label'),
+		    'format' => 'raw',
+		    'value' => function ($group) {
+
+			$filter = TriggerGroupFilter::find([
+				    'trigger_id' => $model->id,
+				    'group_id' => $group->id
+				])->one();
+			if (!empty($filter)) {
+			    return Html::a(\Yii::t('translation', 'group.has_filter_label_yes'), \yii\helpers\Url::toRoute(
+						    ['trigger-group-filter/view',
+							'group_id' => $filter->group_id,
+							'trigger_id' => $filter->trigger_id,
+			    ]));
+			}
+			return \Yii::t('translation', 'group.has_filter_label_no');
+		    },
 		],
 		    [
 		    'attribute' => 'status',

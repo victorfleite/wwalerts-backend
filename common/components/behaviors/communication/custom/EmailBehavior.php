@@ -1,8 +1,9 @@
 <?php
 
-namespace common\components\behaviors\communication;
+namespace common\components\behaviors\communication\custom;
 
 use common\components\behaviors\communication\CommunicationBehavior;
+use common\components\behaviors\communication\iCommunicationBehavior;
 
 /**
  * Description of EmailBehavior
@@ -10,14 +11,9 @@ use common\components\behaviors\communication\CommunicationBehavior;
  * @author victor.leite
  */
 class EmailBehavior extends CommunicationBehavior implements iCommunicationBehavior {
-    
-    
-    public function run($event){
-	
+
+    public function run($event) {
+	//TODO Implement here the code. Use Job queue, if possible.	
     }
-    
-    
-    
-    
-    
+
 }

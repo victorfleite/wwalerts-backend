@@ -37,9 +37,4 @@ class Behavior extends BaseBehavior {
 	];
     }
     
-    public function checkUnique($attribute, $params, $validator) {
-	
-    }
-
-
 }

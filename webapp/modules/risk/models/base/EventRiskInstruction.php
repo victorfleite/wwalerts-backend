@@ -84,6 +84,14 @@ class EventRiskInstruction extends \yii\db\ActiveRecord {
     public function getRisk() {
 	return $this->hasOne(\webapp\modules\risk\models\Risk::className(), ['id' => 'risk_id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventRiskInstructionItens(){
+	return $this->hasMany(\webapp\modules\risk\models\EventRiskInstructionItem::className(), ['event_risk_instruction_id' => 'id']);
+    }
+    
 
     /**
      * @inheritdoc
