@@ -18,8 +18,6 @@ use Yii;
  */
 class AlertStatus extends \yii\db\ActiveRecord
 {
-    use \mootensai\relation\RelationTrait;
-
     /**
     * This function helps \mootensai\relation\RelationTrait runs faster
     * @return array relation names of this model
@@ -27,7 +25,7 @@ class AlertStatus extends \yii\db\ActiveRecord
     public function relationNames()
     {
         return [
-            'communicationTriggers'
+            'triggers'
         ];
     }
 
@@ -56,23 +54,22 @@ class AlertStatus extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
-        return [
-            'id' => Yii::t('translation', 'ID'),
-            'name_i18n' => Yii::t('translation', 'Name I18n'),
-            'hash' => Yii::t('translation', 'Hash'),
-            'status' => Yii::t('translation', 'Status'),
-            'description_i18n' => Yii::t('translation', 'Description I18n'),
-            'cap_status' => Yii::t('translation', 'Cap Status'),
-        ];
+    public function attributeLabels() {
+	return [
+	    'id' => Yii::t('translation', 'ID'),
+	    'name_i18n' => Yii::t('translation', 'Name I18n'),
+	    'hash' => Yii::t('translation', 'Hash'),
+	    'status' => Yii::t('translation', 'Status'),
+	    'description_i18n' => Yii::t('translation', 'Description I18n'),
+	    'cap_status' => Yii::t('translation', 'Cap Status'),
+	];
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCommunicationTriggers()
+    public function getTriggers()
     {
-        return $this->hasMany(\webapp\modules\alert\models\CommunicationTrigger::className(), ['alert_status_id' => 'id']);
+        return $this->hasMany(\webapp\modules\communication\models\Trigger::className(), ['alert_status_id' => 'id']);
     }
     }

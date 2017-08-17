@@ -24,7 +24,6 @@ class SourceMessage extends BaseSourceMessage {
 	return [
 		[['message', 'category'], 'required'],
 		[['message'], 'string'],
-		[['message', 'category'], 'unique', 'targetAttribute' => ['message']],
 		[['category'], 'string', 'max' => 255]
 	];
     }
