@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-risk-instruction-view">
 
-    <h1><span style="background-color: yellow; padding: 10px; width:60px; height:60px"><?= Html::img($model->event->icon_path, ['width' => 60, 'height' => 60]); ?><?= $this->title ?></span></h1>
+    <h1><span style="background-color: yellow; padding: 15px; vertical-align: middle; border-radius: 10px;"><?= Html::img($model->event->icon_path, ['width' => 60, 'height' => 60]); ?>   <?= $this->title ?></span></h1>
 
     <p class="text-right">
 	<?= Html::a(Yii::t('translation', 'Admin'), ['index'], ['class' => 'btn btn-primary']) ?>
