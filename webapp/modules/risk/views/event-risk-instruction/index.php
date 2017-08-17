@@ -35,10 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return Yii::t('translation', $data->risk->name_i18n);
 		},
 	    ],
-	    'name_i18n',
 	    'updated_at:datetime',
 	    // 'hash',
-	    ['class' => 'yii\grid\ActionColumn'],
+	    ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right'],
+	    ],
 	],
     ]);
     ?>

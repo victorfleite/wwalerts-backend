@@ -35,7 +35,7 @@ class EventRiskInstructionController extends Controller {
     public function actionIndex() {
 	$dataProvider = new ActiveDataProvider([
 	    'query' => EventRiskInstruction::find(),
-	    'sort' => ['defaultOrder' => ['event_id' => SORT_ASC, 'risk_id' => SORT_ASC, 'name_i18n' => SORT_ASC]]
+	    'sort' => ['defaultOrder' => ['event_id' => SORT_ASC, 'risk_id' => SORT_ASC]]
 	]);
 
 	return $this->render('index', [
