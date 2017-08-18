@@ -14,7 +14,7 @@ use yii\bootstrap\ActiveForm;
 
     <div class="row">
 
-	<div class="col-lg-4">
+	<div class="col-lg-3">
 	    <?=
 	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
 		'button_modal_label' => \Yii::t('translation', 'translation'),
@@ -25,7 +25,7 @@ use yii\bootstrap\ActiveForm;
 	    ]);
 	    ?>
 	</div><!-- /.col-lg-6 -->
-	<div class="col-lg-4">
+	<div class="col-lg-3">
 	    <?=
 	    $form->field($model, 'description_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
 		'button_modal_label' => \Yii::t('translation', 'translation'),
@@ -37,7 +37,10 @@ use yii\bootstrap\ActiveForm;
 	    ?>
 	</div><!-- /.col-lg-4 -->
 	<div class="col-lg-2">
-	    <?= $form->field($model, 'abbrev')->textInput(['disabled'=>True]); ?>
+	    <?= $form->field($model, 'abbrev')->textInput(['disabled' => True]); ?>
+	</div><!-- /.col-lg-2 -->
+	<div class="col-lg-2">
+	    <?= $form->field($model, 'order')->textInput(['type' => 'number']); ?>
 	</div><!-- /.col-lg-2 -->
 	<div class="col-lg-2">
 	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\EventType::getStatusCombo()); ?>

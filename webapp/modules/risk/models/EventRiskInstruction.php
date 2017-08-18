@@ -15,11 +15,10 @@ class EventRiskInstruction extends BaseEventRiskInstruction {
      */
     public function rules() {
 	return array_replace_recursive(parent::rules(), [
-		[['name_i18n', 'risk_id', 'event_id'], 'required'],
+		[['risk_id', 'event_id'], 'required'],
 		[['created_at', 'updated_at'], 'safe'],
 		[['created_by', 'updated_by', 'risk_id', 'event_id'], 'integer'],
 		[['hash'], 'string'],
-		[['name_i18n'], 'string', 'max' => 300],
 		[['risk_id', 'event_id'], 'unique', 'targetAttribute' => ['risk_id', 'event_id'], 'message' => 'The combination of Risk ID and Event ID has already been taken.']
 	]);
     }
@@ -30,7 +29,6 @@ class EventRiskInstruction extends BaseEventRiskInstruction {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('translation', 'event_risk_instruction.id'),
-	    'name_i18n' => Yii::t('translation', 'event_risk_instruction.name_i18n'),
 	    'event_id' => Yii::t('translation', 'event_risk_instruction.event_id'),
 	    'risk_id' => Yii::t('translation', 'event_risk_instruction.risk_id'),
 	    'created_at' => Yii::t('translation', 'event_risk_instruction.created_at'),

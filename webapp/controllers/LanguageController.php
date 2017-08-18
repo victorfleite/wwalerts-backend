@@ -196,17 +196,16 @@ class LanguageController extends Controller {
 	$fieldType = Yii::$app->request->get('fieldType');
 	$rows = Yii::$app->request->get('rows');
 	$sourceMessage = SourceMessage::find()->where(['message' => $message, 'category' => SourceMessage::CATEGORY])->one();
+	if (empty($sourceMessage)) {
+	    $sourceMessage = new SourceMessage();
+	    $sourceMessage->category = SourceMessage::CATEGORY;
+	    $sourceMessage->message = trim($message);
+	    $sourceMessage->save();
+	}
 
 	if (!\Yii::$app->request->isPost) {
 	    // first time here	    
 	    // Create key if not exists
-	    if (empty($sourceMessage)) {
-		$sourceMessage = new SourceMessage();
-		$sourceMessage->category = SourceMessage::CATEGORY;
-		$sourceMessage->message = trim($message);
-		$sourceMessage->save();
-	    }
-
 	    $languages = Language::find()->where([])->orderBy('code')->all();
 	    $inputs = [];
 	    if (is_array($languages)) {
@@ -225,11 +224,11 @@ class LanguageController extends Controller {
 			]
 	    ]);
 	} else {
-	    
-	    
+
+
 	    // is Post Back
 	    $translation = \Yii::$app->request->getBodyParam("translation"); //Array of languages and translations
-	    
+
 	    if (is_array($translation)) {
 		$providerData = [];
 		foreach ($translation as $languageCode => $value) {

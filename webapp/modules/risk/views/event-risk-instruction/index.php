@@ -25,20 +25,32 @@ $this->params['breadcrumbs'][] = $this->title;
 		['class' => 'yii\grid\SerialColumn'],
 		[
 		'attribute' => 'event_id',
+		'format' => 'raw',
+		'contentOptions' => ['style' => 'vertical-align: middle'],
 		'value' => function($data) {
-		    return Yii::t('translation', $data->event->name_i18n);
+		    return Html::img($data->event->icon_path, ['width' => 60, 'height' => 60]) . '&nbsp;&nbsp;' . Yii::t('translation', $data->event->name_i18n);
 		},
 	    ],
 		[
 		'attribute' => 'risk_id',
+		'format' => 'raw',
+		'contentOptions' => ['style' => 'vertical-align: middle'],
 		'value' => function($data) {
-		    return Yii::t('translation', $data->risk->name_i18n);
+		    return Html::tag('div', Yii::t('translation', $data->risk->name_i18n), ['style' => 'padding:10px; width:100%;border-radius: 10px; background-color:' . $data->risk->color]);
 		},
 	    ],
-	    'name_i18n',
-	    'updated_at:datetime',
+		[
+		'label' => Yii::t('translation', 'event_risk_instruction.quantity_instructions'),
+		'format' => 'raw',
+		'contentOptions' => ['style' => 'vertical-align: middle', 'class'=>'text-right'],
+		'value' => function($data) {
+		    return Html::a($data->getEventRiskInstructionItens()->count(), yii\helpers\Url::toRoute(['view', 'id'=>$data->id]));		    
+		},
+	    ],
 	    // 'hash',
-	    ['class' => 'yii\grid\ActionColumn'],
+	    ['class' => 'yii\grid\ActionColumn',
+		'contentOptions' => ['class' => 'text-right', 'style' => 'vertical-align: middle'],
+	    ],
 	],
     ]);
     ?>

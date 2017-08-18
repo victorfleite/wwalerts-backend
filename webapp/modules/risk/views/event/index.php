@@ -46,11 +46,17 @@ $this->params['breadcrumbs'][] = $this->title;
 		    return Yii::t('translation', $data->eventType->name_i18n);
 		},
 	    ],
+	    'order',
 	    //'created_by',
 	    // 'updated_by',
 	    // 'hash',
-	    // 'status',
-	    ['class' => 'yii\grid\ActionColumn',
+	    [
+		'attribute' => 'status',
+		'value' => function($data) {
+		    return webapp\modules\risk\models\Risk::getStatusLabel($data->status);
+		},
+	    ],
+		['class' => 'yii\grid\ActionColumn',
 		'contentOptions' => ['class' => 'text-right'],
 	    ],
 	],

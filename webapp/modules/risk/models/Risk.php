@@ -20,7 +20,7 @@ class Risk extends BaseRisk implements \common\components\traits\SimpleStatusInt
 	return [
 		[['name_i18n', 'color'], 'required'],
 		[['created_at', 'updated_at', 'code'], 'safe'],
-		[['created_by', 'updated_by'], 'integer'],
+		[['created_by', 'updated_by', 'order'], 'integer'],
 		[['hash'], 'string'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
 		[['code'], 'string', 'max' => 128],
@@ -42,6 +42,7 @@ class Risk extends BaseRisk implements \common\components\traits\SimpleStatusInt
 	    'created_by' => Yii::t('translation', 'risk.created_by'),
 	    'updated_by' => Yii::t('translation', 'risk.updated_by'),
 	    'code' => Yii::t('translation', 'risk.code'),
+	    'order'=> Yii::t('translation', 'risk.order'),
 	];
     }
 

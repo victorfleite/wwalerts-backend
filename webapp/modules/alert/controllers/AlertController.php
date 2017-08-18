@@ -1,18 +1,18 @@
 <?php
 
-namespace webapp\modules\risk\controllers;
+namespace webapp\modules\alert\controllers;
 
 use Yii;
-use webapp\modules\risk\models\Risk;
-use yii\data\ActiveDataProvider;
+use webapp\modules\alert\models\Alert;
+use webapp\modules\alert\models\AlertSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RiskController implements the CRUD actions for Risk model.
+ * AlertController implements the CRUD actions for Alert model.
  */
-class RiskController extends Controller
+class AlertController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,23 +30,22 @@ class RiskController extends Controller
     }
 
     /**
-     * Lists all Risk models.
+     * Lists all Alert models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Risk::find(),
-	    'sort'=> ['defaultOrder' => ['order'=>SORT_ASC]]
-        ]);
+        $searchModel = new AlertSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Risk model.
+     * Displays a single Alert model.
      * @param integer $id
      * @return mixed
      */
@@ -58,13 +57,13 @@ class RiskController extends Controller
     }
 
     /**
-     * Creates a new Risk model.
+     * Creates a new Alert model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Risk();
+        $model = new Alert();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +75,7 @@ class RiskController extends Controller
     }
 
     /**
-     * Updates an existing Risk model.
+     * Updates an existing Alert model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,28 +94,15 @@ class RiskController extends Controller
     }
 
     /**
-     * Deletes an existing Risk model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Risk model based on its primary key value.
+     * Finds the Alert model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Risk the loaded model
+     * @return Alert the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Risk::findOne($id)) !== null) {
+        if (($model = Alert::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

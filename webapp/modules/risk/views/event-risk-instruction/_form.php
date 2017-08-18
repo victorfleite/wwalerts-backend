@@ -20,31 +20,19 @@ use yii\bootstrap\ActiveForm;
 
 
     <div class="row">	
-	<div class="col-lg-4">
+	<div class="col-lg-6">
 	    <?php
 	    $events = webapp\modules\risk\models\Event::getTranslatedComboArray('id', 'name_i18n');
 	    echo $form->field($model, 'event_id')->dropDownList($events, ['prompt' => '']);
 	    ?>
-	</div><!-- /.col-lg-4 -->
+	</div><!-- /.col-lg-6 -->
 
-	<div class="col-lg-4">
+	<div class="col-lg-6">
 	    <?php
 	    $risks = webapp\modules\risk\models\Risk::getTranslatedComboArray('id', 'name_i18n');
 	    echo $form->field($model, 'risk_id')->dropDownList($risks, ['prompt' => '']);
 	    ?>
-	</div><!-- /.col-lg-4 -->
-
-	<div class="col-lg-4">
-	    <?=
-	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
-		'button_modal_label' => \Yii::t('translation', 'translation'),
-		'fieldType' => 'textarea',
-		'options' => [
-		    'rows' => 10
-		]
-	    ]);
-	    ?>
-	</div><!-- /.col-lg-4 -->
+	</div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
 
     <div class="form-group">

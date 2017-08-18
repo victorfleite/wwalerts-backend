@@ -6,12 +6,11 @@ use yii\helpers\Html;
 /* @var $model webapp\modules\risk\models\EventRiskInstruction */
 
 $this->title = Yii::t('translation', 'update_title', [
-    'name' => $model->name_i18n,
+    'name' => Yii::t('translation', $model->event->name_i18n) . ' - ' . Yii::t('translation', $model->risk->name_i18n)
 ]);
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
 $this->params['breadcrumbs'][] = Yii::t('translation', 'menu.risk_menu_label');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'event_risk_instructions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name_i18n, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
 ?>
 <div class="event-risk-instruction-update">

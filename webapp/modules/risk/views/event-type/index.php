@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 	    'name_i18n',
 	    'abbrev',
+	    'order',
 		[
 		'attribute' => 'status',
 		'value' => function($data) {

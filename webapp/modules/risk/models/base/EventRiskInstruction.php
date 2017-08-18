@@ -42,11 +42,10 @@ class EventRiskInstruction extends \yii\db\ActiveRecord {
      */
     public function rules() {
 	return [
-		[['name_i18n', 'risk_id', 'event_id'], 'required'],
+		[['risk_id', 'event_id'], 'required'],
 		[['created_at', 'updated_at'], 'safe'],
 		[['created_by', 'updated_by', 'risk_id', 'event_id'], 'integer'],
 		[['hash'], 'string'],
-		[['name_i18n'], 'string', 'max' => 300],
 		[['risk_id', 'event_id'], 'unique', 'targetAttribute' => ['risk_id', 'event_id'], 'message' => 'The combination of Risk ID and Event ID has already been taken.']
 	];
     }
@@ -64,7 +63,6 @@ class EventRiskInstruction extends \yii\db\ActiveRecord {
     public function attributeLabels() {
 	return [
 	    'id' => Yii::t('translation', 'ID'),
-	    'name_i18n' => Yii::t('translation', 'Name I18n'),
 	    'risk_id' => Yii::t('translation', 'Risk ID'),
 	    'event_id' => Yii::t('translation', 'Event ID'),
 	    'hash' => Yii::t('translation', 'Hash'),
