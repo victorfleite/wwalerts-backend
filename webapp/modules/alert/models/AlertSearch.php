@@ -10,26 +10,57 @@ use webapp\modules\alert\models\Alert;
 /**
  * AlertSearch represents the model behind the search form about `webapp\modules\alert\models\Alert`.
  */
-class AlertSearch extends Alert
-{
+class AlertSearch extends Alert {
+
+    const SITUATION_AVAILABLES = 'availables';
+    const SITUATION_ALL = 'all';
+
+    public $situation; //availables or all
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
-        return [
-            [['id', 'event_id', 'risk_id', 'alert_status_id', 'cap_id', 'created_by', 'updated_by'], 'integer'],
-            [['geom', 'created_at', 'start', 'end', 'map_file', 'hash', 'updated_at'], 'safe'],
-        ];
+
+    public function init() {
+	parent::init();
+	$this->situation = self::SITUATION_AVAILABLES;
+    }
+
+    public function rules() {
+	return [
+		[['event_id', 'risk_id', 'alert_status_id'], 'integer'],
+		[['situation', 'start', 'end'], 'safe'],
+	];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+    public function attributeLabels() {
+	return [
+	    'event_id' => Yii::t('translation', 'alert.event_id'),
+	    'risk_id' => Yii::t('translation', 'alert.risk_id'),
+	    'start' => Yii::t('translation', 'alert.start'),
+	    'end' => Yii::t('translation', 'alert.end'),
+	    'alert_status_id' => Yii::t('translation', 'alert.alert_status_id'),
+	    'situation' => Yii::t('translation', 'alert.alertserch_situation'),
+	   ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios() {
+	// bypass scenarios() implementation in the parent class
+	return Model::scenarios();
+    }
+
+    public function emptyDataProvider() {
+	$query = Alert::find()->orderBy('sent desc');
+	$dataProvider = new ActiveDataProvider([
+	    'query' => $query
+	]);
+	return $dataProvider;
     }
 
     /**
@@ -39,43 +70,69 @@ class AlertSearch extends Alert
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = Alert::find();
+    public function search($params) {
+	$query = Alert::find()->orderBy('id desc');
 
-        // add conditions that should always apply here
+	// add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+	$dataProvider = new ActiveDataProvider([
+	    'query' => $query,
+	]);
 
-        $this->load($params);
+	$this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+	if (!$this->validate()) {
+	    // uncomment the following line if you do not want to return any records when validation fails
+	    // $query->where('0=1');
+	    return $dataProvider;
+	}
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'event_id' => $this->event_id,
-            'risk_id' => $this->risk_id,
-            'created_at' => $this->created_at,
-            'start' => $this->start,
-            'end' => $this->end,
-            'alert_status_id' => $this->alert_status_id,
-            'cap_id' => $this->cap_id,
-            'updated_at' => $this->updated_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-        ]);
+	if ($this->situation == self::SITUATION_AVAILABLES) {
+	    /* $query->orWhere([
+	      'encerrado' => null
+	      ]);
+	      $query->orWhere([
+	      'encerrado' => false
+	      ]); */
 
-        $query->andFilterWhere(['like', 'geom', $this->geom])
-            ->andFilterWhere(['like', 'map_file', $this->map_file])
-            ->andFilterWhere(['like', 'hash', $this->hash]);
+	    $query->andWhere([
+		'>=',
+		'end',
+		date('Y-m-d H:i:s')
+	    ]);
+	}
 
-        return $dataProvider;
+
+	// grid filtering conditions
+	$query->andFilterWhere([
+	    'event_id' => $this->event_id,
+	    'risk_id' => $this->risk_id,
+	    'alert_status_id' => $this->alert_status_id
+	]);
+
+	if (!empty($this->start)) {
+	    $format = 'Y-m-d';
+	    $date = \DateTime::createFromFormat($format, $this->start);
+	    // \Yii::$app->dumper->show($this->data_inicial, true);
+	    // die($this->data_inicial);
+	    $query->andWhere([
+		'>=',
+		'start',
+		$date->format('Y-m-d 00:00:00')
+	    ]);
+	}
+	if (!empty($this->end)) {
+	    $format = 'Y-m-d';
+	    $date = \DateTime::createFromFormat($format, $this->end);
+	    $query->andWhere([
+		'<=',
+		'end',
+		$date->format('Y-m-d 23:59:59')
+	    ]);
+	}
+
+
+	return $dataProvider;
     }
+
 }

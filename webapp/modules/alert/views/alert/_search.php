@@ -1,62 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use kartik\widgets\ActiveForm;
-use kartik\builder\Form;
+use yii\bootstrap\ActiveForm;
+use \yii\helpers\ArrayHelper;
 use webapp\modules\alert\models\AlertStatus;
+use kartik\date\DatePicker;
+use webapp\modules\alert\models\AlertSearch;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\alert\models\AlertSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="alert-search">
-
-    <?php
-    $form = ActiveForm::begin([
-		'action' => ['index'],
-		'method' => 'get',
-    ]);
-    ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'event_id') ?>
-
-    <?= $form->field($model, 'risk_id') ?>
-
-    <?= $form->field($model, 'geom') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'start')  ?>
-
-    <?php // echo $form->field($model, 'end')  ?>
-
-    <?php // echo $form->field($model, 'alert_status_id')  ?>
-
-    <?php // echo $form->field($model, 'map_file')  ?>
-
-    <?php // echo $form->field($model, 'hash')  ?>
-
-    <?php // echo $form->field($model, 'cap_id')  ?>
-
-    <?php // echo $form->field($model, 'updated_at')  ?>
-
-    <?php // echo $form->field($model, 'created_by')  ?>
-
-<?php // echo $form->field($model, 'updated_by')  ?>
-
-    <div class="form-group">
-<?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
-    </div>
-
-<?php ActiveForm::end(); ?>
-
-</div>
-
-
 <div class="city-search">
 
     <?php
@@ -66,36 +20,85 @@ use webapp\modules\alert\models\AlertStatus;
     ]);
     ?>
 
-    <?php
-    echo Form::widget([// 1 column layout
-	'model' => $model,
-	'form' => $form,
-	'columns' => 3,
-	'attributes' => [
-	    'event_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
-		'items' => \webapp\modules\risk\models\Event::getTranslatedComboArray('id', 'name_i18n', [], ['order'=>SORT_ASC]),
-		'options' => [
-		    'prompt' => \Yii::t('translation', 'alert.all_events')
-		]],
-	    'risk_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
-		'items' => \webapp\modules\risk\models\Risk::getTranslatedComboArray('id', 'name_i18n', [], ['order'=>SORT_ASC]),
-		'options' => [
-		    'prompt' => \Yii::t('translation', 'alert.all_risks')
-		]],
-	    'alert_status_id' => ['type' => Form::INPUT_DROPDOWN_LIST,
-		'items' => AlertStatus::getTranslatedComboArray('id', 'name_i18n', ['status' => AlertStatus::STATUS_ACTIVE], ['order'=>SORT_ASC]),
-		'options' => [
-		    'prompt' => \Yii::t('translation', 'alert.all_status')
-		]],
-	]
-    ]);
-    ?>
+
+    <div class="row">
+	<div class='col-lg-4'>
+	    <?= $form->field($model, 'situation')->radioList([webapp\modules\alert\models\AlertSearch::SITUATION_ALL => \Yii::t('translation', 'alert.search_situation_all'), webapp\modules\alert\models\AlertSearch::SITUATION_AVAILABLES => \Yii::t('translation', 'alert.search_situation_availables')], []); ?>
+	</div>	    	    
+	<div class="col-lg-4">
+	    <?php
+	    $events = webapp\modules\risk\models\Event::getTranslatedComboArray('id', 'name_i18n');
+	    echo $form->field($model, 'event_id')->dropDownList($events, ['prompt' => \Yii::t('translation', 'alert.all_events')]);
+	    ?>
+	</div><!-- /.col-lg-4 -->
+
+	<div class="col-lg-4">
+	    <?php
+	    $risks = webapp\modules\risk\models\Risk::getTranslatedComboArray('id', 'name_i18n');
+	    echo $form->field($model, 'risk_id')->dropDownList($risks, ['prompt' => \Yii::t('translation', 'alert.all_risks')]);
+	    ?>
+	</div><!-- /.col-lg-4 -->
+
+    </div>	
+    <div class="row">
+	<div class="col-lg-4">
+	    <div class="form-group">
+		<label class="control-label"><?php echo $model->getAttributeLabel('start'); ?></label>
+		<?=
+		DatePicker::widget([
+		    'model' => $model,
+		    'attribute' => 'start',
+		    'type' => DatePicker::TYPE_COMPONENT_APPEND,
+		    'options' => ['readOnly' => true],
+		    'pluginOptions' => [
+			'autoclose' => true,
+			'format' => 'yyyy-mm-dd',
+			'todayHighlight' => true,
+			'todayBtn' => true,
+		    //'minuteStep'=>1
+		    ]
+		]);
+		?>
+	    </div>
+	</div><!-- /.col-lg-4 -->
+	<div class="col-lg-4">
+	    <label class="control-label"><?php echo $model->getAttributeLabel('end'); ?></label>
+	    <div class="form-group">
+		<?=
+		DatePicker::widget([
+		    'model' => $model,
+		    'attribute' => 'end',
+		    'type' => DatePicker::TYPE_COMPONENT_APPEND,
+		    'options' => ['readOnly' => true],
+		    'pluginOptions' => [
+			'autoclose' => true,
+			'format' => 'yyyy-mm-dd',
+			'todayHighlight' => true,
+			'todayBtn' => true,
+		    //'minuteStep'=>1
+		    ]
+		]);
+		?>
+	    </div>
+	</div><!-- /.col-lg-4 -->
+
+	<div class="col-lg-4">
+	    <?php
+	    $alertStatus = AlertStatus::getTranslatedComboArray('id', 'name_i18n', ['status' => AlertStatus::STATUS_ACTIVE]);
+	    echo $form->field($model, 'alert_status_id')->dropDownList($alertStatus, [
+		'prompt' => \Yii::t('translation', 'alert.all_status')
+	    ]);
+	    ?>
+
+	</div><!-- /.col-lg-4 -->
+
+    </div>	
 
 
     <div class="form-group">
-    <?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
+	<?= Html::submitButton(Yii::t('translation', 'Search'), ['class' => 'btn btn-primary']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
