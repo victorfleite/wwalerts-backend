@@ -19,7 +19,7 @@ class EventType extends BaseEventType implements \common\components\traits\Simpl
     public function rules() {
 	return [
 		[['name_i18n'], 'required'],
-		[['status'], 'integer'],
+		[['status', 'order'], 'integer'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
 		[['abbrev'], 'string', 'max' => 16]
 	];
@@ -35,6 +35,7 @@ class EventType extends BaseEventType implements \common\components\traits\Simpl
 	    'description_i18n' => Yii::t('translation', 'eventtype.description_I18n'),
 	    'status' => Yii::t('translation', 'eventtype.status'),
 	    'abbrev' => Yii::t('translation', 'eventtype.abbrev'),
+	    'order'=> Yii::t('translation', 'eventtype.order'),
 	];
     }
 

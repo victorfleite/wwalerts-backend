@@ -37,8 +37,8 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	return [
 		[['name_i18n', 'event_type_id', 'status'], 'required'],
 		[['name_i18n'], 'unique'],
-		[['created_at', 'updated_at'], 'safe'],
-		[['created_by', 'updated_by', 'status', 'event_type_id'], 'integer'],
+		[['created_at', 'updated_at', 'order'], 'safe'],
+		[['created_by', 'updated_by', 'status', 'event_type_id', 'order'], 'integer'],
 		[['hash'], 'string'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
 		[['code'], 'string', 'max' => 128],
@@ -69,6 +69,7 @@ class Event extends BaseEvent implements \common\components\traits\SimpleStatusI
 	    'icon_path' => Yii::t('translation', 'event.icon_path'),
 	    'code' => Yii::t('translation', 'event.code'),
 	    'event_type_id'=> Yii::t('translation', 'event.event_type_id'),
+	    'order'=> Yii::t('translation', 'event.order'),
 	];
     }
 

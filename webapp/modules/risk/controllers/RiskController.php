@@ -37,6 +37,7 @@ class RiskController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Risk::find(),
+	    'sort'=> ['defaultOrder' => ['order'=>SORT_ASC]]
         ]);
 
         return $this->render('index', [

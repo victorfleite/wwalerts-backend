@@ -20,7 +20,7 @@ class AlertStatus extends BaseAlertStatus implements \common\components\traits\S
 	return [
 		[['name_i18n'], 'required'],
 		[['hash'], 'string'],
-		[['status'], 'integer'],
+		[['status', 'order'], 'integer'],
 		[['name_i18n', 'description_i18n'], 'string', 'max' => 300],
 		[['cap_status'], 'string', 'max' => 32]
 	];
@@ -37,6 +37,7 @@ class AlertStatus extends BaseAlertStatus implements \common\components\traits\S
 	    'status' => Yii::t('translation', 'status_alert.status'),
 	    'description_i18n' => Yii::t('translation', 'status_alert.description_i18n'),
 	    'cap_status' => Yii::t('translation', 'status_alert.cap_status'),
+	    'order' => Yii::t('translation', 'status_alert.order'),
 	];
     }
 

@@ -23,7 +23,7 @@ use webapp\modules\risk\models\EventType;
     <?= $form->errorSummary($model); ?>
 
     <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 	    <?=
 	    $form->field($model, 'name_i18n')->widget('\common\components\widgets\inputmodal_i18n\InputModalI18n', [
 		'button_modal_label' => \Yii::t('translation', 'translation'),
@@ -46,6 +46,9 @@ use webapp\modules\risk\models\EventType;
 	    ]);
 	    ?>
 	</div><!-- /.col-lg-4 -->
+	<div class="col-lg-2">
+	    <?= $form->field($model, 'order')->textInput(['type'=>'number']); ?>
+	</div><!-- /.col-lg-2 -->
 	<div class="col-lg-2">
 	    <?= $form->field($model, 'status')->dropDownList(webapp\modules\risk\models\Risk::getStatusCombo()); ?>
 	</div><!-- /.col-lg-2 -->
