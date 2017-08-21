@@ -5,7 +5,6 @@ use yii\bootstrap\ActiveForm;
 use \yii\helpers\ArrayHelper;
 use webapp\modules\alert\models\AlertStatus;
 use kartik\date\DatePicker;
-use webapp\modules\alert\models\AlertSearch;
 
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\alert\models\AlertSearch */

@@ -10,14 +10,18 @@ use \webapp\modules\alert\models\base\Alert as BaseAlert;
  */
 class Alert extends BaseAlert {
 
+    public $map_base64;
+    public $description;
+
     /**
      * @inheritdoc
      */
     public function rules() {
 	return [
-		[['event_id', 'risk_id', 'geom', 'created_at', 'start', 'end', 'alert_status_id'], 'required'],
+		[['event_id', 'risk_id', 'geom', 'start', 'end', 'alert_status_id'], 'required'],
+		[['geom'], \common\components\validators\UserJurisdictionValidator::className()],
 		[['event_id', 'risk_id', 'alert_status_id', 'cap_id', 'created_by', 'updated_by'], 'integer'],
-		[['geom', 'hash'], 'string'],
+		[['geom', 'hash', 'map_base64', 'description'], 'string'],
 		[['created_at', 'start', 'end', 'updated_at'], 'safe'],
 		[['map_file'], 'string', 'max' => 300]
 	];

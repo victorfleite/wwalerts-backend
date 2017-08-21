@@ -14,6 +14,8 @@ use yii\filters\VerbFilter;
  */
 class AlertController extends Controller
 {
+    
+    
     /**
      * @inheritdoc
      */
@@ -63,6 +65,8 @@ class AlertController extends Controller
      */
     public function actionCreate()
     {
+	$this->layout = 'alert';
+	
         $model = new Alert();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
