@@ -30,7 +30,7 @@ class Config extends \yii\base\Component {
 	
 	$cache = Yii::$app->cache;
 	// Deletes all values from cache.
-	$cache->flush();
+	//$cache->flush();
 	//Save in CACHE
 	$cache->set(Config::CACHE_KEY_NAME, $this->vars);
     }

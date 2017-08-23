@@ -83,9 +83,9 @@ class User extends ActiveRecord implements IdentityInterface {
 	return [
 		[['username', 'email'], function ($attribute, $params, $validator) {
 		    if (!empty($this->id)) {
-			$user = User::find()->where("id <> :id and {$attribute} = :{$attribute}", [':id'=>$this->id,":{$attribute}"=>$this->{$attribute}])->one();
-			if(!empty($user)){
-			    $this->addError($attribute, Yii::t('translation', 'user.message_unique_field', ['field'=>$this->getAttributeLabel($attribute)]));
+			$user = User::find()->where("id <> :id and {$attribute} = :{$attribute}", [':id' => $this->id, ":{$attribute}" => $this->{$attribute}])->one();
+			if (!empty($user)) {
+			    $this->addError($attribute, Yii::t('translation', 'user.message_unique_field', ['field' => $this->getAttributeLabel($attribute)]));
 			}
 		    }
 		}],
@@ -94,7 +94,6 @@ class User extends ActiveRecord implements IdentityInterface {
 		[['updated_at'], 'safe']
 	];
     }
-
 
     /**
      * @inheritdoc
@@ -226,6 +225,62 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function removePasswordResetToken() {
 	$this->password_reset_token = null;
+    }
+
+    /**
+     * Get all Jurisdiction from a user
+     * @return type
+     */
+    public function getJurisdictions($fields = ["*"]) {
+
+	$workgroups = $this->getWorkgroups()->select(['id'])->all();
+	$all = [];
+	if (is_array($workgroups) && count($workgroups) > 0) {
+	    foreach ($workgroups as $workgroup) {
+		$jurisdictions = $workgroup->getJurisdictions()->select($fields)->all();
+		$all = array_merge($all, $jurisdictions);
+	    }
+	}
+	return $all;
+    }
+
+    /**
+     * Get all Jurisdiction from a user
+     * @return type
+     */
+    public function getJurisdictionsPolygon() {
+
+	$jurisdictionsIds = $this->getJurisdictions(['id']);
+
+	//\Yii::$app->dumper->debug($jurisdictionsIds, true);
+
+	$cache = Yii::$app->cache;
+
+	$jurisdictions = [];
+	if (!empty($jurisdictionsIds)) {
+	    foreach ($jurisdictionsIds as $obj) {
+		//Search on Cache Redis
+		$key = $obj->getRedisKey();
+		$data = $cache->get($key);
+		
+		if ($data === false) {
+		    $jurisdiction = \webapp\modules\operative\models\Jurisdiction::findOne($obj->id);		    
+		    $jurisdictions[] = ['color'=>$obj->color, 'opacity' => $obj->opacity, 'geometry' => $jurisdiction->geom];
+		    $cache->set($key, $jurisdiction->geom);
+		} else {
+		    $jurisdictions[] = ['color'=>$obj->color, 'opacity' => $obj->opacity, 'geometry' => $data];
+		}
+	    }
+	}
+
+	return $jurisdictions;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWorkgroups() {
+	return $this->hasMany(\webapp\modules\operative\models\Workgroup::className(), ['id' => 'workgroup_id'])->viaTable('operative.rl_workgroup_user', ['user_id' => 'id']);
     }
 
 }

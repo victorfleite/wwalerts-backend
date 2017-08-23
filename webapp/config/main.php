@@ -104,6 +104,12 @@ return [
 	    // this is the name of the session cookie used for login on the backend
 	    'name' => 'advanced-backend',
 	],
+	'redis' => [
+	    'class' => 'yii\redis\Connection',
+	    'hostname' => 'localhost',
+	    'port' => 6379,
+	    'database' => 0,
+	],
 	'log' => [
 	    'traceLevel' => YII_DEBUG ? 3 : 0,
 	    'targets' => [

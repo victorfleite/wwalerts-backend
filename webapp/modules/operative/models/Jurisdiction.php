@@ -12,6 +12,8 @@ use \common\models\Config;
  */
 class Jurisdiction extends BaseJurisdiction {
 
+    const REDIS_KEY = 'JURISDICTION_ID_';
+
     public $wktErrorMessage;
 
     public function init() {
@@ -87,6 +89,13 @@ class Jurisdiction extends BaseJurisdiction {
 	}
 
 	return true;
+    }
+    /**
+     *  Get Redis key for jurisdiction
+     * @return type
+     */
+    public function getRedisKey() {	
+	return Jurisdiction::REDIS_KEY . $this->id;
     }
 
 }

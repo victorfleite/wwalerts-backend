@@ -5,14 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Institution */
 
-$this->title = Yii::t('translation', 'update_title', [
-    'name' => $model->name,
-]);
-$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.administration_menu_label');
-$this->params['breadcrumbs'][] = Yii::t('translation', 'menu.operative_menu_label');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'institutions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('translation', 'Update');
+$this->title = Yii::t('translation', 'alert.update_title');
 ?>
 <div class="institution-update">
 

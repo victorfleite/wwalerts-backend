@@ -6,9 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model webapp\modules\alert\models\Alert */
 
-$this->title = Yii::t('translation', 'Create Alert');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('translation', 'Alerts'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('translation', 'alert.create_title');
 ?>
 <div class="alert-create">
 

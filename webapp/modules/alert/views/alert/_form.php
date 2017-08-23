@@ -29,7 +29,7 @@ $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
     ?>
     <?= $form->errorSummary($model) ?>
 
-    <?= $form->field($model, 'geom')->hiddenInput(['id' => 'wkt'])->label(false) ?>
+    <?= $form->field($model, 'geom')->textInput(['id' => 'wkt'])->label(false) ?>
     <?= $form->field($model, 'map_base64')->hiddenInput(['id' => 'map_base64'])->label(false) ?>
 
     <div class="row">		    	    
@@ -138,26 +138,44 @@ $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 			    ]),
 		]);
 
-		/*
-		  $feature = new JsExpression("readWktFeature('{$model->geom}', 'EPSG:3857', 'EPSG:3857')");
-		  $myStyle = new JsExpression("createStyle(hexToRGBA('#38721d',1), 'rgba(0, 0, 0, 0.5)', 0.5)");
 
-		  $vector = new OL('layer.Vector', [
-		  'source' => new OL('source.Vector', [
-		  'features' => [$feature]
-		  ]
-		  ),
-		  'style' => $myStyle
-		  ]);
-		 * 
-		 */
-		//\Yii::$app->dumper->debug($layers, true);
+
+
+		$user = \common\models\User::findOne(\Yii::$app->user->id);
+		$jurisdictions = $user->getJurisdictionsPolygon();
+
+
+		$layers = [];
+		$layers[] = new OL('layer.Tile', [
+		    'source' => new OL('source.OSM', [
+			'layer' => 'sat',
+			    ]),
+		]);
+
+		foreach ($jurisdictions as $jurisdiction) {
+		    //Yii::$app->dumper->debug($jurisdiction, true);
+		    $feature = new JsExpression("readWktFeature('{$jurisdiction['geometry']}', 'EPSG:3857', 'EPSG:3857')");
+		    $myStyle = new JsExpression("createStyle(hexToRGBA('{$jurisdiction['color']}',{$jurisdiction['opacity']}), 'rgba(0, 0, 0, 0.5)', 0.5)");
+
+		    $layers[] = new OL('layer.Vector', [
+			'source' => new OL('source.Vector', [
+			    'features' => [$feature]
+				]
+			),
+			'style' => $myStyle
+		    ]);
+		}
+
+
+
+
+//\Yii::$app->dumper->debug($layers, true);
 
 		echo OpenLayers::widget([
 		    'id' => 'map',
 		    'mapOptionScript' => '@web/js/map-commons.js',
 		    'mapOptions' => [
-			'layers' => [$raster],
+			'layers' => $layers,
 			// Using a shortcut, we can skip the OL('View' ...)
 			'view' => [
 			    // Of course, the generated JS can be customized with JsExpression, as usual
@@ -166,7 +184,7 @@ $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 			],
 		    ],
 		]);
-		// Centralizing map from feature
+// Centralizing map from feature
 		$script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
 		$this->registerJs($script);
 		?>
