@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'event_id',
             'risk_id',
             'created_at',
+	    'canceled',
             // 'start',
             // 'end',
             // 'alert_status_id',

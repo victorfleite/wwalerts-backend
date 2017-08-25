@@ -15,15 +15,14 @@ $longitude = $generalVars[Config::VARNAME_MAP_DEFAULT_CENTER_LONGITUDE];
 $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 
-/* @var $this yii\web\View */
-/* @var $model webapp\modules\alert\models\Alert */
-/* @var $form yii\widgets\ActiveForm */
+$this->registerJsFile('@web/js/FileSaver.min.js', []);
 ?>
 
 <div class="alert-form">
 
     <?php
     $form = ActiveForm::begin([
+		'id' => 'alert-form',
 		'fieldConfig' => ['template' => "{label}\n{input}\n{hint}"],
     ]);
     ?>
@@ -57,7 +56,7 @@ $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 		    'options' => ['readOnly' => true],
 		    'pluginOptions' => [
 			'autoclose' => true,
-			'format' => 'dd/mm/yyyy hh:ii',
+			'format' => 'yyyy-mm-dd hh:ii',
 			'todayHighlight' => true,
 			'todayBtn' => true,
 			'minuteStep' => 1
@@ -77,7 +76,7 @@ $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 		    'options' => ['readOnly' => true],
 		    'pluginOptions' => [
 			'autoclose' => true,
-			'format' => 'dd/mm/yyyy hh:ii',
+			'format' => 'yyyy-mm-dd hh:ii',
 			'todayHighlight' => true,
 			'todayBtn' => true,
 			'minuteStep' => 1
@@ -98,7 +97,20 @@ $zoom = $generalVars[Config::VARNAME_MAP_DEFULT_ZOOM];
 	<div class="col-lg-1">
 	    <div class="form-group">
 		<label class="control-label"></label>
-		<?= Html::submitButton($model->isNewRecord ? Yii::t('translation', 'Create') : Yii::t('translation', 'Update'), ['class' => 'form-control btn btn-success']) ?>
+		<?php
+		echo Html::button($model->isNewRecord ? \Yii::t('translation', 'Create') : \Yii::t('translation', 'Update'), ['id'=>'submit-button', 'class' => $model->isNewRecord ? 'form-control btn btn-success' : 'form-control btn btn-primary']);
+		
+		$script = <<< JS
+		    $('#submit-button').click(function() {
+			canvas = document.getElementsByTagName('canvas')[0];
+			var base64Str = canvas.toDataURL('image/png');
+			$('#map_base64').val(base64Str);
+			
+			$('#alert-form').submit();
+		    });
+JS;
+		$this->registerJs($script, \yii\web\View::POS_END);
+		?>
 	    </div>
 	</div><!-- /.col-lg-1 -->
 	<div class="col-lg-1">

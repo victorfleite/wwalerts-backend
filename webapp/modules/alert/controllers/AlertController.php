@@ -22,7 +22,7 @@ class AlertController extends Controller {
 	    'verbs' => [
 		'class' => VerbFilter::className(),
 		'actions' => [
-		    'delete' => ['POST'],
+		    'cancel' => ['POST'],
 		],
 	    ],
 	];
@@ -64,12 +64,26 @@ class AlertController extends Controller {
 	$model = new Alert();
 
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
+	    $model->saveMapBase64();
 	    return $this->redirect(['view', 'id' => $model->id]);
 	} else {
+	    $model->map_base64 = '';
 	    return $this->render('create', [
 			'model' => $model,
 	    ]);
 	}
+    }
+
+    /**
+     * Cancel Alert
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCancel($id) {
+	$model = $this->findModel($id);	
+	$model->cancel();
+
+	return $this->redirect(['index']);
     }
 
     /**
@@ -84,6 +98,7 @@ class AlertController extends Controller {
 	if ($model->load(Yii::$app->request->post()) && $model->save()) {
 	    return $this->redirect(['view', 'id' => $model->id]);
 	} else {
+	    $model->map_base64 = '';
 	    return $this->render('update', [
 			'model' => $model,
 	    ]);
