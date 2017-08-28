@@ -189,8 +189,6 @@ JS;
 		]);
 
 
-
-
 		$user = \common\models\User::findOne(\Yii::$app->user->id);
 		$jurisdictions = $user->getJurisdictionsPolygon();
 
@@ -216,11 +214,6 @@ JS;
 		    ]);
 		}
 
-
-
-
-//\Yii::$app->dumper->debug($layers, true);
-
 		echo OpenLayers::widget([
 		    'id' => 'map',
 		    'mapOptionScript' => '@web/js/map-commons.js',
@@ -234,9 +227,8 @@ JS;
 			],
 		    ],
 		]);
-// Centralizing map from feature
-		$script = new JsExpression("setMapCenterFromFeature(sibilino.olwidget.getMapById('map'));");
-		$this->registerJs($script);
+		
+		$this->registerJsFile('@web/js/map-alert-init.js', ['depends' => [sibilino\yii2\openlayers\OpenLayersBundle::className()]]);
 		?>
 
 	    </div>
