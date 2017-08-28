@@ -98,16 +98,54 @@ $this->registerJsFile('@web/js/FileSaver.min.js', []);
 	    <div class="form-group">
 		<label class="control-label"></label>
 		<?php
-		echo Html::button($model->isNewRecord ? \Yii::t('translation', 'Create') : \Yii::t('translation', 'Update'), ['id'=>'submit-button', 'class' => $model->isNewRecord ? 'form-control btn btn-success' : 'form-control btn btn-primary']);
-		
+		echo Html::button($model->isNewRecord ? \Yii::t('translation', 'Create') : \Yii::t('translation', 'Update'), ['id' => 'submit-button', 'class' => $model->isNewRecord ? 'form-control btn btn-success' : 'form-control btn btn-primary']);
+
 		$script = <<< JS
-		    $('#submit-button').click(function() {
-			canvas = document.getElementsByTagName('canvas')[0];
-			var base64Str = canvas.toDataURL('image/png');
-			$('#map_base64').val(base64Str);
+		    $(function(){
+			$("#alert-form").on("afterValidate", function (event, messages) {
+				
+				var form = $(this);
+				// return false if form still have some validation errors
+				if (form.find('.has-error').length) {
+				     return false;
+				}else{
+				    var mapObj = sibilino.olwidget.getMapById('map');
+				     
+				    setMapCenterFromFeature(mapObj);			
+				    
+				    var format = 'a4';
+				    // Resolution could be 72 dpi (fast),150 dpi and 300 dpi (slow)
+				    var resolution = '150';
+				    var dims = {
+					a0: [1189, 841],
+					a1: [841, 594],
+					a2: [594, 420],
+					a3: [420, 297],
+					a4: [297, 210],
+					a5: [210, 148]
+				    };
 			
-			$('#alert-form').submit();
-		    });
+				    var dim = dims[format];
+				    var width = Math.round(dim[0] * resolution / 25.4);
+				    var height = Math.round(dim[1] * resolution / 25.4);
+				    var size = (mapObj.getSize());
+			
+				    mapObj.setSize([width, height]);
+			
+				    mapObj.renderSync();
+			
+				    canvas = document.getElementsByTagName('canvas')[0];
+				    var base64Str = canvas.toDataURL('image/png');
+				    $('#map_base64').val(base64Str);
+				}
+			
+			});
+			
+			
+			$('#submit-button').click(function(event) {
+			    $('#alert-form').submit();			
+			});   
+		    });		    
 JS;
 		$this->registerJs($script, \yii\web\View::POS_END);
 		?>
