@@ -1,28 +1,27 @@
-# Template Yii2 with Api/Rest
+# WWALERTS
 
-This project is a template for development of web application and api/rest toguether
+This project is a platform + api to create alerts of severe events of meteorology. Its also creates the CAP (v1.2) files ([Common Alert Protocol](http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html))
 
 ## INSTALLATION
 
 Create a new repository
 
-    1. $ git clone git@gitlab.inmet.gov.br:csc/template-yii-2.0.git
-    2. $ mv template-yii-2.0 yourFolderName
+    1. $ git clone git@github.com:victorfleite/wwalerts-backend.git wwalert
 
 Install Composer. For [more](https://getcomposer.org/doc/).
 
-	3. $ curl -sS https://getcomposer.org/installer | php
-	4. $ sudo mv composer.phar /usr/local/bin/composer
-	5. $ sudo chown -fR yourUser:root /usr/local/bin/composer
-	6. $ sudo composer global require "fxp/composer-asset-plugin:^1.3.1"
+	2. $ curl -sS https://getcomposer.org/installer | php
+	3. $ sudo mv composer.phar /usr/local/bin/composer
+	4. $ sudo chown -fR yourUser:root /usr/local/bin/composer
+	5. $ sudo composer global require "fxp/composer-asset-plugin:^1.3.1"
 Update Composer
 
-    7. $ cd yourFolderName
-    8. $ composer update
-    9. Create your local database
+    6. $ cd yourFolderName
+    7. $ composer update
+    8. Create your local database
     
 ```php
-10. Set the database configuration on common/config/main-local.php
+9. Set the database configuration on common/config/main-local.php
 <?php
 return [
     'components' => [
@@ -37,14 +36,11 @@ return [
     ],
 ];
 ```
-
-    11. $ php yii migrate
-         * Type YES
-    12. $ sudo chmod 777 /var/www/html/yourFolderName/backend/web/assets
+    10. $ sudo chmod 777 /var/www/html/yourFolderName/backend/web/assets
 
 ## USAGE    
 
-Access you application on `http://localhost/yourFolderName`
+Access you application on `http://localhost/wwalert`
 
 Insert the username: victor.leite
 
